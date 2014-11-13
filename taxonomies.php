@@ -37,8 +37,11 @@ if (!class_exists("PhilaGovCustomTax")){
                     // Control the slugs used for this taxonomy
                     'rewrite' => array(
                       'slug' => 'topics', // This controls the base slug that will display before each term
-                      'with_front' => false, // Don't display the category base before "/locations/"
-                      'hierarchical' => true // This will allow URL's like "/locations/boston/cambridge/"
+                      'with_front' => false, // Don't display the category base before "/topics/"
+                      'hierarchical' => true // This will allow URL's like "/topics/water/billing"
+                    ),
+                    'capabilities' => array(
+                       //TODO decide who can do what with this tax
                     ),
               ));
             }
@@ -51,7 +54,6 @@ if (class_exists("PhilaGovCustomTax")){
 }
 
 if (isset($phila_gov_tax)){
-    //actions
+    //WP actions
     add_action( 'init', array($phila_gov_tax, 'add_custom_taxonomies'), 0 );
-    //filters
 }
