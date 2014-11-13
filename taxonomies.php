@@ -16,7 +16,8 @@ if (!class_exists("PhilaGovCustomTax")){
                 register_taxonomy('topics', 
                     array(
                         'post',
-                        'page'
+                        'page',
+                        'service_post'
                     ), array(
                         'hierarchical' => true,
                         // This array of options controls the labels displayed in the WordPress Admin UI

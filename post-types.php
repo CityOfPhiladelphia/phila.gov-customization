@@ -1,16 +1,13 @@
 <?php
 /**
- * Add custom post type && change admin lables
- *
- * Additional custom post types can be defined here
- * http://codex.wordpress.org/Post_Types
+ * Change admin lables
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
  * 
  * @package phila.gov-customization
  */
 
-if (!class_exists("PhilaGovCustomAdminLabels")){
+if (!class_exists('PhilaGovCustomAdminLabels')){
     class PhilaGovCustomAdminLabels {
         function change_admin_post_label(){
             global $menu;
@@ -42,6 +39,8 @@ if (!class_exists("PhilaGovCustomAdminLabels")){
             $lables -> menu_name = 'Information Page';
             $lables -> name_admin_bar = 'Information Page';
         }
+        
+  
         
         function change_admin_page_label(){
             global $menu;
@@ -76,7 +75,7 @@ if (!class_exists("PhilaGovCustomAdminLabels")){
     }//end PhilaGovCustomAdminLables
 }
 
-//create instance of PhilaGovCustomTax
+//create instance of PhilaGovCustomAdminLabels
 if (class_exists("PhilaGovCustomAdminLabels")){
     $admin_menu_lables = new PhilaGovCustomAdminLabels();
 }
@@ -88,5 +87,67 @@ if (isset($admin_menu_lables)){
     
     add_action( 'init', array($admin_menu_lables, 'change_admin_page_object'));
     add_action( 'admin_menu', array($admin_menu_lables, 'change_admin_page_label'));
-    
+
+}
+
+/**
+ *  Create Custom Post Types
+ *
+ * Additional custom post types can be defined here
+ * http://codex.wordpress.org/Post_Types
+ *
+ * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
+ *
+ *
+ */
+
+if (!class_exists('PhilaGovCustomPostTypes')){
+    class PhilaGovCustomPostTypes{
+        function create_post_type() {
+          register_post_type( 'service_post',
+            array(
+                'labels' => array(
+                    'name' => __( 'Service Page' ),
+                    'singular_name' => __( 'Service Page' ),
+                    'add_new'   => __('Add Service Page'),
+                    'all_items'   => __('All Service Pages'),
+                    'add_new_item' => __('Add Service Page'),
+                    'edit_item'   => __('Edit Service Page'),
+                    'view_item'   => __('View Service Page'),
+                    'search_items'   => __('Search Service Pages'),
+                    'not_found'   => __('Service Page Not Found'),
+                    'not_found_in_trash'   => __('Service Page not found in trash'),
+              ),
+                'taxonomies' => array('category', 'post_tag'),
+                'public' => true,
+                'has_archive' => true,
+                'menu_position' => 5,
+                'menu_icon' => 'dashicons-groups',
+                'hierarchical' => false,
+                'rewrite' => array(
+                    'slug' => 'service',
+                ),
+            )
+          );
+        }
+     
+        //TODO Check if this is actually refreshing permalinks
+        function rewrite_flush() {
+            create_post_type();
+            flush_rewrite_rules();
+        }
+        
+    }//end class
+
+}
+
+
+if (class_exists("PhilaGovCustomPostTypes")){
+    $custom_post_types = new PhilaGovCustomPostTypes();
+}
+
+if (isset($custom_post_types)){
+    //actions
+    add_action( 'init', array($custom_post_types, 'create_post_type'));
+    register_activation_hook( __FILE__, array($custom_post_types, 'rewrite_flush') );
 }
