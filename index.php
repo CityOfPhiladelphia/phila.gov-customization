@@ -13,4 +13,4 @@
 $dir = plugin_dir_path( __FILE__ );
 
 require $dir.'/taxonomies.php';
-require $dir.'/post-types.php';
+require $dir.'/admin-ui.php';

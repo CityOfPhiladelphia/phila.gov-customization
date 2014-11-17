@@ -1,5 +1,20 @@
 <?php
 /**
+ * Contains :
+ * Change admin lables
+    * post > information Page
+    * page > Department Page
+ * redorder admin menu
+ * custom post types
+    * Services
+ *
+ * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
+ * 
+ * @package phila.gov-customization
+ */
+
+
+/**
  * Change admin lables
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
@@ -18,12 +33,15 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
             $submenu['edit.php'][10][0] = 'Add Information Page';
                 
             echo '';
+            //remove comments, this is here b/c we are using the add_action hook
+            remove_menu_page('edit-comments.php');
         }
         
         function change_admin_post_object(){
             global $wp_post_types;
             //can't extract $lables in one go, so break it into 2 vars
             $get_post = $wp_post_types['post'];
+            
             $lables = $get_post -> labels;
             $lables -> name = 'Information Page';
             $lables -> singular_name = 'Information';
@@ -103,7 +121,7 @@ if (isset($admin_menu_lables)){
 
 if (!class_exists('PhilaGovCustomPostTypes')){
     class PhilaGovCustomPostTypes{
-        function create_post_type() {
+        function create_services_post_type() {
           register_post_type( 'service_post',
             array(
                 'labels' => array(
@@ -133,7 +151,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
      
         //TODO Check if this is actually refreshing permalinks
         function rewrite_flush() {
-            create_post_type();
+            create_services_post_type();
             flush_rewrite_rules();
         }
         
@@ -148,6 +166,41 @@ if (class_exists("PhilaGovCustomPostTypes")){
 
 if (isset($custom_post_types)){
     //actions
-    add_action( 'init', array($custom_post_types, 'create_post_type'));
+    add_action( 'init', array($custom_post_types, 'create_services_post_type'));
     register_activation_hook( __FILE__, array($custom_post_types, 'rewrite_flush') );
+}
+
+/**
+ * Reorder Menu Items
+ *
+ * 
+ * http://codex.wordpress.org/Plugin_API/Filter_Reference/custom_menu_order
+ *
+ * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
+ *
+ *
+ */
+if (!class_exists('PhilaGovCustomMenuOrdering')){
+    class PhilaGovCustomMenuOrdering {
+        function custom_menu_order($menu_ord) {
+            if (!$menu_ord) return true;
+
+            return array(
+                'index.php', // Dashboard
+                'separator1', // First separator
+                'edit.php', // Posts
+                'edit.php?post_type=service_post', // Links
+                'edit.php?post_type=page', // Pages
+                'upload.php', // Media
+            );
+        }
+    }
+}
+
+if (class_exists("PhilaGovCustomMenuOrdering")){
+    $change_menu_order = new PhilaGovCustomMenuOrdering();
+}
+if (isset($change_menu_order)){
+    add_filter('custom_menu_order', array($change_menu_order, 'custom_menu_order')); // Activate custom_menu_order
+    add_filter('menu_order', array($change_menu_order, 'custom_menu_order'));
 }
