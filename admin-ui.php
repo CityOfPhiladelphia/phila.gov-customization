@@ -89,7 +89,13 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
             $lables -> all_items = 'All Department Pages';
             $lables -> menu_name = 'Department Page';
             $lables -> name_admin_bar = 'Department Page';
+            
+            //also, register post_tag and cats
+            register_taxonomy_for_object_type('post_tag', 'page');
+            register_taxonomy_for_object_type('category', 'page'); 
+        
         }
+        
     }//end PhilaGovCustomAdminLables
 }
 
@@ -101,7 +107,7 @@ if (class_exists("PhilaGovCustomAdminLabels")){
 if (isset($admin_menu_lables)){
     //WP actions
     add_action( 'init', array($admin_menu_lables, 'change_admin_post_object'));
-    add_action( 'admin_menu', array($admin_menu_lables, 'change_admin_post_label'));
+    add_action( 'admin_menu', array($admin_menu_lables, 'change_admin_post_label')); 
     
     add_action( 'init', array($admin_menu_lables, 'change_admin_page_object'));
     add_action( 'admin_menu', array($admin_menu_lables, 'change_admin_page_label'));
