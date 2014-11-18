@@ -7,6 +7,7 @@
  * redorder admin menu
  * custom post types
     * Services
+    * News
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
  * 
@@ -154,13 +155,34 @@ if (!class_exists('PhilaGovCustomPostTypes')){
             )
           );
         }
-     
-        //TODO Check if this is actually refreshing permalinks
-        function rewrite_flush() {
-            create_services_post_type();
-            flush_rewrite_rules();
-        }
         
+         function create_news_post_type() {
+          register_post_type( 'news_post',
+            array(
+                'labels' => array(
+                    'name' => __( 'News' ),
+                    'singular_name' => __( 'News' ),
+                    'add_new'   => __('Add News'),
+                    'all_items'   => __('All News'),
+                    'add_new_item' => __('Add News'),
+                    'edit_item'   => __('Edit News'),
+                    'view_item'   => __('View News Item'),
+                    'search_items'   => __('Search News'),
+                    'not_found'   => __('News Not Found'),
+                    'not_found_in_trash'   => __('News not found in trash'),
+              ),
+                'taxonomies' => array('category', 'post_tag'),
+                'public' => true,
+                'has_archive' => true,
+                'menu_position' => 6,
+                'menu_icon' => 'dashicons-media-document',
+                'hierarchical' => false,
+                'rewrite' => array(
+                    'slug' => 'news',
+                ),
+            )
+          );
+        }        
     }//end class
 
 }
@@ -173,6 +195,7 @@ if (class_exists("PhilaGovCustomPostTypes")){
 if (isset($custom_post_types)){
     //actions
     add_action( 'init', array($custom_post_types, 'create_services_post_type'));
+    add_action( 'init', array($custom_post_types, 'create_news_post_type'));
     register_activation_hook( __FILE__, array($custom_post_types, 'rewrite_flush') );
 }
 
