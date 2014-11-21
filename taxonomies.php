@@ -17,7 +17,8 @@ if (!class_exists("PhilaGovCustomTax")){
                     array(
                         'post',
                         'page',
-                        'service_post'
+                        'service_post',
+                        'department_page'
                     ), array(
                         'hierarchical' => true,
                         // This array of options controls the labels displayed in the WordPress Admin UI

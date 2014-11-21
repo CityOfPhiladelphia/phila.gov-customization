@@ -65,9 +65,9 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
             global $menu;
             global $submenu;
                 
-            $menu[20][0] = 'Department Page';
-            $submenu['edit.php?post_type=page'][5][0] = 'Department Page';
-            $submenu['edit.php?post_type=page'][10][0] = 'Add Department Page';
+            $menu[20][0] = 'Phila.gov Page';
+            $submenu['edit.php?post_type=page'][5][0] = 'Phila.gov Page';
+            $submenu['edit.php?post_type=page'][10][0] = 'Add Phila.gov Page';
                 
             echo '';
         }
@@ -77,25 +77,26 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
             //can't extract $lables in one go, so break it into 2 vars
             $get_page = $wp_post_types['page'];
             $lables = $get_page -> labels;
-            $lables -> name = 'Department Page';
-            $lables -> singular_name = 'Department';
-            $lables -> add_new = 'Add Department Page';
-            $lables -> add_new_item = 'Add Department Page';
-            $lables -> edit_item = 'Edit Department Page';
-            $lables -> new_item = 'Department';
-            $lables -> view_item = 'View Department Page';
-            $lables -> search_items = 'Search Department Pages';
-            $lables -> not_found = 'No Department Page Found';
-            $lables -> not_found_in_trash = 'No Department Page found in Trash';
-            $lables -> all_items = 'All Department Pages';
-            $lables -> menu_name = 'Department Page';
-            $lables -> name_admin_bar = 'Department Page';
+            $lables -> name = 'Phila.gov Page';
+            $lables -> singular_name = 'Phila.gov';
+            $lables -> add_new = 'Add Phila.gov Page';
+            $lables -> add_new_item = 'Add Phila.gov Page';
+            $lables -> edit_item = 'Edit Phila.gov Page';
+            $lables -> new_item = 'Phila.gov';
+            $lables -> view_item = 'View Phila.gov Page';
+            $lables -> search_items = 'Search Phila.gov Pages';
+            $lables -> not_found = 'No Phila.gov Page Found';
+            $lables -> not_found_in_trash = 'No Phila.gov Page found in Trash';
+            $lables -> all_items = 'All Phila.gov Pages';
+            $lables -> menu_name = 'Phila.gov Page';
+            $lables -> name_admin_bar = 'Phila.gov Page';
             
             //also, register post_tag and cats
             register_taxonomy_for_object_type('post_tag', 'page');
             register_taxonomy_for_object_type('category', 'page'); 
         
         }
+        
         
     }//end PhilaGovCustomAdminLables
 }
@@ -155,6 +156,34 @@ if (!class_exists('PhilaGovCustomPostTypes')){
             )
           );
         }
+    
+        function create_departments_page_type() {
+          register_post_type( 'department_page',
+            array(
+                'labels' => array(
+                    'name' => __( 'Department Page' ),
+                    'singular_name' => __( 'Department Page' ),
+                    'add_new'   => __('Add Department Page'),
+                    'all_items'   => __('All Department Pages'),
+                    'add_new_item' => __('Add Department Page'),
+                    'edit_item'   => __('Edit Department Page'),
+                    'view_item'   => __('View Department Page'),
+                    'search_items'   => __('Search Department Pages'),
+                    'not_found'   => __('Department Page Not Found'),
+                    'not_found_in_trash'   => __('Department Page not found in trash'),
+              ),
+                'taxonomies' => array('category', 'post_tag'),
+                'public' => true,
+                'has_archive' => true,
+                'menu_position' => 5,
+                'menu_icon' => 'dashicons-groups',
+                'hierarchical' => true,
+                'rewrite' => array(
+                    'slug' => 'department',
+                ),
+            )
+          );
+        }
         
          function create_news_post_type() {
           register_post_type( 'news_post',
@@ -196,6 +225,7 @@ if (isset($custom_post_types)){
     //actions
     add_action( 'init', array($custom_post_types, 'create_services_post_type'));
     add_action( 'init', array($custom_post_types, 'create_news_post_type'));
+    add_action( 'init', array($custom_post_types, 'create_departments_page_type'));
     register_activation_hook( __FILE__, array($custom_post_types, 'rewrite_flush') );
 }
 
