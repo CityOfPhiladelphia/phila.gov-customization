@@ -38,7 +38,7 @@ if (!class_exists("PhilaGovCustomTax")){
                     'show_admin_column' => true,
                     // Control the slugs used for this taxonomy
                     'rewrite' => array(
-                      'slug' => 'topics', // This controls the base slug that will display before each term
+                      'slug' => 'browse', // This controls the base slug that will display before each term
                       'with_front' => false, // Don't display the category base before "/topics/"
                       'hierarchical' => true // This will allow URL's like "/topics/water/billing"
                     ),
