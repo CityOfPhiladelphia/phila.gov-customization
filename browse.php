@@ -59,10 +59,12 @@ function display_filtered_pages() {
     $topic = count($get_URL);
     $parent_topic = '';
     if ($topic === 6){
-        get_template_part( 'content', 'finder' );         
+        get_template_part( 'content', 'finder' );    
+        echo '<ul class="list">';
           while ( have_posts() ) : the_post();
               get_template_part( 'content', 'list' );
           endwhile; 
+        echo '</ul>';
                         
     }
 }
@@ -95,7 +97,7 @@ function get_children_topics(){
     $last_term = end($url);
     $parent_term = $last_term;
     
-    echo '<h2 class="current-topic">' . $parent_term . '</h2>';
+    echo '<h2 class="current-topic">' . replace_dashes($parent_term) . '</h2>';
     
     $child_terms = get_terms('topics', array('orderby' => 'slug', 'search' => $parent_term));
     
