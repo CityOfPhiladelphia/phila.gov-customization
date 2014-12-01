@@ -38,6 +38,21 @@ function display_topic_list() {
     }
 }
 
+function display_browse_breadcrumbs(){
+    $get_URL = currentURL();
+    $url_last_item =  end($get_URL);
+    $url = currentURL();
+    end($url);
+    $second_to_last = prev($url);
+    $topic = count($get_URL);
+    if ($topic === 5) {
+        echo '<li><a href="/browse/' . $url_last_item. '">' .  $url_last_item . '</a></li>';
+    }elseif ($topic === 6){
+        echo '<li><a href="/browse/' . $second_to_last . '">' .  $second_to_last . '</a></li>';
+        echo '<li><a href="/browse/' . $second_to_last . '/' . $url_last_item . '">'.  $url_last_item . '</a></li>';
+    }
+}
+
 function display_filtered_pages() {
     $get_URL = currentURL();
     $url_last_item =  end($get_URL);
