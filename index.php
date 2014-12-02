@@ -12,6 +12,7 @@
 
 $dir = plugin_dir_path( __FILE__ );
 
+require $dir. '/meta-boxes.php';
 require $dir.'/taxonomies.php';
 require $dir.'/admin-ui.php';
 require $dir. '/browse.php';
