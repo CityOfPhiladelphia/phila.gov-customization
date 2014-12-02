@@ -179,7 +179,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
                 'menu_icon' => 'dashicons-groups',
                 'hierarchical' => true,
                 'rewrite' => array(
-                    'slug' => 'department',
+                    'slug' => 'departments',
                 ),
             )
           );

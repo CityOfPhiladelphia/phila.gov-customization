@@ -143,24 +143,3 @@ function replace_dashes($string) {
     $string = str_replace("and", "&", $string);
     return $string;
 }
-
-//utility function, not currently in use
-function get_topics(){
-    $parent_terms = get_terms('topics', array('orderby' => 'slug', 'parent' => 0));
-        foreach($parent_terms as $key => $parent_term) {
-            
-            echo '<li><h3><a href="/browse/' . $parent_term->slug . '">' . $parent_term->name . '</h3>'; 
-            echo '<p>' . $parent_term->description . '</p></a></li>';
-            
-            $child_terms = get_terms('topics', array('orderby' => 'slug', 'parent' => $parent_term->term_id));
-    
-            if($child_terms) {
-                echo '<ul>';
-                    foreach($child_terms as $key => $child_term) {
-                        echo '<li><a href="/browse/'. $parent_term->slug . '/' . $child_term->slug . '">' . $child_term->name . ' (child)</a></li>';
-                        //echo $child_term->description; 
-                    }
-                echo '</ul>';
-            }
-    }
-}
