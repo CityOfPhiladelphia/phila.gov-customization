@@ -8,7 +8,7 @@
  * @package phila.gov-customization
  */
 
-
+/*
 function get_topics(){
     $parent_terms = get_terms('topics', array('orderby' => 'slug', 'parent' => 0));
         foreach($parent_terms as $key => $parent_term) {
@@ -17,7 +17,7 @@ function get_topics(){
     }
 }
 
-/*
+
 function topic_query($public_query_vars) {
     $topics = get_terms('topics', array('orderby' => 'slug', 'parent' => 0));
     $public_query_vars[] = property;
