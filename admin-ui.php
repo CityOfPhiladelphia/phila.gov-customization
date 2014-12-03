@@ -2,12 +2,14 @@
 /**
  * Contains :
  * Change admin lables
-    * post > information Page
-    * page > Department Page
+    * post = information post
+    * page = phila.gov page
  * redorder admin menu
  * custom post types
-    * Services
-    * News
+    * Departments - department_page
+    * Services - service_post
+    * News - news_post
+    
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
  * 
