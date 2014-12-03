@@ -72,8 +72,8 @@ function get_topics(){
             if($child_terms) {
                 echo '<ul>';
                     foreach($child_terms as $key => $child_term) {
-                        echo '<li class="child ' . $parent_term->slug . ' '. $child_term->slug . '"><a href="/browse/'. $parent_term->slug . '/' . $child_term->slug . '">' . $child_term->name . '</a></li>';
-                        echo '<p class="child-description ' . $parent_term->slug . ' '. $child_term->slug . '">' . $child_term->description . '</p>'; 
+                        echo '<li class="child ' . $parent_term->slug . ' '. $child_term->slug . '"><a href="/browse/'. $parent_term->slug . '/' . $child_term->slug . '">' . $child_term->name;
+                        echo '<p class="child-description ' . $parent_term->slug . ' '. $child_term->slug . '">' . $child_term->description . '</p></a></li>'; 
                     }
                 echo '</ul>';
             }

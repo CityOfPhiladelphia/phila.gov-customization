@@ -9,14 +9,6 @@
  */
 
 /*
-function get_topics(){
-    $parent_terms = get_terms('topics', array('orderby' => 'slug', 'parent' => 0));
-        foreach($parent_terms as $key => $parent_term) {
-            
-            echo '<li><h3><a href="' . $parent_term->slug . '" class="item-link">' . $parent_term->name . '</a></h3>'; 
-    }
-}
-
 
 function topic_query($public_query_vars) {
     $topics = get_terms('topics', array('orderby' => 'slug', 'parent' => 0));
@@ -32,3 +24,19 @@ function do_rewrite() {
 
 add_action('init', 'do_rewrite');
 */
+
+    
+function the_dept_description(){
+        $dept_desc = rwmb_meta( 'phila_dept_desc', $args = array('type' => 'textarea'));
+
+        if (!$dept_desc == ''){
+            echo '<p>' . $dept_desc . '</p>';
+    }
+}
+function get_department_topics(){
+    $parent_terms = get_terms('topics', array('orderby' => 'slug', 'parent' => 0));
+        foreach($parent_terms as $key => $parent_term) {
+            
+            echo '<li><h3><a href="?topics=' . $parent_term->slug . '" class="item-link">' . $parent_term->name . '</a></h3>'; 
+    }
+}

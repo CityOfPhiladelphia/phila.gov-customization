@@ -38,6 +38,14 @@ function phila_register_meta_boxes( $meta_boxes )
                 'class' => 'service-url',
                 'clone' => false,
             ),
+            array(
+                'name'  => 'Detail',
+                'desc'  => 'A short detail of where the URL is taking you',
+                'id'    => $prefix . 'service_detail',
+                'type'  => 'textarea',
+                'class' => 'service-detail',
+                'clone' => false,
+            ),
         )
     );
     
