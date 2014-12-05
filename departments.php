@@ -43,9 +43,8 @@ function the_dept_description(){
     }
 }
 function get_department_topics(){
-    $parent_terms = get_terms('topics', array('orderby' => 'slug', 'parent' => 0));
+    $parent_terms = get_terms('topics', array('orderby' => 'asc', 'parent' => 0));
         foreach($parent_terms as $key => $parent_term) {
-            
             echo '<li class="parent ' . $parent_term->slug . '"><h3><a href="/departments/topics/' . $parent_term->slug . '" class="item-link">' . $parent_term->name . '</a></h3>'; 
     }
 }
