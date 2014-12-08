@@ -39,9 +39,16 @@ function the_dept_description(){
         $dept_desc = rwmb_meta( 'phila_dept_desc', $args = array('type' => 'textarea'));
 
         if (!$dept_desc == ''){
-            echo '<p>' . $dept_desc . '</p>';
+            return $dept_desc;
     }
 }
+
+function get_department_category(){   
+    $category = get_the_category();
+    echo $category[0]->cat_name;
+}
+
+//no longer in use
 function get_department_topics(){
     $parent_terms = get_terms('topics', array('orderby' => 'asc', 'parent' => 0));
         foreach($parent_terms as $key => $parent_term) {
