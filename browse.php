@@ -90,3 +90,19 @@ function get_topics(){
             }
     }
 }
+function get_parent_topics(){
+    $args = array(
+        'orderby' => 'name',
+        'fields'=> 'all',
+        'parent' => 0
+   );
+    $terms = get_terms( 'topics', $args );
+        if ( ! empty( $terms ) && ! is_wp_error( $terms ) ){
+             echo '<ul>';
+             foreach ( $terms as $term ) {
+                 echo '<li class="h4"><a href="/browse/' . $term->slug . '">' . $term->name . '</a></li>';
+             }
+             echo '</ul>';
+             echo '</nav>';                        
+        }
+}
