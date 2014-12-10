@@ -67,7 +67,7 @@ function display_filtered_pages() {
 
 function replace_dashes($string) {
     $string = str_replace("-", " ", $string);
-    $string = str_replace("and", "&", $string);
+    $string = str_replace(" and ", "&", $string);
     return $string;
 }
 
