@@ -55,9 +55,18 @@ function display_filtered_pages() {
     $topic = count($get_URL);
     $parent_topic = '';
     if ($topic === 6){
-        get_template_part( 'content', 'finder' );    
+        get_template_part( 'content', 'finder' );  
+        $filtered_list = new WP_Query(array('orderby' => 'title', 'order'=> 'asc', 
+            'tax_query' => array(
+               array(
+                    'taxonomy' => 'topics',
+                    'field'    => 'slug',
+                    'terms'    => array( $url_last_item ),
+                        )
+            )
+          ));
         echo '<ul class="list">';
-          while ( have_posts() ) : the_post();
+          while ( $filtered_list->have_posts() ) : $filtered_list->the_post();
               get_template_part( 'content', 'list' );
           endwhile; 
         echo '</ul>';
