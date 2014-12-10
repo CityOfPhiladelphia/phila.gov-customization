@@ -3,7 +3,7 @@
  * Plugin Name: Phila.gov Customization
  * Plugin URI: https://github.com/CityOfPhiladelphia/phila.gov-customization
  * Description: Custom Wordpress functionality, custom post types, custom taxonomies, etc.
- * Version: 0.1.3
+ * Version: 0.2.0
  * Author: Karissa Demi
  * Author URI: http://karissademi.com 
  * 
