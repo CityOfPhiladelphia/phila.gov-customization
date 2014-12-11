@@ -29,10 +29,10 @@ function display_browse_breadcrumbs(){
     $second_to_last = prev($url);
     $topic = count($get_URL);
     if ($topic === 5) {
-        echo '<li><a href="/browse/' . $url_last_item. '">' .  replace_dashes($url_last_item) . '</a></li>';
+        echo '<li>'. replace_dashes($url_last_item) .'</li>';
     }elseif ($topic === 6){
         echo '<li><a href="/browse/' . $second_to_last . '">' .  replace_dashes($second_to_last) . '</a></li>';
-        echo '<li><a href="/browse/' . $second_to_last . '/' . $url_last_item . '">'.  replace_dashes($url_last_item) . '</a></li>';
+        echo '<li>'. replace_dashes($url_last_item). '</li>';
     }
 }
 
