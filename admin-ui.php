@@ -209,6 +209,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
                 'menu_position' => 6,
                 'menu_icon' => 'dashicons-media-document',
                 'hierarchical' => false,
+                'supports'  => array('title','editor','thumbnail'),
                 'rewrite' => array(
                     'slug' => 'news',
                 ),

@@ -13,7 +13,6 @@ function phila_register_meta_boxes( $meta_boxes )
 {
     $prefix = 'phila_';
 
-    // 1st meta box
     $meta_boxes[] = array(
         'id'       => 'service_additions',
         'title'    => 'Service Description',
@@ -49,9 +48,8 @@ function phila_register_meta_boxes( $meta_boxes )
         )
     );
     
-        // 1st meta box
     $meta_boxes[] = array(
-        'id'       => '',
+        'id'       => 'departments',
         'title'    => 'Department Information',
         'pages'    => array( 'department_page' ),
         'context'  => 'normal',
@@ -77,5 +75,45 @@ function phila_register_meta_boxes( $meta_boxes )
         )
     );
     
+   $meta_boxes[] = array(
+    'id'       => 'news',
+    'title'    => 'News Information',
+    'pages'    => array( 'news_post' ),
+    'context'  => 'normal',
+    'priority' => 'high',
+
+    'fields' => array(
+        array(
+            'name'  => 'Description',
+            'desc'  => 'A one or two sentence description',
+            'id'    => $prefix . 'news_desc',
+            'type'  => 'textarea',
+            'class' => 'news-description',
+            'clone' => false,
+        ),
+         array(
+            'name'  => 'URL of news article',
+            'desc'  => 'http://phila.gov/revenue/',
+            'id'    => $prefix . 'news_url',
+            'type'  => 'URL',
+            'class' => 'news-url',
+            'clone' => false,
+        ),
+        array(
+            'name'  => 'Contributor Name',
+            'desc'  => 'External source',
+            'id'    => $prefix . 'news_contributor',
+            'type'  => 'text',
+            'class' => 'news-contributor',
+            'clone' => false,
+        ),
+       
+    )
+);
+
     return $meta_boxes;
 }
+ $user_ID = get_current_user_id();
+  if($user_ID && is_super_admin( $user_id )) {
+    //Do Something
+  }
