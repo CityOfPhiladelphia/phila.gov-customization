@@ -110,10 +110,25 @@ function phila_register_meta_boxes( $meta_boxes )
        
     )
 );
+    
+    $meta_boxes[] = array(
+        'id'       => 'news-admin-only',
+        'title'    => 'Homepage Display',
+        'pages'    => array( 'news_post' ),
+        'context'  => 'side',
+        'priority' => 'high',
+
+        'fields' => array(
+            array(
+                'name'  => '',
+                'desc'  => 'Should this story appear on the homepage?',
+                'id'    => $prefix . 'news_home_display',
+                'type'  => 'checkbox',
+                'class' => 'news-display',
+                'clone' => false
+            ),
+        ) 
+    );
 
     return $meta_boxes;
 }
- $user_ID = get_current_user_id();
-  if($user_ID && is_super_admin( $user_id )) {
-    //Do Something
-  }

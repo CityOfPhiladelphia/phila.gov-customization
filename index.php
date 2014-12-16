@@ -17,3 +17,4 @@ require $dir. '/taxonomies.php';
 require $dir. '/admin-ui.php';
 require $dir. '/browse.php';
 require $dir. '/departments.php';
+require $dir. '/news.php';
