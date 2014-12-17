@@ -39,9 +39,9 @@ function phila_register_meta_boxes( $meta_boxes )
             ),
             array(
                 'name'  => 'Detail',
-                'desc'  => 'A short detail of where the URL is taking you',
+                'desc'  => 'The name of the website',
                 'id'    => $prefix . 'service_detail',
-                'type'  => 'textarea',
+                'type'  => 'text',
                 'class' => 'service-detail',
                 'clone' => false,
             ),
