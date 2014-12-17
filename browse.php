@@ -62,8 +62,8 @@ function display_filtered_pages() {
                     'taxonomy' => 'topics',
                     'field'    => 'slug',
                     'terms'    => array( $url_last_item ),
-                        )
-            )
+                    )
+                )
           ));
         echo '<ul class="list">';
           while ( $filtered_list->have_posts() ) : $filtered_list->the_post();
@@ -92,7 +92,7 @@ function get_topics(){
             if($child_terms) {
                 echo '<ul class="subtopics">';
                     foreach($child_terms as $key => $child_term) {
-                        echo '<li class="child ' . $parent_term->slug . ' '. $child_term->slug . '"><a href="/browse/'. $parent_term->slug . '/' . $child_term->slug . '">' . $child_term->name;
+                        echo '<li class="h4 child ' . $parent_term->slug . ' '. $child_term->slug . '"><a href="/browse/'. $parent_term->slug . '/' . $child_term->slug . '">' . $child_term->name;
                         echo '<p class="child-description ' . $parent_term->slug . ' '. $child_term->slug . '">' . $child_term->description . '</p></a></li>'; 
                     }
                 echo '</ul>';
@@ -109,7 +109,7 @@ function get_parent_topics(){
         if ( ! empty( $terms ) && ! is_wp_error( $terms ) ){
              echo '<ul>';
              foreach ( $terms as $term ) {
-                 echo '<li class="h4"><a href="/browse/' . $term->slug . '">' . $term->name . '</a></li>';
+                 echo '<li class="h4 '. $term->slug  . '"><a href="/browse/' . $term->slug . '">' . $term->name . '</a></li>';
              }
              echo '</ul>';
              echo '</nav>';                        
