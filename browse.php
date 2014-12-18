@@ -92,8 +92,8 @@ function get_topics(){
             if($child_terms) {
                 echo '<ul class="subtopics">';
                     foreach($child_terms as $key => $child_term) {
-                        echo '<li class="h4 child ' . $parent_term->slug . ' '. $child_term->slug . '"><a href="/browse/'. $parent_term->slug . '/' . $child_term->slug . '">' . $child_term->name;
-                        echo '<p class="child-description ' . $parent_term->slug . ' '. $child_term->slug . '">' . $child_term->description . '</p></a></li>'; 
+                        echo '<a href="/browse/'. $parent_term->slug . '/' . $child_term->slug . '"><li class="h4 child ' . $parent_term->slug . ' '. $child_term->slug . '">' . $child_term->name;
+                        echo '<p class="child-description ' . $parent_term->slug . ' '. $child_term->slug . '">' . $child_term->description . '</p></li></a>'; 
                     }
                 echo '</ul>';
             }
@@ -109,7 +109,7 @@ function get_parent_topics(){
         if ( ! empty( $terms ) && ! is_wp_error( $terms ) ){
              echo '<ul>';
              foreach ( $terms as $term ) {
-                 echo '<li class="h4 '. $term->slug  . '"><a href="/browse/' . $term->slug . '">' . $term->name . '</a></li>';
+                 echo '<a href="/browse/' . $term->slug . '"><li class="h4 '. $term->slug  . '">' . $term->name . '</li></a>';
              }
              echo '</ul>';
              echo '</nav>';                        
