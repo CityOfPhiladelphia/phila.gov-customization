@@ -122,10 +122,13 @@ function phila_register_meta_boxes( $meta_boxes )
             array(
                 'name'  => '',
                 'desc'  => 'Should this story appear on the homepage?',
-                'id'    => $prefix . 'news_home_display',
-                'type'  => 'checkbox',
-                'class' => 'news-display',
-                'clone' => false
+                'id'    => $prefix . 'show_on_home',
+                'type'  => 'radio',
+                'std'=> '0',
+                'options' =>  array(
+                    '0' => 'No',
+                    '1' => 'Yes'
+                )
             ),
         ) 
     );
