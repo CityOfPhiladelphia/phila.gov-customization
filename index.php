@@ -18,3 +18,7 @@ require $dir. '/admin-ui.php';
 require $dir. '/browse.php';
 require $dir. '/departments.php';
 require $dir. '/news.php';
+
+//dashboard config
+require $dir. '/dashboard/alerts.php';
+require $dir. '/dashboard/disable-defaults.php';
