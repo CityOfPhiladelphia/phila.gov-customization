@@ -9,10 +9,11 @@
     * Departments - department_page
     * Services - service_post
     * News - news_post
-    
+    * Alerts - site_wide_alert
+
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
- * 
+ *
  * @package phila.gov-customization
  */
 
@@ -21,7 +22,7 @@
  * Change admin lables
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
- * 
+ *
  * @package phila.gov-customization
  */
 
@@ -30,21 +31,21 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
         function change_admin_post_label(){
             global $menu;
             global $submenu;
-                
+
             $menu[5][0] = 'Information Page';
             $submenu['edit.php'][5][0] = 'Information Page';
             $submenu['edit.php'][10][0] = 'Add Information Page';
-                
+
             echo '';
             //remove comments, this is here b/c we are using the add_action hook
             remove_menu_page('edit-comments.php');
         }
-        
+
         function change_admin_post_object(){
             global $wp_post_types;
             //can't extract $lables in one go, so break it into 2 vars
             $get_post = $wp_post_types['post'];
-            
+
             $lables = $get_post -> labels;
             $lables -> name = 'Information Page';
             $lables -> singular_name = 'Information';
@@ -60,20 +61,20 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
             $lables -> menu_name = 'Information Page';
             $lables -> name_admin_bar = 'Information Page';
         }
-        
-  
-        
+
+
+
         function change_admin_page_label(){
             global $menu;
             global $submenu;
-                
+
             $menu[20][0] = 'Phila.gov Page';
             $submenu['edit.php?post_type=page'][5][0] = 'Phila.gov Page';
             $submenu['edit.php?post_type=page'][10][0] = 'Add Phila.gov Page';
-                
+
             echo '';
         }
-        
+
         function change_admin_page_object(){
             global $wp_post_types;
             //can't extract $lables in one go, so break it into 2 vars
@@ -92,14 +93,14 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
             $lables -> all_items = 'All Phila.gov Pages';
             $lables -> menu_name = 'Phila.gov Page';
             $lables -> name_admin_bar = 'Phila.gov Page';
-            
+
             //also, register post_tag and cats
             register_taxonomy_for_object_type('post_tag', 'page');
-            register_taxonomy_for_object_type('category', 'page'); 
-        
+            register_taxonomy_for_object_type('category', 'page');
+
         }
-        
-        
+
+
     }//end PhilaGovCustomAdminLables
 }
 
@@ -111,8 +112,8 @@ if (class_exists("PhilaGovCustomAdminLabels")){
 if (isset($admin_menu_lables)){
     //WP actions
     add_action( 'init', array($admin_menu_lables, 'change_admin_post_object'));
-    add_action( 'admin_menu', array($admin_menu_lables, 'change_admin_post_label')); 
-    
+    add_action( 'admin_menu', array($admin_menu_lables, 'change_admin_post_label'));
+
     add_action( 'init', array($admin_menu_lables, 'change_admin_page_object'));
     add_action( 'admin_menu', array($admin_menu_lables, 'change_admin_page_label'));
 
@@ -158,7 +159,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
             )
           );
         }
-    
+
         function create_departments_page_type() {
           register_post_type( 'department_page',
             array(
@@ -187,7 +188,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
             )
           );
         }
-        
+
          function create_news_post_type() {
           register_post_type( 'news_post',
             array(
@@ -215,7 +216,35 @@ if (!class_exists('PhilaGovCustomPostTypes')){
                 ),
             )
           );
-        }        
+        }
+        function create_site_wide_alert() {
+          register_post_type( 'site_wide_alert',
+          array(
+            'labels' => array(
+              'name' => __( 'Site Alerts' ),
+              'singular_name' => __( 'Alert' ),
+              'add_new'   => __('Add Alert'),
+              'all_items'   => __('All Alerts'),
+              'add_new_item' => __('Add Alerts'),
+              'edit_item'   => __('Edit Alerts'),
+              'view_item'   => __('View Alerts'),
+              'search_items'   => __('Search Alerts'),
+              'not_found'   => __('Alert Not Found'),
+              'not_found_in_trash'   => __('Alert not found in trash'),
+            ),
+            'taxonomies' => array(),
+            'exclude_from_search' => true,
+            'public' => true,
+            'has_archive' => false,
+            'menu_position' => 5,
+            'menu_icon' => 'dashicons-megaphone',
+            'hierarchical' => false,
+            'rewrite' => array(
+              'slug' => 'alerts',
+            ),
+            )
+          );
+        }
     }//end class
 
 }
@@ -230,13 +259,14 @@ if (isset($custom_post_types)){
     add_action( 'init', array($custom_post_types, 'create_services_post_type'));
     add_action( 'init', array($custom_post_types, 'create_news_post_type'));
     add_action( 'init', array($custom_post_types, 'create_departments_page_type'));
+    add_action( 'init', array($custom_post_types, 'create_site_wide_alert'));
     register_activation_hook( __FILE__, array($custom_post_types, 'rewrite_flush') );
 }
 
 /**
  * Reorder Menu Items
  *
- * 
+ *
  * http://codex.wordpress.org/Plugin_API/Filter_Reference/custom_menu_order
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
@@ -267,3 +297,19 @@ if (isset($change_menu_order)){
     add_filter('custom_menu_order', array($change_menu_order, 'custom_menu_order')); // Activate custom_menu_order
     add_filter('menu_order', array($change_menu_order, 'custom_menu_order'));
 }
+
+
+/**
+* Add scripts only to site_wide_alert
+*
+*/
+function enqueue_alert_scripts($hook) {
+  global $post;
+  if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
+    if ( 'site_wide_alert' === $post->post_type ) {
+        wp_enqueue_script( 'alerts-ui', plugin_dir_url( __FILE__ ) . 'js/scripts.js', array('jquery'));
+
+    }
+  }
+}
+add_action( 'admin_enqueue_scripts', 'enqueue_alert_scripts' );

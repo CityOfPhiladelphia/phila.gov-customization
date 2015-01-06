@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
  * Registers all the metaboxes we ever will need
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
- * 
+ *
  * @package phila.gov-customization
  */
 
@@ -47,7 +47,7 @@ function phila_register_meta_boxes( $meta_boxes )
             ),
         )
     );
-    
+
     $meta_boxes[] = array(
         'id'       => 'departments',
         'title'    => 'Department Information',
@@ -74,7 +74,7 @@ function phila_register_meta_boxes( $meta_boxes )
             ),
         )
     );
-    
+
    $meta_boxes[] = array(
     'id'       => 'news',
     'title'    => 'News Information',
@@ -107,10 +107,10 @@ function phila_register_meta_boxes( $meta_boxes )
             'class' => 'news-contributor',
             'clone' => false,
         ),
-       
+
     )
 );
-    
+
     $meta_boxes[] = array(
         'id'       => 'news-admin-only',
         'title'    => 'Homepage Display',
@@ -130,7 +130,69 @@ function phila_register_meta_boxes( $meta_boxes )
                     '1' => 'Yes'
                 )
             ),
-        ) 
+        )
+    );
+
+    $meta_boxes[] = array(
+      'id'       => 'site-wide-alert',
+      'title'    => 'Alert Settings',
+      'pages'    => array( 'site_wide_alert' ),
+      'context'  => 'side',
+      'priority' => 'high',
+
+      'fields' => array(
+        array(
+          'name'  => 'Active Alert',
+          'desc'  => 'Is this alert active?',
+          'id'    => $prefix . 'active',
+          'type'  => 'radio',
+          'std'=> '0',
+          'options' =>  array(
+            '0' => 'No',
+            '1' => 'Yes'
+          )
+        ),
+        array(
+          'name'  => 'Alert Type',
+          'id'    => $prefix . 'type',
+          'type'  => 'select',
+          'std'=> '0',
+          'options' =>  array(
+            'Code Blue Effective' => 'Code Blue Effective',
+            'Code Red Effective' => 'Code Red Effective',
+            'Code Orange Effective' => 'Code Orange Effective',
+            'Code Grey Effective'  =>  'Code Grey Effective',
+            'Other' => 'Other'
+          )
+        ),
+        array(
+          'name'  => 'Custom Icon (required for "Other")',
+          'id'    => $prefix . 'icon',
+          'type'  => 'text',
+          'class' => 'other-icon',
+          'size'  => 25
+        ),
+        array(
+          'name'  => 'Start Time',
+          'id'    => $prefix . 'start',
+          'class' =>  'start-time',
+          'type'  => 'datetime',
+          'size'  =>  25,
+          'js_options' =>  array(
+            'dateFormat'=>'mm-dd-yy'
+          )
+        ),
+        array(
+          'name'  => 'End Time',
+          'id'    => $prefix . 'end',
+          'type'  => 'datetime',
+          'class' =>  'end-time',
+          'size'  =>  25,
+          'js_options' =>  array(
+            'dateFormat'=>'mm-dd-yy'
+          )
+        ),
+      )
     );
 
     return $meta_boxes;
