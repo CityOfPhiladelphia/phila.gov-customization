@@ -32,14 +32,17 @@ function create_site_wide_alerts(){
       $alert_start = rwmb_meta( 'phila_start', $args = array('type' => 'datetime'));
       $alert_end = rwmb_meta( 'phila_end', $args = array('type' => 'datetime'));
       echo '<div id="site-wide-alert" class="pure-g"><div class="container"><div class="pure-u-1">';
-      echo '<div class="pure-u-1-4">';
+
+      echo '<div class="pure-u-3-24 icon">icon</div>';
+      echo '<div class="pure-u-8-24">';
       echo the_title('<h2>','</h2>');
 
       echo '<div class="alert-start">From: ' . $alert_start .'</div>' . '<div class="alert-end">Until: ' . $alert_end .'</div>';
       echo '</div>';
-      echo '<div class="pure-u-3-4">';
-       ?><div class="append"><?php echo $alert_type ?></div><?php
-      the_content();
+      echo '<div class="pure-u-13-24">';
+      echo $alert_type . ': ';
+      $content = get_the_content();
+      echo $content;
       echo '</div></div></div></div>';
     }
   endwhile;
