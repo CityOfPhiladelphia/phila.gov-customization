@@ -2,7 +2,7 @@
 /**
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
- * 
+ *
  * @package phila.gov-customization
  */
 
@@ -92,7 +92,7 @@ class Phila_Dashboard_Alert_Widget {
     }
 
     /**
-     * Saves an array of options for a single dashboard widget to the database.
+    * Saves an array of options for a single dashboard widget to the database.
      * Can also be used to define default values for a widget.
      *
      * @param string $widget_id The name of the widget being updated
@@ -121,3 +121,16 @@ class Phila_Dashboard_Alert_Widget {
     }
 
 }
+/**
+* Add scripts only to dashboard
+*
+*/
+function enqueue_alert_scripts($hook) {
+  if ( 'index.php' != $hook ) {
+    return;
+  }
+
+  wp_enqueue_script( 'alerts-ui', plugin_dir_url( __FILE__ ) . 'js/scripts.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker') );
+  wp_enqueue_style( 'alerts-style', plugin_dir_url( __FILE__ ) . 'css/datepicker.css');
+}
+add_action( 'admin_enqueue_scripts', 'enqueue_alert_scripts' );

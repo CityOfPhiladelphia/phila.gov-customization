@@ -6,14 +6,27 @@
  */
 ?>
 <p>Note: this is currently not functional.</p>
-<p>Enter the alert text:</p>
+
 <form>
+  <p>Select the type of alert:</p>
+  <select name="alert-type">
+    <option value="blue">Code Blue Effective</option>
+    <option value="red">Code Red Effective</option>
+    <option value="orange">Code Orange Effective</option>
+    <option value="gray">Code Gray Effective</option>
+    <option value="other">Generic</option>
+  </select>
+    <p>Enter the alert text:</p>
     <p>
         <label for="custom-alert">
             <textarea id="custom-alert" cols="50" rows="5"></textarea>
         </label>
     </p>
-<h4>Should the alert be visible?</h4>
+    <label for="from"> From: </label>
+      <input type="text" id="from">
+    <label for="to"> To: </label>
+      <input type="text" id="to">
+<h4>Should the alert currently be visible?</h4>
     <ul>
         <li>
             <label for="yes">
@@ -29,5 +42,5 @@
         </li>
     </ul>
     <p><button>Save</button></p>
-    
+
 </form>
