@@ -166,7 +166,7 @@ function phila_register_meta_boxes( $meta_boxes )
           )
         ),
         array(
-          'name'  => 'Custom Icon (required for "Other")',
+          'name'  => 'Custom Icon <a href="http://ionicons.com/" target="_new">get icons</a>. Enter icon name only i.e. <i>ion-alert-circled</i>',
           'id'    => $prefix . 'icon',
           'type'  => 'text',
           'class' => 'other-icon',
@@ -179,7 +179,11 @@ function phila_register_meta_boxes( $meta_boxes )
           'type'  => 'datetime',
           'size'  =>  25,
           'js_options' =>  array(
-            'dateFormat'=>'mm-dd-yy'
+            'timeFormat' =>  'hh:mm tt',
+            'dateFormat'=>'m-dd-yy',
+            'showTimepicker' => true,
+            'stepMinute' => 15,
+            'showHour' => 'true'
           )
         ),
         array(
@@ -189,7 +193,11 @@ function phila_register_meta_boxes( $meta_boxes )
           'class' =>  'end-time',
           'size'  =>  25,
           'js_options' =>  array(
-            'dateFormat'=>'mm-dd-yy'
+            'timeFormat' =>  'hh:mm tt',
+            'dateFormat'=>'m-dd-yy',
+            'showTimepicker' => true,
+            'stepMinute' => 15,
+            'showHour' => 'true'
           )
         ),
       )

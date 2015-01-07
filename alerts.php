@@ -31,19 +31,37 @@ function create_site_wide_alerts(){
       $alert_type = rwmb_meta( 'phila_type', $args = array('type' => 'select'));
       $alert_start = rwmb_meta( 'phila_start', $args = array('type' => 'datetime'));
       $alert_end = rwmb_meta( 'phila_end', $args = array('type' => 'datetime'));
-      echo '<div id="site-wide-alert" class="pure-g"><div class="container"><div class="pure-u-1">';
 
-      echo '<div class="pure-u-3-24 icon">icon</div>';
-      echo '<div class="pure-u-8-24">';
-      echo the_title('<h2>','</h2>');
+      //$alert_start_display = str_replace($alert_start, '08:00', '08:00 am');
 
-      echo '<div class="alert-start">From: ' . $alert_start .'</div>' . '<div class="alert-end">Until: ' . $alert_end .'</div>';
+      $alert_icon = 'ion-alert-circled';
+
+      if($alert_type == 'Code Red Effective') {
+        $alert_icon = 'ion-ios-sunny';
+      }elseif ($alert_type == 'Code Orange Effective') {
+        $alert_icon = 'ion-cloud';
+      }elseif ($alert_type == 'Code Grey Effective') {
+        $alert_icon = 'ion-waterdrop';
+      }elseif($alert_type == 'Other'){
+        $alert_icon = rwmb_meta( 'phila_icon', $args = array('type' => 'text'));
+      }
+      $date_seperator = '';
+      if((!$alert_start == '') && (!$alert_start == '')){
+        $date_seperator = ' <strong>to</strong> ';
+      }
+
+      ?><div id="site-wide-alert" class="pure-g">
+          <div class="container"><?php
+      echo '<div class="pure-u-7-24">';
+      echo '<h2><i class="ionicons ' . $alert_icon . '"></i>' . get_the_title() .'</h2>';
+
+      echo '<div class="alert-start">'. $alert_start . $date_seperator . $alert_end .'</div>';
       echo '</div>';
-      echo '<div class="pure-u-13-24">';
-      echo $alert_type . ': ';
+      echo '<div class="pure-u-17-24">';
+      echo '<strong>'.$alert_type . ': </strong>';
       $content = get_the_content();
       echo $content;
-      echo '</div></div></div></div>';
+      echo '</div></div></div>';
     }
   endwhile;
     else: //no alerts!
