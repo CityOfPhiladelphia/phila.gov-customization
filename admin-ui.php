@@ -300,7 +300,7 @@ if (isset($change_menu_order)){
 
 
 /**
-* Add scripts only to site_wide_alert
+* Add scripts only to site_wide_alert posts
 *
 */
 function enqueue_alert_scripts($hook) {

@@ -8,15 +8,17 @@
 * @package phila.gov-customization
 */
 
+/**
+* Display alerts if post is set
+*
+*
+*/
 function create_site_wide_alerts(){
+
+
   $args = array(	'post_type' => 'site_wide_alert');
 
   $pages = get_posts($args);
-
-
-  if (function_exists('rwmb_meta')) {
-    $alert_active = rwmb_meta( 'phila_active', $args = array('type' => 'url'));
-  }
 
   $args = array(
     'post_type' => array ('site_wide_alert'),
@@ -32,8 +34,12 @@ function create_site_wide_alerts(){
       $alert_start = rwmb_meta( 'phila_start', $args = array('type' => 'datetime'));
       $alert_end = rwmb_meta( 'phila_end', $args = array('type' => 'datetime'));
 
-      //$alert_start_display = str_replace($alert_start, '08:00', '08:00 am');
+      function timeFormat($date){
+        $the_date = DateTime::createFromFormat('m-d-Y H:i ', $date);
+        echo $the_date->format('m-d-Y h:ia');
+      }
 
+      //timeFormat();
       $alert_icon = 'ion-alert-circled';
 
       if($alert_type == 'Code Red Effective') {
@@ -45,9 +51,9 @@ function create_site_wide_alerts(){
       }elseif($alert_type == 'Other'){
         $alert_icon = rwmb_meta( 'phila_icon', $args = array('type' => 'text'));
       }
-      $date_seperator = '';
-      if((!$alert_start == '') && (!$alert_start == '')){
-        $date_seperator = ' <strong>to</strong> ';
+      $date_seperator = ' <strong>to</strong> ';
+      if(($alert_start == '') && ($alert_end == '')){
+        $date_seperator = ' ';
       }
 
       ?><div id="site-wide-alert" class="pure-g">
@@ -55,20 +61,32 @@ function create_site_wide_alerts(){
       echo '<div class="pure-u-7-24">';
       echo '<h2><i class="ionicons ' . $alert_icon . '"></i>' . get_the_title() .'</h2>';
 
-      echo '<div class="alert-start">'. $alert_start . $date_seperator . $alert_end .'</div>';
+      echo '<div class="alert-start">';
+      timeFormat($alert_start);
+      echo $date_seperator;
+      timeFormat($alert_end);
+      echo '</div>';
       echo '</div>';
       echo '<div class="pure-u-17-24">';
-      echo '<strong>'.$alert_type . ': </strong>';
+      if ($alert_type == 'Other'){
+        //blank
+      }else {
+        echo '<strong>'.$alert_type . ': </strong>';
+      }
+
       $content = get_the_content();
       echo $content;
       echo '</div></div></div>';
+      return true;
     }
+
+
   endwhile;
-    else: //no alerts!
+else: return false;
   endif;
-
-
 }
+
+
 //Show the active column
 function site_wide_alert_columns( $columns ) {
   $columns["active_alert"] = "Active";
