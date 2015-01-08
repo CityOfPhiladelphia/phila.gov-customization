@@ -28,15 +28,21 @@ function create_site_wide_alerts(){
     'meta_value'     => '1'
   );
   $alert_query = new WP_Query($args);
-  if ( $alert_query->have_posts() ) : while ( $alert_query->have_posts() ) : $alert_query->the_post();
-    {
+  if ( $alert_query->have_posts() ) {
+
+    while ( $alert_query->have_posts() ) {
+
+      $alert_query->the_post();
+
       $alert_type = rwmb_meta( 'phila_type', $args = array('type' => 'select'));
       $alert_start = rwmb_meta( 'phila_start', $args = array('type' => 'datetime'));
       $alert_end = rwmb_meta( 'phila_end', $args = array('type' => 'datetime'));
 
       function timeFormat($date){
-        $the_date = DateTime::createFromFormat('m-d-Y H:i ', $date);
-        echo $the_date->format('m-d-Y h:ia');
+        if (!$date == '') {
+          $the_date = DateTime::createFromFormat('m-d-Y H:i ', $date);
+          echo $the_date->format('m-d-Y h:ia');
+        }
       }
 
       //timeFormat();
@@ -52,7 +58,7 @@ function create_site_wide_alerts(){
         $alert_icon = rwmb_meta( 'phila_icon', $args = array('type' => 'text'));
       }
       $date_seperator = ' <strong>to</strong> ';
-      if(($alert_start == '') && ($alert_end == '')){
+      if(($alert_start == '') || ($alert_end == '')){
         $date_seperator = ' ';
       }
 
@@ -77,15 +83,14 @@ function create_site_wide_alerts(){
       $content = get_the_content();
       echo $content;
       echo '</div></div></div>';
-      return true;
+    }//end while
+  } else {
+    //nothing
     }
 
+  wp_reset_postdata();
 
-  endwhile;
-else: return false;
-  endif;
 }
-
 
 //Show the active column
 function site_wide_alert_columns( $columns ) {
