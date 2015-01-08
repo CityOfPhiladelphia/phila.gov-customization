@@ -4,7 +4,7 @@
  * lives at /browse
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
- * 
+ *
  * @package phila.gov-customization
  */
 
@@ -55,8 +55,8 @@ function display_filtered_pages() {
     $topic = count($get_URL);
     $parent_topic = '';
     if ($topic === 6){
-        get_template_part( 'content', 'finder' );  
-        $filtered_list = new WP_Query(array('orderby' => 'title', 'order'=> 'asc', 
+        get_template_part( 'content', 'finder' );
+        $filtered_list = new WP_Query(array('orderby' => 'title', 'order'=> 'asc',
             'tax_query' => array(
                array(
                     'taxonomy' => 'topics',
@@ -68,9 +68,9 @@ function display_filtered_pages() {
         echo '<ul class="list">';
           while ( $filtered_list->have_posts() ) : $filtered_list->the_post();
               get_template_part( 'content', 'list' );
-          endwhile; 
+          endwhile;
         echo '</ul>';
-                        
+
     }
 }
 
@@ -84,16 +84,16 @@ function get_topics(){
     $parent_terms = get_terms('topics', array('orderby' => 'slug', 'parent' => 0));
         foreach($parent_terms as $key => $parent_term) {
 
-            echo '<li class="parent ' . $parent_term->slug .'"><a href="/browse/' . $parent_term->slug . '"><h3>' . $parent_term->name . '</h3>'; 
+            echo '<li class="parent ' . $parent_term->slug .'"><a href="/browse/' . $parent_term->slug . '"><h3>' . $parent_term->name . '</h3>';
             echo '<p class="parent-description">' . $parent_term->description . '</p></a></li>';
 
             $child_terms = get_terms('topics', array('orderby' => 'slug', 'parent' => $parent_term->term_id));
-    
+
             if($child_terms) {
                 echo '<ul class="subtopics">';
                     foreach($child_terms as $key => $child_term) {
                         echo '<a href="/browse/'. $parent_term->slug . '/' . $child_term->slug . '"><li class="h4 child ' . $parent_term->slug . ' '. $child_term->slug . '">' . $child_term->name;
-                        echo '<p class="child-description ' . $parent_term->slug . ' '. $child_term->slug . '">' . $child_term->description . '</p></li></a>'; 
+                        echo '<p class="child-description ' . $parent_term->slug . ' '. $child_term->slug . '">' . $child_term->description . '</p></li></a>';
                     }
                 echo '</ul>';
             }
@@ -112,6 +112,31 @@ function get_parent_topics(){
                  echo '<a href="/browse/' . $term->slug . '"><li class="h4 '. $term->slug  . '">' . $term->name . '</li></a>';
              }
              echo '</ul>';
-             echo '</nav>';                        
+             echo '</nav>';
         }
+}
+
+/*Utility function for Master Topics List */
+function get_master_topics(){
+  $parent_terms = get_terms('topics', array('orderby' => 'slug', 'parent' => 0));
+  echo '<ul>';
+  foreach($parent_terms as $key => $parent_term) {
+
+
+
+    echo '<li><h3>' . $parent_term->name . '</h3>';
+    echo  $parent_term->description;
+
+    $child_terms = get_terms('topics', array('orderby' => 'slug', 'parent' => $parent_term->term_id));
+
+    if($child_terms) {
+      echo '<ul class="subtopics">';
+      foreach($child_terms as $key => $child_term) {
+        echo '<li><h4>' . $child_term->name . '</h4>';
+        echo  $child_term->description . '</li></li>';
+      }
+
+    }
+    echo '</ul>';
+  }
 }
