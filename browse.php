@@ -118,7 +118,7 @@ function get_parent_topics(){
 
 /*Utility function for Master Topics List */
 function get_master_topics(){
-  $parent_terms = get_terms('topics', array('orderby' => 'slug', 'parent' => 0));
+  $parent_terms = get_terms('topics', array('orderby' => 'slug', 'parent' => 0, 'hide_empty' => 0));
   echo '<ul>';
   foreach($parent_terms as $key => $parent_term) {
 
@@ -127,7 +127,7 @@ function get_master_topics(){
     echo '<li><h3>' . $parent_term->name . '</h3>';
     echo  $parent_term->description;
 
-    $child_terms = get_terms('topics', array('orderby' => 'slug', 'parent' => $parent_term->term_id));
+    $child_terms = get_terms('topics', array('orderby' => 'slug', 'parent' => $parent_term->term_id, 'hide_empty' => 0));
 
     if($child_terms) {
       echo '<ul class="subtopics">';
