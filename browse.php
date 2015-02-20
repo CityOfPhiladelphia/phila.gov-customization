@@ -55,7 +55,7 @@ function display_filtered_pages() {
     $topic = count($get_URL);
     $parent_topic = '';
     if ($topic === 6){
-        get_template_part( 'content', 'finder' );
+        get_template_part( 'partials/content', 'finder' );
         $filtered_list = new WP_Query(array('orderby' => 'title', 'order'=> 'asc',
             'tax_query' => array(
                array(
@@ -67,7 +67,7 @@ function display_filtered_pages() {
           ));
         echo '<ul class="list">';
           while ( $filtered_list->have_posts() ) : $filtered_list->the_post();
-              get_template_part( 'content', 'list' );
+              get_template_part( 'partials/content', 'list' );
           endwhile;
         echo '</ul>';
 
