@@ -70,10 +70,10 @@ class TTFMAKE_Section_Definitions_TEST {
 			'phila_gov',
 			_x( 'Phila_Gov_Section', 'section name', 'make' ),
 			get_template_directory_uri() . '/inc/builder/sections/css/images/text.png',
-			__( 'Create rearrangeable columns of content and images.', 'make' ),
+			__( 'PHILA.GOV YEAH.', 'make' ),
 			array( $this, 'save_phila_gov' ),
-			'sections/builder-templates/phila_gov',
-			'sections/front-end-templates/phila_gov',
+			get_template_directory_uri() . '/../../plugins/phila.gov-customization/make-columns-test/sections/builder-templates/phila_gov',
+			get_template_directory_uri() . '/../../plugins/phila.gov-customization/make-columns-test/sections/front-end-tempaltes/phila_gov',
 			100,
 			'inc/builder/',
 			array(
@@ -88,7 +88,7 @@ class TTFMAKE_Section_Definitions_TEST {
 					'name'    => 'columns-number',
 					'class'   => 'ttfmake-phila_gov-columns',
 					'label'   => __( 'phila_gov', 'make' ),
-					'default' => 3,
+					'default' => 2,
 					'options' => array(
 						1 => 1,
 						2 => 2,
@@ -204,6 +204,9 @@ class TTFMAKE_Section_Definitions_TEST {
 	}
 
 }
+
+
+
 endif;
 
 /**

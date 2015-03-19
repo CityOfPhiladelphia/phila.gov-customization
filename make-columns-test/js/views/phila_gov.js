@@ -4,6 +4,8 @@ var oneApp = oneApp || {}, $oneApp = $oneApp || jQuery(oneApp);
 (function (window, $, _, oneApp, $oneApp) {
 	'use strict';
 
+
+
 	oneApp.TextView = oneApp.SectionView.extend({
 		events: function() {
 			return _.extend({}, oneApp.SectionView.prototype.events, {
@@ -28,9 +30,9 @@ var oneApp = oneApp || {}, $oneApp = $oneApp || jQuery(oneApp);
 		view = view || '';
 
 		if (view.$el) {
-			$selector = $('.ttfmake-phila_gov-columns-stage', view.$el);
+			$selector = $('.ttfmake-text-columns-stage', view.$el);
 		} else {
-			$selector = $('.ttfmake-phila_gov-columns-stage');
+			$selector = $('.ttfmake-text-columns-stage');
 		}
 
 		$selector.sortable({
@@ -103,18 +105,25 @@ var oneApp = oneApp || {}, $oneApp = $oneApp || jQuery(oneApp);
 
 	// Initialize the sortables
 	$oneApp.on('afterSectionViewAdded', function(evt, view) {
+
+		//this part is working
 		if ('phila_gov' === view.model.get('sectionType')) {
 			oneApp.initializeTextColumnSortables(view);
+
+			console.log("phila.gov IS the view model");
+	
+			$( "div[data-section-type='phila_gov']").append( "<strong>Beam me up scotty</strong>" );
 
 			// Initialize the iframes
 			var $frames = $('iframe', view.$el),
 				link = oneApp.getFrameHeadLinks(),
 				id, $this;
-
+			//is this part not?
 			$.each($frames, function() {
 				$this = $(this);
 				id = $this.attr('id').replace('ttfmake-iframe-', '');
 				oneApp.initFrame(id, link);
+				console.log("what does this do?");
 			});
 		}
 	});
