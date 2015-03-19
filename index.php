@@ -19,6 +19,13 @@ require $dir. '/browse.php';
 require $dir. '/departments.php';
 require $dir. '/news.php';
 require $dir. '/alerts.php';
+require $dir. 'make-columns-test/section-defintions.php';
+
+//require $dir. '/make-test/make-test.php';
+
+//require $dir. '/make-filters.php';
+
+
 
 //dashboard config
 //require $dir. '/dashboard/alerts.php';
