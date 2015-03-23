@@ -40,7 +40,7 @@ function create_site_wide_alerts(){
 
       function timeFormat($date){
         if (!$date == '') {
-          $the_date = DateTime::createFromFormat('m-d-Y H:i ', $date);
+          $the_date = DateTime::createFromFormat('m-d-Y H:i a', $date);
           echo $the_date->format('m-d-Y h:ia');
         }
       }
@@ -62,9 +62,9 @@ function create_site_wide_alerts(){
         $date_seperator = ' ';
       }
 
-      ?><div id="site-wide-alert" class="pure-g">
-          <div class="container"><?php
-      echo '<div class="pure-u-7-24">';
+      ?><div id="site-wide-alert">
+          <div class="row"><?php
+      echo '<div class="large-8 columns">';
       echo '<h2><i class="ionicons ' . $alert_icon . '"></i>' . get_the_title() .'</h2>';
 
       echo '<div class="alert-start">';
@@ -73,7 +73,7 @@ function create_site_wide_alerts(){
       timeFormat($alert_end);
       echo '</div>';
       echo '</div>';
-      echo '<div class="pure-u-17-24">';
+      echo '<div class="large-16 columns">';
       if ($alert_type == 'Other'){
         //blank
       }else {
