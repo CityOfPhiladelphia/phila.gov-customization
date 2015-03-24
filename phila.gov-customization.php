@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The plugin  file
  *
@@ -34,6 +33,6 @@ require $dir. '/admin/alerts.php';
 require $dir. '/admin/meta-boxes.php';
 require $dir. '/admin/taxonomies.php';
 
-require $dir. '/browse.php';
-require $dir. '/departments.php';
-require $dir. '/news.php';
+require $dir. '/public/browse.php';
+require $dir. '/public/departments.php';
+require $dir. '/public/news.php';
