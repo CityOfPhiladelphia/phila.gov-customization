@@ -181,6 +181,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
                 'supports' => array( 'title', 'editor', 'page-attributes'),
                 'public' => true,
                 'has_archive' => true,
+                'show_in_nav_menus' => true,
                 'menu_position' => 5,
                 'menu_icon' => 'dashicons-groups',
                 'hierarchical' => true,
