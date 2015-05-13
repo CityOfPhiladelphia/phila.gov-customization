@@ -319,10 +319,10 @@ function enqueue_alert_scripts($hook) {
 add_action( 'admin_enqueue_scripts', 'enqueue_alert_scripts' );
 
 /**
- * Change admin lables
+ * Hook into Restrict Categories plugin and allow custom post types to be filtered through posts()
  *
  * @since 0.5.9
- * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
+ * @link https://github.com/CityOfPhiladelphia/phila.gov-customization, https://wordpress.org/plugins/restrict-categories/
  *
  * @package phila.gov-customization
  */
