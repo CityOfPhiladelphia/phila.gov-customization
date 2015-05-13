@@ -317,3 +317,31 @@ function enqueue_alert_scripts($hook) {
   }
 }
 add_action( 'admin_enqueue_scripts', 'enqueue_alert_scripts' );
+
+/**
+ * Change admin lables
+ *
+ * @since 0.5.9
+ * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
+ *
+ * @package phila.gov-customization
+ */
+
+add_action( 'admin_init', 'restrict_categories_custom_loader', 1 );
+
+function restrict_categories_custom_loader() {
+
+  class RestrictCategoriesCustom extends RestrictCategories {
+    public function  __construct() {
+
+      if ( is_admin() ) {
+         $post_type = get_post_types();
+
+         foreach ($post_type as $post) {
+           add_action( 'admin_init', array( &$this, 'posts' ) );
+          }
+       }
+    }
+  }
+    new RestrictCategoriesCustom();
+}
