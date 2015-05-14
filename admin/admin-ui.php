@@ -62,8 +62,6 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
             $lables -> name_admin_bar = 'Information Page';
         }
 
-
-
         function change_admin_page_label(){
             global $menu;
             global $submenu;
@@ -178,7 +176,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
                     'parent_item_colon' => '',
               ),
                 'taxonomies' => array('category'),
-                'supports' => array( 'title', 'editor', 'page-attributes'),
+                'supports' => array( 'title', 'editor', 'page-attributes', 'thumbnail'),
                 'public' => true,
                 'has_archive' => true,
                 'show_in_nav_menus' => true,
