@@ -206,7 +206,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
                     'not_found'   => __('News Not Found'),
                     'not_found_in_trash'   => __('News not found in trash'),
               ),
-                'taxonomies' => array('category', 'post_tag'),
+                'taxonomies' => array('category', 'topics'),
                 'public' => true,
                 'has_archive' => true,
                 'menu_position' => 6,
@@ -214,7 +214,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
                 'hierarchical' => false,
                 'supports'  => array('title','editor','thumbnail'),
                 'rewrite' => array(
-                    'slug' => 'news',
+                    'slug' => 'news'
                 ),
             )
           );
@@ -343,3 +343,12 @@ function restrict_categories_custom_loader() {
   }
     new RestrictCategoriesCustom();
 }
+/**
+* @since 0.5.11
+* Add scripts only to site_wide_alert posts
+*
+*/
+function phila_news_rewrite() {
+    add_rewrite_rule("^news/([^/]+)/?",'index.php?post_type=news_post&category_name=$matches[1]','top');
+}
+add_action('init','phila_news_rewrite');
