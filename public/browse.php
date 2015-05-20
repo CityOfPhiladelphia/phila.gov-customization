@@ -56,7 +56,7 @@ function display_filtered_pages() {
     $parent_topic = '';
     if ($topic === 6){
         get_template_part( 'partials/content', 'finder' );
-        $filtered_list = new WP_Query(array('orderby' => 'title', 'order'=> 'asc',
+        $filtered_list = new WP_Query(array('orderby' => 'title', 'order'=> 'asc', 'post_type' => array('post','service_post'),
             'tax_query' => array(
                array(
                     'taxonomy' => 'topics',

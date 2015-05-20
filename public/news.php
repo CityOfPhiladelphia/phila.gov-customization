@@ -66,13 +66,19 @@ function get_home_news(){
 * @package phila.gov-customization
 */
 function phila_news_rewrite() {
+  add_rewrite_rule("^news/topics/([^/]+)/?",'index.php?post_type=news_post&topics=$matches[1]','top');
+  add_rewrite_rule("^news/topics",'index.php?post_type=news_post','top');
   add_rewrite_rule("^news/([^/]+)/([^/]+)/?",'index.php?post_type=news_post&category_name=$matches[1]&news_post=$matches[2]','top');
   add_rewrite_rule("^news/([^/]+)/?",'index.php?post_type=news_post&category_name=$matches[1]','top');
-
-//  add_permastruct('news-rewrite', $struct, $args);
-
+  add_rewrite_rule("^browse/([^/]+)/([^/]+)/?",'index.php?&topics=$matches[1]&topics=$matches[2]','top');
 }
 add_action('init','phila_news_rewrite');
+
+function wptuts_register_rewrite_tag() {
+    add_rewrite_tag( '%topics%', '([^/]+)');
+}
+add_action( 'init', 'wptuts_register_rewrite_tag', 0, 10);
+
 
 /**
 * @since 0.5.11
