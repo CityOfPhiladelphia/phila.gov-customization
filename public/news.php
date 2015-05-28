@@ -118,17 +118,18 @@ add_filter( 'post_type_link', 'phila_news_link' , 10, 2 );
 */
 
 function recent_news_shortcode($atts) {
+  global $post;
+  $category = get_the_category();
   $a = shortcode_atts( array(
    'posts' => -1,
  ), $atts );
 
-  $args = array( 'posts_per_page' => $a['posts'], 'order'=> 'DESC', 'orderby' => 'date', 'post_type'  => 'news_post' );
+ $current_category = $category[0]->cat_ID;
 
+  $args = array( 'posts_per_page' => $a['posts'], 'order'=> 'DESC', 'orderby' => 'date', 'post_type'  => 'news_post', 'cat' => $current_category);
   $news_loop = new WP_Query( $args );
 
   $output = '';
-  global $last_row;
-
 
   if( $news_loop->have_posts() ) {
     $post_counter = 0;
@@ -137,8 +138,7 @@ function recent_news_shortcode($atts) {
 
     while( $news_loop->have_posts() ) : $news_loop->the_post();
     $post_counter++;
-    global $post;
-    $category = get_the_category();
+
     $url = rwmb_meta('phila_news_url', $args = array('type'=>'url'));
     $contributor = rwmb_meta('phila_news_contributor', $args = array('type'=>'text'));
     $desc = rwmb_meta('phila_news_desc', $args = array('type'=>'textarea'));
@@ -187,6 +187,8 @@ function recent_news_shortcode($atts) {
       $output .= '</div></div>';
 
       endwhile;
+  }else {
+    $output .= __('Please enter at least one news story.');
   }
 
   wp_reset_postdata();
