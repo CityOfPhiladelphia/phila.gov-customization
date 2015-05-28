@@ -111,7 +111,8 @@ add_filter( 'post_type_link', 'phila_news_link' , 10, 2 );
 
 
 /**
-* @since 
+* @since 0.6.0
+*
 * Shortcode for displaying news on homepage
 *
 * @package phila.gov-customization
