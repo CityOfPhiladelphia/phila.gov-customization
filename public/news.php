@@ -111,7 +111,7 @@ add_filter( 'post_type_link', 'phila_news_link' , 10, 2 );
 
 
 /**
-* @since
+* @since 
 * Shortcode for displaying news on homepage
 *
 * @package phila.gov-customization
@@ -121,12 +121,13 @@ function recent_news_shortcode($atts) {
   global $post;
   $category = get_the_category();
   $a = shortcode_atts( array(
-   'posts' => -1,
+   'posts' => 1,
  ), $atts );
 
  $current_category = $category[0]->cat_ID;
 
   $args = array( 'posts_per_page' => $a['posts'], 'order'=> 'DESC', 'orderby' => 'date', 'post_type'  => 'news_post', 'cat' => $current_category);
+
   $news_loop = new WP_Query( $args );
 
   $output = '';
@@ -145,12 +146,12 @@ function recent_news_shortcode($atts) {
 
     $link = get_permalink();
 
+    //add the "end" class if we are dealing with more than one column
     if ( $post_counter == $a['posts']){
       $output .= '<div class="medium-8 columns end">';
     }else {
       $output .= '<div class="medium-8 columns">';
     }
-      //only show the "news" label if it is our first story
 
       $output .= '<div class="story s-box">';
 
@@ -164,7 +165,6 @@ function recent_news_shortcode($atts) {
         $output .= '<h3>' . get_the_title( $post->ID ) . '</h3>';
         $output .= '<span class="accessible"> Opens in new window</span></a>';
 
-
       }else{
         $output .= '<a href="' . get_permalink() .'">';
         $output .=   get_the_post_thumbnail( $post->ID );;
@@ -173,7 +173,6 @@ function recent_news_shortcode($atts) {
         $output .= '<a href="' . get_permalink().'">';
         $output .=  '<h3>' . get_the_title( $post->id ) . '</h3>';
         $output .= '</a>';
-
       }
 
       if (function_exists('rwmb_meta')) {
