@@ -32,7 +32,7 @@ function display_browse_breadcrumbs(){
         echo '<li>'. replace_dashes($url_last_item) .'</li>';
     }elseif ($topic === 6){
         echo '<li><a href="/browse/' . $second_to_last . '">' .  replace_dashes($second_to_last) . '</a></li>';
-        echo '<li>'. replace_dashes($url_last_item). '</li>';
+      //  echo '<li>'. replace_dashes($url_last_item). '</li>';
     }
 }
 

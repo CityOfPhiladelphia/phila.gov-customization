@@ -108,3 +108,94 @@ function phila_news_link( $post_link, $id = 0 ) {
     return home_url(user_trailingslashit( "news/$cat/$post->post_name" ));
 }
 add_filter( 'post_type_link', 'phila_news_link' , 10, 2 );
+
+
+/**
+* @since
+* Shortcode for displaying news on homepage
+*
+* @package phila.gov-customization
+*/
+
+function recent_news_shortcode($atts) {
+  $a = shortcode_atts( array(
+   'posts' => -1,
+ ), $atts );
+
+  $args = array( 'posts_per_page' => $a['posts'], 'order'=> 'DESC', 'orderby' => 'date', 'post_type'  => 'news_post' );
+
+  $news_loop = new WP_Query( $args );
+
+  $output = '';
+  global $last_row;
+
+
+  if( $news_loop->have_posts() ) {
+    $post_counter = 0;
+
+    $output .= '<h2 class="columns">' . __('News', 'phila.gov') . '</h2>';
+
+    while( $news_loop->have_posts() ) : $news_loop->the_post();
+    $post_counter++;
+    global $post;
+    $category = get_the_category();
+    $url = rwmb_meta('phila_news_url', $args = array('type'=>'url'));
+    $contributor = rwmb_meta('phila_news_contributor', $args = array('type'=>'text'));
+    $desc = rwmb_meta('phila_news_desc', $args = array('type'=>'textarea'));
+
+    $link = get_permalink();
+
+    if ( $post_counter == $a['posts']){
+      $output .= '<div class="medium-8 columns end">';
+    }else {
+      $output .= '<div class="medium-8 columns">';
+    }
+      //only show the "news" label if it is our first story
+
+      $output .= '<div class="story s-box">';
+
+      if (!$url == ''){
+
+        $output .= '<a href="' . $url .'" target="_blank">';
+        $output .=  get_the_post_thumbnail( $post->ID );;
+        $output .= '<span class="accessible"> Opens in new window</span></a>';
+
+        $output .= '<a href="' . $url .'" target="_blank">';
+        $output .= '<h3>' . get_the_title( $post->ID ) . '</h3>';
+        $output .= '<span class="accessible"> Opens in new window</span></a>';
+
+
+      }else{
+        $output .= '<a href="' . get_permalink() .'">';
+        $output .=   get_the_post_thumbnail( $post->ID );;
+        $output .= '</a>';
+
+        $output .= '<a href="' . get_permalink().'">';
+        $output .=  '<h3>' . get_the_title( $post->id ) . '</h3>';
+        $output .= '</a>';
+
+      }
+
+      if (function_exists('rwmb_meta')) {
+        if ($contributor === ''){
+          $output .= '<span class="small-text">' . $category[0]->cat_name . '</span>';
+        }else {
+          $output .= '<span class="small-text">' . $contributor . '</span>';
+        }
+        $output .= '<p>' . $desc  . '</p>';
+      }
+      $output .= '</div></div>';
+
+      endwhile;
+  }
+
+  wp_reset_postdata();
+  return $output;
+
+}
+
+function register_shortcodes(){
+   add_shortcode('recent-news', 'recent_news_shortcode');
+}
+
+add_action( 'init', 'register_shortcodes');

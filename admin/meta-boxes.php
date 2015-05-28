@@ -58,7 +58,7 @@ function phila_register_meta_boxes( $meta_boxes )
         'fields' => array(
             array(
                 'name'  => 'Description',
-                'desc'  => 'A short description of the department',
+                'desc'  => 'A short description of the department. Required.',
                 'id'    => $prefix . 'dept_desc',
                 'type'  => 'textarea',
                 'class' => 'dept-description',
@@ -66,7 +66,7 @@ function phila_register_meta_boxes( $meta_boxes )
             ),
              array(
                 'name'  => 'External URL of Department',
-                'desc'  => 'http://phila.gov/revenue/',
+                'desc'  => 'If the department does not live on this website, enter the location here. Eg. http://phila.gov/revenue/',
                 'id'    => $prefix . 'dept_url',
                 'type'  => 'URL',
                 'class' => 'dept-url',
@@ -85,30 +85,40 @@ function phila_register_meta_boxes( $meta_boxes )
     'fields' => array(
         array(
             'name'  => 'Description',
-            'desc'  => 'A one or two sentence description',
+            'desc'  => 'A one or two sentence description describing this article. Required.',
             'id'    => $prefix . 'news_desc',
             'type'  => 'textarea',
             'class' => 'news-description',
             'clone' => false,
-        ),
-         array(
-            'name'  => 'URL of news article',
-            'desc'  => 'http://phila.gov/revenue/',
-            'id'    => $prefix . 'news_url',
-            'type'  => 'URL',
-            'class' => 'news-url',
-            'clone' => false,
-        ),
-        array(
-            'name'  => 'Contributor Name',
-            'desc'  => 'External source',
-            'id'    => $prefix . 'news_contributor',
-            'type'  => 'text',
-            'class' => 'news-contributor',
-            'clone' => false,
-        ),
-
+        )
     )
+);
+  $meta_boxes[] = array(
+   'id'       => 'external_news',
+   'title'    => 'News Linking to External Source',
+   'pages'    => array( 'news_post' ),
+   'context'  => 'normal',
+   'priority' => 'high',
+
+   'fields' => array(
+        array(
+           'name'  => 'URL of external news article',
+           'desc'  => 'http://www.phila.gov/experiencephila/mayor.html',
+           'id'    => $prefix . 'news_url',
+           'type'  => 'URL',
+           'class' => 'news-url',
+           'clone' => false,
+       ),
+       array(
+           'name'  => 'News article contributor name',
+           'desc'  => 'Eg. Experience Philadelphia',
+           'id'    => $prefix . 'news_contributor',
+           'type'  => 'text',
+           'class' => 'news-contributor',
+           'clone' => false,
+       ),
+
+   )
 );
 
     $meta_boxes[] = array(
