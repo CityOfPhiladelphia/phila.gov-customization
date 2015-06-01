@@ -111,7 +111,7 @@ add_filter( 'post_type_link', 'phila_news_link' , 10, 2 );
 
 
 /**
-* @since 0.6.0
+* @since 0.7.0
 *
 * Shortcode for displaying news on homepage
 *
@@ -136,7 +136,12 @@ function recent_news_shortcode($atts) {
   if( $news_loop->have_posts() ) {
     $post_counter = 0;
 
-    $output .= '<h2 class="columns">' . __('News', 'phila.gov') . '</h2>';
+    if ( $a['posts'] == 2) {
+      $output .= '<div class="row title-push"><h2 class="alternate divide large-16 columns">' . __('News', 'phila.gov') . '</h2></div>';
+    }
+    if ( $a['posts'] == 3) {
+      $output .= '<div class="row title-push"><h2 class="alternate divide large-24 columns">' . __('News', 'phila.gov') . '</h2></div>';
+    }
 
     while( $news_loop->have_posts() ) : $news_loop->the_post();
     $post_counter++;
@@ -147,12 +152,11 @@ function recent_news_shortcode($atts) {
 
     $link = get_permalink();
 
-    //add the "end" class if we are dealing with more than one column
-    if ( $post_counter == $a['posts']){
-      $output .= '<div class="medium-8 columns end">';
-    }else {
-      $output .= '<div class="medium-8 columns">';
-    }
+      $output .=  '<div class="large-8 columns">';
+      //news title on first item
+      if ( $post_counter == 1 && $a['posts'] == 1) {
+        $output .= '<h2 class="alternate divide title-offset">' . __('News', 'phila.gov') . '</h2>';
+      }
 
       $output .= '<div class="story s-box">';
 
@@ -188,7 +192,7 @@ function recent_news_shortcode($atts) {
 
       endwhile;
   }else {
-    $output .= __('Please enter at least one news story.');
+    $output .= __('Please enter at least one news story.', 'phila.gov');
   }
 
   wp_reset_postdata();
