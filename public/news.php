@@ -172,7 +172,7 @@ function recent_news_shortcode($atts) {
 
       }else{
         $output .= '<a href="' . get_permalink() .'">';
-        $output .=   get_the_post_thumbnail( $post->ID );;
+        $output .=   get_the_post_thumbnail( $post->ID );
         $output .= '</a>';
 
         $output .= '<a href="' . get_permalink().'">';
@@ -200,8 +200,8 @@ function recent_news_shortcode($atts) {
 
 }
 
-function register_shortcodes(){
+function register_news_shortcodes(){
    add_shortcode('recent-news', 'recent_news_shortcode');
 }
 
-add_action( 'init', 'register_shortcodes');
+add_action( 'init', 'register_news_shortcodes');
