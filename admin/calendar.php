@@ -20,6 +20,7 @@ function duplicate_the_categories(){
   $categories = get_categories( $args );
 
   $taxes = array( 'events_categories' );
+
   $cal_args = array(
     'orderby'                  => 'name',
     'order'                    => 'ASC',
@@ -64,8 +65,8 @@ add_action( 'init', 'duplicate_the_categories' );
 * @package phila.gov-customization
 */
 
-function upcoming_events_shortcode($atts) {
-  global $post;
+function display_upcoming_department_events( $atts ) {
+	global $ai1ec_registry;
 
   $taxes = array( 'events_categories' );
   $cal_args = array(
@@ -86,60 +87,79 @@ function upcoming_events_shortcode($atts) {
       }
     }
 
-    $cal_args = array( 'posts_per_page' => 3,
-    'order'=> 'DESC',
-    'orderby' => 'date',
-    'post_type'  =>
-    'ai1ec_event',
-    'tax_query' => array(
-  		array(
-  			'taxonomy' => 'events_categories',
-  			'field'    => 'term_id',
-  			'terms'    => $term,
-  		),
-  	),
 
+	$content         = '<div class="event-box">';
+	$time            = $ai1ec_registry->get( 'date.system' );
+	// Get localized time
+	$timestamp       = $time->current_time();
+	// Set $limit to the specified categories/tags
+	$limit           = array(
+		//
+		// this is demo data - please use your own filters
+		//
+      'cat_ids' => array($term)
   );
+	$events_per_page = 3;
+	$paged           = 0;
+	$event_results   = $ai1ec_registry->get( 'model.search' )
+		->get_events_relative_to(
+			$timestamp,
+			$events_per_page,
+			$paged,
+			$limit
+		);
+	$dates = $ai1ec_registry->get(
+			'view.calendar.view.agenda',
+			$ai1ec_registry->get( 'http.request.parser' )
+		)->get_agenda_like_date_array( $event_results['events'] );
+	foreach ( $dates as $date ) {
+		foreach ( $date['events']['allday'] as $instance ) {
+			$post_title   = $instance->get( 'post' )->post_title;
+			$post_name    = $instance->get( 'post' )->post_name;
+			$post_content = $instance->get( 'post' )->post_content;
+      $post_venue = $instance->get( 'address' );
+      $post_start_date = $instance->get( 'start' );
+      $post_end_date = $instance->get( 'end' );
+      $start_format_date = new DateTime($post_start_date);
+      $end_format_date = new DateTime($post_end_date);
+      $instance_id  = $instance->get( 'instance_id' );
 
-  $calendar_loop = new WP_Query( $cal_args );
+      $content .=
+      '<div class="event-row">
+        <div class="date-time">'
+        . $start_format_date->format('l, F j, Y') . '<br>'
+        .  __('All Day Event', 'phila.gov') . '</div>'
+        . '<div class="event-title"><a href="/event/'.$post_name . '">'
+        . $post_title.'</a></div>'
+        . '<div class="vcard"><div class="street-address">' . $post_venue
+        . '</div></div></div>';
+		}
+		foreach ( $date['events']['notallday'] as $instance ) {
 
-  $output = '';
+				$post_title   = $instance->get( 'post' )->post_title;
+				$post_name    = $instance->get( 'post' )->post_name;
+				$post_content = $instance->get( 'post' )->post_content;
+        $post_venue = $instance->get( 'address' );
+        $post_start_date = $instance->get( 'start' );
+        $post_end_date = $instance->get( 'end' );
+        $start_format_date = new DateTime($post_start_date);
+        $end_format_date = new DateTime($post_end_date);
+        $instance_id  = $instance->get( 'instance_id' );
 
-  if( $calendar_loop->have_posts() ) {
-    $post_counter = 0;
 
-
-    while( $calendar_loop->have_posts() ) : $calendar_loop->the_post();
-    $post_counter++;
-
-    $link = get_permalink();
-
-      $output .=  '<div class="large-8 columns">';
-
-      $output .= '<div class="story s-box">';
-
-        $output .= '<a href="' . get_permalink() .'">';
-        $output .=   get_the_post_thumbnail( $post->ID );
-        $output .= '</a>';
-
-        $output .= '<a href="' . get_permalink().'">';
-        $output .=  '<h3>' . get_the_title( $post->id ) . '</h3>';
-        $output .= '</a>';
-    
-      $output .= '</div></div>';
-
-      endwhile;
-  }else {
-    $output .= __('Please enter at least one event.', 'phila.gov');
-  }
-
-  wp_reset_postdata();
-  return $output;
-
+				$content .=
+        '<div class="event-row">
+					<div class="date-time">'
+          . $start_format_date->format('l, F j, Y') . '<br>'
+          . $start_format_date->format('g:i A') . ' - '
+          . $end_format_date->format('g:i A') .'</div>'
+          . '<div class="event-title"><a href="/event/'.$post_name . '">'
+          . $post_title.'</a></div>'
+          . '<div class="vcard"><div class="street-address">' . $post_venue
+          . '</div></div></div>';
+		}
+	}
+	$content .= '</div>';
+	return $content;
 }
-
-function register_calendar_shortcodes(){
-   add_shortcode('upcoming-events', 'upcoming_events_shortcode');
-}
-
-add_action( 'init', 'register_calendar_shortcodes');
+add_shortcode( 'upcoming-events', 'display_upcoming_department_events' );
