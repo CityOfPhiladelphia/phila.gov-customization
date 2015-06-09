@@ -8,6 +8,7 @@
 * @package phila.gov-customization
 */
 
+
 function display_upcoming_department_events( $atts ) {
 	global $ai1ec_registry;
 
@@ -102,3 +103,18 @@ function display_upcoming_department_events( $atts ) {
 	return $content;
 }
 add_shortcode( 'upcoming-events', 'display_upcoming_department_events' );
+
+
+/**
+* @since 0.8.0
+* Rewrite rules for calendar
+* /calendar/department should render filtered calendar view
+*
+* @package phila.gov-customization
+*/
+function phila_calendar_rewrite() {
+
+	add_rewrite_rule("calendar/([^/]+)",'index.php?post_type=ai1ec_event&events_categories=$matches[1]','top');
+
+}
+add_action('init','phila_calendar_rewrite', 10, 0);
