@@ -35,5 +35,6 @@ require $dir. '/admin/meta-boxes.php';
 require $dir. '/admin/taxonomies.php';
 
 require $dir. '/public/browse.php';
+require $dir. '/public/calendar-display.php';
 require $dir. '/public/departments.php';
 require $dir. '/public/news.php';
