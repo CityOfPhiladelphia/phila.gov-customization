@@ -74,10 +74,10 @@ function phila_news_rewrite() {
 }
 add_action('init','phila_news_rewrite');
 
-function wptuts_register_rewrite_tag() {
+function phila_register_rewrite_tag() {
     add_rewrite_tag( '%topics%', '([^/]+)');
 }
-add_action( 'init', 'wptuts_register_rewrite_tag', 0, 10);
+add_action( 'init', 'phila_register_rewrite_tag', 0, 10);
 
 
 /**
