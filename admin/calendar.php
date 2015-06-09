@@ -2,9 +2,9 @@
 /**
   * @since 0.8.0
   * Functionality for forcing  our categories on the events_categories taxonomy
-  * problem: if cat or name slug changes, a new cat is created.
 */
 //TODO: find a way to recognize that a category has been deleted from Phila.gov Categories and update this this accordingly
+
 
 function duplicate_the_categories(){
 
@@ -17,6 +17,7 @@ function duplicate_the_categories(){
   	'hierarchical'             => 0,
   	'taxonomy'                 => 'category'
   );
+
   $categories = get_categories( $args );
 
   $taxes = array( 'events_categories' );
@@ -28,31 +29,49 @@ function duplicate_the_categories(){
   );
   $calendar_categories = get_terms('events_categories', $cal_args);
 
-  //1. try to update the term - if it doesn't work then we insert a new one.
+  $all_cats = array();
+  foreach ($categories as $category) {
+    $init =  intval($category->term_id);
+    array_push ($all_cats, $init);
+  }
+
+  $all_calendar_cats = array();
+  foreach ($calendar_categories as $calendar_category) {
+    $cal_init =  intval($calendar_category->term_id);
+    $sub_one = $cal_init-1;
+    array_push ($all_calendar_cats, $sub_one);
+  }
+
+  //this gives us the value of all intersecting categories outputting the native wp category name
+  $results = array_intersect($all_cats, $all_calendar_cats);
+
+    foreach($results as $result) {
+      //add one to give us the calendar_category to change
+      $term_to_update = $result+1;
+
+      $category_to_update_from =  get_term_by( 'id', $result, 'category' );
+      unset($result); //required to trim last element
+
+      //update the term
+      wp_update_term($term_to_update, 'events_categories', array(
+        'name' => $category_to_update_from->name,
+        'description'=> $category_to_update_from->description,
+        'slug' => $category_to_update_from->slug
+      ));
+    }
+  //the normal thing: copy the category to the calendar category list
   foreach ($categories as $category){
     wp_insert_term(
-          $category->name, // the term
-          'events_categories', // the taxonomy
-          array(
-            'alias_of' => $category->slug,
-            'description'=> $category->category_description,
-            'slug' => $category->slug,
-            'parent'=> $category->category_parent
-            )
-          );
-  }
-  foreach ($calendar_categories as $calendar_category) {
-    foreach ($categories as $category){
-
-      if ($category->name == $calendar_category->name) {
-        wp_update_term($calendar_category->term_id, 'events_categories', array(
-          'description'=> $category->category_description,
-          'slug' => $category->slug,
-          'parent'=> $category->category_parent
-        ));
-      }
+      $category->name, // the term
+      'events_categories', // the taxonomy
+      array(
+        'alias_of' => $category->slug,
+        'description'=> $category->category_description,
+        'slug' => $category->slug,
+        'parent'=> $category->category_parent
+        )
+      );
     }
-  }
 }
 add_action( 'init', 'duplicate_the_categories' );
 
@@ -60,7 +79,8 @@ add_action( 'init', 'duplicate_the_categories' );
 /**
 * @since 0.8.0
 *
-* Shortcode for displaying calendar events on department homeage
+* Shortcode for displaying calendar events on department homepage
+* Most of this came from: https://gist.github.com/lukaspawlik/045dbd5b517a9eb1cf95
 *
 * @package phila.gov-customization
 */
@@ -87,17 +107,13 @@ function display_upcoming_department_events( $atts ) {
       }
     }
 
-
 	$content         = '<div class="event-box">';
 	$time            = $ai1ec_registry->get( 'date.system' );
 	// Get localized time
 	$timestamp       = $time->current_time();
 	// Set $limit to the specified categories/tags
 	$limit           = array(
-		//
-		// this is demo data - please use your own filters
-		//
-      'cat_ids' => array($term)
+    'cat_ids' => array($term)
   );
 	$events_per_page = 3;
 	$paged           = 0;
