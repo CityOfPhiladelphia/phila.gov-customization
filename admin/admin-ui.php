@@ -1,7 +1,7 @@
 <?php
 /**
  * Contains :
- * Change admin lables
+ * Change admin labels
     * post = information post
     * page = phila.gov page
  * redorder admin menu
@@ -19,7 +19,7 @@
 
 
 /**
- * Change admin lables
+ * Change admin labels
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
  *
@@ -43,23 +43,23 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
 
         function change_admin_post_object(){
             global $wp_post_types;
-            //can't extract $lables in one go, so break it into 2 vars
+            //can't extract $labels in one go, so break it into 2 vars
             $get_post = $wp_post_types['post'];
 
-            $lables = $get_post -> labels;
-            $lables -> name = 'Information Page';
-            $lables -> singular_name = 'Information';
-            $lables -> add_new = 'Add Information Page';
-            $lables -> add_new_item = 'Add Information Page';
-            $lables -> edit_item = 'Edit Information Page';
-            $lables -> new_item = 'Information';
-            $lables -> view_item = 'View Information Page';
-            $lables -> search_items = 'Search Information Pages';
-            $lables -> not_found = 'No Information Page Found';
-            $lables -> not_found_in_trash = 'No Information Page found in Trash';
-            $lables -> all_items = 'All Information Pages';
-            $lables -> menu_name = 'Information Page';
-            $lables -> name_admin_bar = 'Information Page';
+            $labels = $get_post -> labels;
+            $labels -> name = 'Information Page';
+            $labels -> singular_name = 'Information';
+            $labels -> add_new = 'Add Information Page';
+            $labels -> add_new_item = 'Add Information Page';
+            $labels -> edit_item = 'Edit Information Page';
+            $labels -> new_item = 'Information';
+            $labels -> view_item = 'View Information Page';
+            $labels -> search_items = 'Search Information Pages';
+            $labels -> not_found = 'No Information Page Found';
+            $labels -> not_found_in_trash = 'No Information Page found in Trash';
+            $labels -> all_items = 'All Information Pages';
+            $labels -> menu_name = 'Information Page';
+            $labels -> name_admin_bar = 'Information Page';
         }
 
         function change_admin_page_label(){
@@ -75,22 +75,22 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
 
         function change_admin_page_object(){
             global $wp_post_types;
-            //can't extract $lables in one go, so break it into 2 vars
+            //can't extract $labels in one go, so break it into 2 vars
             $get_page = $wp_post_types['page'];
-            $lables = $get_page -> labels;
-            $lables -> name = 'Phila.gov Page';
-            $lables -> singular_name = 'Phila.gov';
-            $lables -> add_new = 'Add Phila.gov Page';
-            $lables -> add_new_item = 'Add Phila.gov Page';
-            $lables -> edit_item = 'Edit Phila.gov Page';
-            $lables -> new_item = 'Phila.gov';
-            $lables -> view_item = 'View Phila.gov Page';
-            $lables -> search_items = 'Search Phila.gov Pages';
-            $lables -> not_found = 'No Phila.gov Page Found';
-            $lables -> not_found_in_trash = 'No Phila.gov Page found in Trash';
-            $lables -> all_items = 'All Phila.gov Pages';
-            $lables -> menu_name = 'Phila.gov Page';
-            $lables -> name_admin_bar = 'Phila.gov Page';
+            $labels = $get_page -> labels;
+            $labels -> name = 'Phila.gov Page';
+            $labels -> singular_name = 'Phila.gov';
+            $labels -> add_new = 'Add Phila.gov Page';
+            $labels -> add_new_item = 'Add Phila.gov Page';
+            $labels -> edit_item = 'Edit Phila.gov Page';
+            $labels -> new_item = 'Phila.gov';
+            $labels -> view_item = 'View Phila.gov Page';
+            $labels -> search_items = 'Search Phila.gov Pages';
+            $labels -> not_found = 'No Phila.gov Page Found';
+            $labels -> not_found_in_trash = 'No Phila.gov Page found in Trash';
+            $labels -> all_items = 'All Phila.gov Pages';
+            $labels -> menu_name = 'Phila.gov Page';
+            $labels -> name_admin_bar = 'Phila.gov Page';
 
             //also, register post_tag and cats
             register_taxonomy_for_object_type('post_tag', 'page');
@@ -99,21 +99,21 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
         }
 
 
-    }//end PhilaGovCustomAdminLables
+    }//end PhilaGovCustomAdminlabels
 }
 
 //create instance of PhilaGovCustomAdminLabels
 if (class_exists("PhilaGovCustomAdminLabels")){
-    $admin_menu_lables = new PhilaGovCustomAdminLabels();
+    $admin_menu_labels = new PhilaGovCustomAdminLabels();
 }
 
-if (isset($admin_menu_lables)){
+if (isset($admin_menu_labels)){
     //WP actions
-    add_action( 'init', array($admin_menu_lables, 'change_admin_post_object'));
-    add_action( 'admin_menu', array($admin_menu_lables, 'change_admin_post_label'));
+    add_action( 'init', array($admin_menu_labels, 'change_admin_post_object'));
+    add_action( 'admin_menu', array($admin_menu_labels, 'change_admin_post_label'));
 
-    add_action( 'init', array($admin_menu_lables, 'change_admin_page_object'));
-    add_action( 'admin_menu', array($admin_menu_lables, 'change_admin_page_label'));
+    add_action( 'init', array($admin_menu_labels, 'change_admin_page_object'));
+    add_action( 'admin_menu', array($admin_menu_labels, 'change_admin_page_label'));
 
 }
 
