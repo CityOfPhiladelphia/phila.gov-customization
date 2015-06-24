@@ -8,7 +8,7 @@
  * @package phila.gov-customization
  */
 
-function currentURL(){
+/*function currentURL(){
     $page_URL = 'http';
         $page_URL .= "://";
         if ($_SERVER["SERVER_PORT"] != "80") {
@@ -98,7 +98,7 @@ function get_topics(){
                 echo '</ul>';
             }
     }
-}
+} */
 function get_parent_topics(){
     $args = array(
         'orderby' => 'name',
@@ -116,13 +116,12 @@ function get_parent_topics(){
         }
 }
 
+
 /*Utility function for Master Topics List */
 function get_master_topics(){
   $parent_terms = get_terms('topics', array('orderby' => 'slug', 'parent' => 0, 'hide_empty' => 0));
   echo '<ul>';
   foreach($parent_terms as $key => $parent_term) {
-
-
 
     echo '<li><h3>' . $parent_term->name . '</h3>';
     echo  $parent_term->description;
