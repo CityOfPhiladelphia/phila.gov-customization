@@ -6,14 +6,14 @@
  * http://codex.wordpress.org/Function_Reference/register_taxonomy
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
- * 
+ *
  * @package phila.gov-customization
  */
 
 if (!class_exists("PhilaGovCustomTax")){
     class PhilaGovCustomTax {
             function add_custom_taxonomies() {
-                register_taxonomy('topics', 
+                register_taxonomy('topics',
                     array(
                         'post',
                         'page',
@@ -38,11 +38,7 @@ if (!class_exists("PhilaGovCustomTax")){
                     // Control the slugs used for this taxonomy
                     'rewrite' => array(
                       'slug' => 'browse', // This controls the base slug that will display before each term
-                      'with_front' => false, // Don't display the category base before "/topics/"
                       'hierarchical' => true // This will allow URL's like "/topics/water/billing"
-                    ),
-                    'capabilities' => array(
-                       //TODO decide who can do what with this tax
                     ),
               ));
             }
