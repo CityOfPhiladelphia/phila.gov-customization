@@ -9,20 +9,20 @@
  */
 
 function get_parent_topics(){
-    $args = array(
-        'orderby' => 'name',
-        'fields'=> 'all',
-        'parent' => 0
-   );
+  $args = array(
+      'orderby' => 'name',
+      'fields'=> 'all',
+      'parent' => 0
+ );
     $terms = get_terms( 'topics', $args );
-        if ( ! empty( $terms ) && ! is_wp_error( $terms ) ){
-             echo '<ul>';
-             foreach ( $terms as $term ) {
-                 echo '<a href="/browse/' . $term->slug . '"><li class="h4 '. $term->slug  . '">' . $term->name . '</li></a>';
-             }
-             echo '</ul>';
-             echo '</nav>';
-        }
+    if ( ! empty( $terms ) && ! is_wp_error( $terms ) ){
+         echo '<ul>';
+         foreach ( $terms as $term ) {
+             echo '<a href="/browse/' . $term->slug . '"><li class="h4 '. $term->slug  . '">' . $term->name . '</li></a>';
+         }
+         echo '</ul>';
+         echo '</nav>';
+    }
 }
 
 
