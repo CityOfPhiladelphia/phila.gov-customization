@@ -10,6 +10,7 @@
     * Services - service_post
     * News - news_post
     * Alerts - site_wide_alert
+    * Content Collection - collection_page
 
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
@@ -154,7 +155,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
                     'not_found_in_trash'   => __('Service Page not found in trash'),
               ),
                 'taxonomies' => array('category', 'post_tag'),
-                'supports' => array( 'title', 'editor', 'front-end-editor'),
+                'supports' => array( 'title', 'editor', 'front-end-editor', 'revisions'),
                 'public' => true,
                 'has_archive' => true,
                 'menu_position' => 5,
@@ -184,7 +185,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
                     'parent_item_colon' => '',
               ),
                 'taxonomies' => array('category'),
-                'supports' => array( 'title', 'editor', 'page-attributes', 'thumbnail'),
+                'supports' => array( 'title', 'editor', 'page-attributes', 'thumbnail', 'revisions'),
                 'public' => true,
                 'has_archive' => true,
                 'show_in_nav_menus' => true,
@@ -220,7 +221,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
                 'menu_position' => 6,
                 'menu_icon' => 'dashicons-media-document',
                 'hierarchical' => false,
-                'supports'  => array('title','editor','thumbnail'),
+                'supports'  => array('title','editor','thumbnail', 'revisions'),
                 'rewrite' => array(
                     'slug' => 'news'
                 ),
@@ -255,6 +256,36 @@ if (!class_exists('PhilaGovCustomPostTypes')){
             )
           );
         }
+        function create_collectiom_post_type() {
+          register_post_type( 'collection_page',
+            array(
+                'labels' => array(
+                    'name' => __( 'Collection Page' ),
+                    'singular_name' => __( 'Collection Page' ),
+                    'add_new'   => __('Add Collection Page'),
+                    'all_items'   => __('All Collection Pages'),
+                    'add_new_item' => __('Add Collection Page'),
+                    'edit_item'   => __('Edit Collection Page'),
+                    'view_item'   => __('View Collection Page'),
+                    'search_items'   => __('Search Collection Pages'),
+                    'not_found'   => __('Collection Page Not Found'),
+                    'not_found_in_trash'   => __('Collection Page not found in trash'),
+              ),
+                'taxonomies' => array('category'),
+                'supports' => array( 'title', 'editor', 'front-end-editor', 'page-attributes', 'revisions'),
+                'public' => true,
+                'has_archive' => true,
+                'menu_position' => 10,
+                'menu_icon' => 'dashicons-exerpt-view',
+                'hierarchical' => true,
+                'rewrite' => array(
+                    'slug' => '',
+                ),
+            )
+          );
+        }
+
+
     }//end class
 
 }
@@ -270,6 +301,7 @@ if (isset($custom_post_types)){
     add_action( 'init', array($custom_post_types, 'create_news_post_type'));
     add_action( 'init', array($custom_post_types, 'create_departments_page_type'));
     add_action( 'init', array($custom_post_types, 'create_site_wide_alert'));
+    add_action( 'init', array($custom_post_types, 'create_collectiom_post_type'));
     register_activation_hook( __FILE__, array($custom_post_types, 'rewrite_flush') );
 }
 
