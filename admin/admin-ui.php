@@ -2,15 +2,14 @@
 /**
  * Contains :
  * Change admin labels
-    * post = information post
-    * page = phila.gov page
+    * post =  post
+    * page = Information page
  * redorder admin menu
  * custom post types
     * Departments - department_page
     * Services - service_post
     * News - news_post
     * Alerts - site_wide_alert
-    * Content Collection - collection_page
 
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
@@ -91,6 +90,7 @@ if (isset($admin_menu_labels)){
 
     add_action( 'admin_menu', array($admin_menu_labels, 'change_admin_post_label'));
 
+    add_action( 'init', array($admin_menu_labels, 'change_admin_page_object'));
     add_action( 'admin_menu', array($admin_menu_labels, 'change_admin_page_label'));
 
 }
