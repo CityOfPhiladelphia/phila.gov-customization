@@ -30,15 +30,6 @@
 if (!class_exists('PhilaGovCustomAdminLabels')){
     class PhilaGovCustomAdminLabels {
         function change_admin_post_label(){
-            global $menu;
-            global $submenu;
-
-            $menu[5][0] = 'Information Page';
-            $submenu['edit.php'][5][0] = 'Information Page';
-            $submenu['edit.php'][10][0] = 'Add Information Page';
-
-            echo '';
-
 
             // Add Menus as a Department Site submenu
             add_submenu_page( 'edit.php?post_type=department_page', 'Nav Menu', 'Nav Menu', 'edit_posts', 'nav-menus.php');
@@ -50,14 +41,24 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
             remove_menu_page('edit-comments.php');
         }
 
-        function change_admin_post_object(){
+        function change_admin_page_label(){
+            global $menu;
+            global $submenu;
+
+            $menu[20][0] = 'Information Page';
+            $submenu['edit.php?post_type=page'][5][0] = 'InformationPage';
+            $submenu['edit.php?post_type=page'][10][0] = 'Add Information Page';
+
+            echo '';
+        }
+
+        function change_admin_page_object(){
             global $wp_post_types;
             //can't extract $labels in one go, so break it into 2 vars
-            $get_post = $wp_post_types['post'];
-
-            $labels = $get_post -> labels;
+            $get_page = $wp_post_types['page'];
+            $labels = $get_page -> labels;
             $labels -> name = 'Information Page';
-            $labels -> singular_name = 'Information';
+            $labels -> singular_name = 'Information Page';
             $labels -> add_new = 'Add Information Page';
             $labels -> add_new_item = 'Add Information Page';
             $labels -> edit_item = 'Edit Information Page';
@@ -69,37 +70,6 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
             $labels -> all_items = 'All Information Pages';
             $labels -> menu_name = 'Information Page';
             $labels -> name_admin_bar = 'Information Page';
-        }
-
-        function change_admin_page_label(){
-            global $menu;
-            global $submenu;
-
-            $menu[20][0] = 'Phila.gov Page';
-            $submenu['edit.php?post_type=page'][5][0] = 'Phila.gov Page';
-            $submenu['edit.php?post_type=page'][10][0] = 'Add Phila.gov Page';
-
-            echo '';
-        }
-
-        function change_admin_page_object(){
-            global $wp_post_types;
-            //can't extract $labels in one go, so break it into 2 vars
-            $get_page = $wp_post_types['page'];
-            $labels = $get_page -> labels;
-            $labels -> name = 'Phila.gov Page';
-            $labels -> singular_name = 'Phila.gov';
-            $labels -> add_new = 'Add Phila.gov Page';
-            $labels -> add_new_item = 'Add Phila.gov Page';
-            $labels -> edit_item = 'Edit Phila.gov Page';
-            $labels -> new_item = 'Phila.gov';
-            $labels -> view_item = 'View Phila.gov Page';
-            $labels -> search_items = 'Search Phila.gov Pages';
-            $labels -> not_found = 'No Phila.gov Page Found';
-            $labels -> not_found_in_trash = 'No Phila.gov Page found in Trash';
-            $labels -> all_items = 'All Phila.gov Pages';
-            $labels -> menu_name = 'Phila.gov Page';
-            $labels -> name_admin_bar = 'Phila.gov Page';
 
             //also, register post_tag and cats
             register_taxonomy_for_object_type('post_tag', 'page');
@@ -118,10 +88,9 @@ if (class_exists("PhilaGovCustomAdminLabels")){
 
 if (isset($admin_menu_labels)){
     //WP actions
-    add_action( 'init', array($admin_menu_labels, 'change_admin_post_object'));
+
     add_action( 'admin_menu', array($admin_menu_labels, 'change_admin_post_label'));
 
-    add_action( 'init', array($admin_menu_labels, 'change_admin_page_object'));
     add_action( 'admin_menu', array($admin_menu_labels, 'change_admin_page_label'));
 
 }
@@ -256,38 +225,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
             )
           );
         }
-        function create_collectiom_post_type() {
-          register_post_type( 'collection_page',
-            array(
-                'labels' => array(
-                    'name' => __( 'Collection Page' ),
-                    'singular_name' => __( 'Collection Page' ),
-                    'add_new'   => __('Add Collection Page'),
-                    'all_items'   => __('All Collection Pages'),
-                    'add_new_item' => __('Add Collection Page'),
-                    'edit_item'   => __('Edit Collection Page'),
-                    'view_item'   => __('View Collection Page'),
-                    'search_items'   => __('Search Collection Pages'),
-                    'not_found'   => __('Collection Page Not Found'),
-                    'not_found_in_trash'   => __('Collection Page not found in trash'),
-              ),
-                'taxonomies' => array('category'),
-                'supports' => array( 'title', 'editor', 'front-end-editor', 'page-attributes', 'revisions'),
-                'public' => true,
-                'has_archive' => true,
-                'menu_position' => 10,
-                'menu_icon' => 'dashicons-exerpt-view',
-                'hierarchical' => true,
-                'rewrite' => array(
-                    'slug' => '',
-                ),
-            )
-          );
-        }
-
-
     }//end class
-
 }
 
 
@@ -301,7 +239,6 @@ if (isset($custom_post_types)){
     add_action( 'init', array($custom_post_types, 'create_news_post_type'));
     add_action( 'init', array($custom_post_types, 'create_departments_page_type'));
     add_action( 'init', array($custom_post_types, 'create_site_wide_alert'));
-    add_action( 'init', array($custom_post_types, 'create_collectiom_post_type'));
     register_activation_hook( __FILE__, array($custom_post_types, 'rewrite_flush') );
 }
 
