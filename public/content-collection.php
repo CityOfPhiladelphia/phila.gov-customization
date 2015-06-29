@@ -6,7 +6,7 @@
 * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
 *
 * @package phila.gov-customization
-* @since 0.8.6
+* @since 0.9.0
 */
 
 class Content_Collection_Walker extends Walker_Page {
