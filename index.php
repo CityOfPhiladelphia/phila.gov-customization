@@ -36,6 +36,7 @@ require $dir. '/admin/taxonomies.php';
 
 require $dir. '/public/browse.php';
 require $dir. '/public/calendar-display.php';
+require $dir. '/public/content-collection.php';
 require $dir. '/public/departments.php';
 require $dir. '/public/news.php';
 require $dir. '/public/removals.php';
