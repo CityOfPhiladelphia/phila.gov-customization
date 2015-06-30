@@ -45,7 +45,7 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
             global $submenu;
 
             $menu[20][0] = 'Information Page';
-            $submenu['edit.php?post_type=page'][5][0] = 'InformationPage';
+            $submenu['edit.php?post_type=page'][5][0] = 'Information Page';
             $submenu['edit.php?post_type=page'][10][0] = 'Add Information Page';
 
             echo '';
@@ -61,7 +61,7 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
             $labels -> add_new = 'Add Information Page';
             $labels -> add_new_item = 'Add Information Page';
             $labels -> edit_item = 'Edit Information Page';
-            $labels -> new_item = 'Information';
+            $labels -> new_item = 'Add Information Page';
             $labels -> view_item = 'View Information Page';
             $labels -> search_items = 'Search Information Pages';
             $labels -> not_found = 'No Information Page Found';

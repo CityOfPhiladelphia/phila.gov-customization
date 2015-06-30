@@ -31,10 +31,10 @@ class Content_Collection_Walker extends Walker_Page {
         }
         if ( $class_attr != '' ) {
             $class_attr = ' class="' . $class_attr . '"';
-            $link_before .= '<strong>';
-            $link_after = '</strong>' . $link_after;
+            $link_before .= '';
+            $link_after = '' . $link_after;
         }
-        $output .= $indent . '<li' . $class_attr . '><a href="' . get_page_link($page->ID) . '"' . $class_attr . '>' . $link_before . apply_filters( 'the_title', $page->post_title, $page->ID ) . $link_after . '</a>';
+        $output .= $indent . '<li' . $class_attr . '><a href="' . get_page_link($page->ID) . '">' . $link_before . apply_filters( 'the_title', $page->post_title, $page->ID ) . $link_after . '</a>';
 
         if ( !empty($show_date) ) {
             if ( 'modified' == $show_date )
