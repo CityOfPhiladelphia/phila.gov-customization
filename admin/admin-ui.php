@@ -339,7 +339,7 @@ function phila_allow_draft_dropdown_pages_args($dropdown_args) {
 /**
  * Add custom js to force category selection for Department Author roles
  *
- * @since   0.9.0
+ * @since   0.10.0
  */
 
 add_action( 'plugins_loaded', 'department_author_only' );
