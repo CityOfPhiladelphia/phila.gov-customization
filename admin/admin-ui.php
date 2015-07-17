@@ -282,6 +282,8 @@ if (isset($change_menu_order)){
 * Add scripts only to site_wide_alert posts
 *
 */
+add_action( 'admin_enqueue_scripts', 'enqueue_alert_scripts' );
+
 function enqueue_alert_scripts($hook) {
   global $post;
   if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
@@ -291,7 +293,6 @@ function enqueue_alert_scripts($hook) {
     }
   }
 }
-add_action( 'admin_enqueue_scripts', 'enqueue_alert_scripts' );
 
 /**
  * Hook into Restrict Categories plugin and allow custom post types to be filtered through posts()
@@ -334,4 +335,18 @@ function phila_allow_draft_dropdown_pages_args($dropdown_args) {
     $dropdown_args['post_status'] = array('publish','draft');
 
     return $dropdown_args;
+}
+/**
+ * Allow draft pages to be in the "Parent" attribute dropdown
+ *
+ * @since   0.8.5
+ */
+
+add_action( 'admin_enqueue_scripts', 'admin_scripts' );
+
+function admin_scripts() {
+	wp_enqueue_script(
+		'admin-script',
+		plugins_url( '../js/admin-scripts.js' , __FILE__ )
+	);
 }
