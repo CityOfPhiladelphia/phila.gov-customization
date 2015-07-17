@@ -337,16 +337,19 @@ function phila_allow_draft_dropdown_pages_args($dropdown_args) {
     return $dropdown_args;
 }
 /**
- * Allow draft pages to be in the "Parent" attribute dropdown
+ * Add custom js to force category selection for Department Author roles
  *
- * @since   0.8.5
+ * @since   0.9.0
  */
 
-add_action( 'admin_enqueue_scripts', 'admin_scripts' );
+add_action( 'plugins_loaded', 'department_author_only' );
 
+function department_author_only()
+{
+  if ( current_user_can( 'department_author' ) ){
+    add_action( 'admin_enqueue_scripts', 'admin_scripts' );
+  }
+}
 function admin_scripts() {
-	wp_enqueue_script(
-		'admin-script',
-		plugins_url( '../js/admin-scripts.js' , __FILE__ )
-	);
+	wp_enqueue_script( 'admin-script', plugins_url( '../js/admin-department-author.js' , __FILE__ ) );
 }
