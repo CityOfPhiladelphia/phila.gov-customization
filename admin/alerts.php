@@ -118,3 +118,18 @@ function my_sort_metabox( $vars ) {
 }
 add_filter('request', 'my_sort_metabox');
 //the ASC and DESC part of ORDER BY is handled automatically
+
+/**
+* Add scripts only to site_wide_alert posts
+*
+*/
+add_action( 'admin_enqueue_scripts', 'enqueue_alert_scripts' );
+
+function enqueue_alert_scripts($hook) {
+  global $post;
+  if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
+    if ( 'site_wide_alert' === $post->post_type ) {
+        wp_enqueue_script( 'alerts-ui', plugin_dir_url( __FILE__ ) . '../js/alerts.js', array('jquery'));
+    }
+  }
+}

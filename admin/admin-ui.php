@@ -10,7 +10,6 @@
     * Services - service_post
     * News - news_post
     * Alerts - site_wide_alert
-
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
  *
@@ -275,23 +274,6 @@ if (class_exists("PhilaGovCustomMenuOrdering")){
 if (isset($change_menu_order)){
     add_filter('custom_menu_order', array($change_menu_order, 'custom_menu_order')); // Activate custom_menu_order
     add_filter('menu_order', array($change_menu_order, 'custom_menu_order'));
-}
-
-
-/**
-* Add scripts only to site_wide_alert posts
-*
-*/
-add_action( 'admin_enqueue_scripts', 'enqueue_alert_scripts' );
-
-function enqueue_alert_scripts($hook) {
-  global $post;
-  if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
-    if ( 'site_wide_alert' === $post->post_type ) {
-        wp_enqueue_script( 'alerts-ui', plugin_dir_url( __FILE__ ) . 'js/scripts.js', array('jquery'));
-
-    }
-  }
 }
 
 /**
