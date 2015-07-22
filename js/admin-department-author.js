@@ -3,4 +3,7 @@ jQuery(document).ready(function($){
   var required_cat = $('#categorychecklist li:first-child input');
   if( !required_cat.attr('checked')  )
     required_cat.attr('checked','checked');
+
+   $('a[href$="nav-menus.php?action=locations"]').hide();
+
 });
