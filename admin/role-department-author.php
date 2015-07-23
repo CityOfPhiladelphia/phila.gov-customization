@@ -14,7 +14,6 @@ function department_author_only(){
   }
 }
 
-
 function administration_admin_scripts() {
 	wp_enqueue_script( 'admin-script', plugins_url( '../js/admin-department-author.js' , __FILE__ ) );
 }
@@ -38,11 +37,10 @@ class PhilaRoleAdministration {
 
     public function __construct(){
         //we can only run this role-check after plugins have been loaded
-        add_action( 'plugins_loaded', array( $this, 'check_if_user_logged_in' ) );
+        add_action( 'plugins_loaded', array( $this, 'get_current_sidebar_id' ) );
 
         //remove our unwanted widgets
         add_action( 'after_setup_theme', array($this, 'remove_others_widgets'), 11 );
-
 
     }
 
@@ -98,63 +96,68 @@ class PhilaRoleAdministration {
         //matches rely on Category slug and
         //if there are matches, then you have a secondary role that should not be allowed to see other's menus, etc.
         $current_user_cat_assignment = array_intersect( $all_user_roles_to_cats, $cat_slugs );
+
+        return $current_user_cat_assignment;
       }
-      return $current_user_cat_assignment;
     }
   /**
-   * Outputs all categories into an array w/ just slugs.
+   * Outputs the current sidebar ID.
    *
    * @since 0.11.0
    * @uses get_categories() Outputs all categories into an array w/ just slugs.
    * @uses get_category_by_slug()   https://codex.wordpress.org/Function_Reference/get_category_by_slug
    * @return $cat_slugs array Returns an array of all categories.
    */
-    public function check_if_user_logged_in(){
+    public function get_current_sidebar_id(){
 
       $current_user_cat_assignment = $this->get_current_category_slug();
-
+      if ( is_user_logged_in() ){
         if( count( $current_user_cat_assignment ) > 0 ) {
           //TODO make this applicable to more than one sub category
           $current_category = get_category_by_slug( $current_user_cat_assignment[1] );
           $current_cat_slug = strval( $current_category->slug );
           $current_cat_id = $current_category->cat_ID;
           $sidebar_id = 'sidebar-' . $current_cat_slug . '-' . $current_cat_id ;
-          add_action( 'admin_enqueue_scripts', 'administration_admin_scripts' );
+
+          //add_action( 'admin_enqueue_scripts', 'administration_admin_scripts' );
 
           return $sidebar_id;
         }
       }
-
+  }
   /**
 	 * Removes widgets that don't belong to this department category
 	 *
 	 * @since 0.11.0
-   * @uses check_if_user_logged_in() Outputs all categories into an array w/ just slugs.
+   * @uses get_current_sidebar_id() Outputs all categories into an array w/ just slugs.
 	  */
     public function remove_others_widgets(){
-    $current_user_cat_assignment = $this->get_current_category_slug();
-      $cat_object = get_category_by_slug($current_user_cat_assignment[1]);
 
-      //assign $sidebar_id to new var
-    	$sidebar_id	= $this->check_if_user_logged_in();
+      if ( current_user_can( 'department_author' ) ){
+        $current_user_cat_assignment = $this->get_current_category_slug();
+        $cat_object = get_category_by_slug($current_user_cat_assignment[1]);
 
-      if ( ! $sidebar_id == null ) {
-        //this needs to remove all sidebars
-        remove_action( 'widgets_init', 'phila_gov_widgets_init', 10 );
+        //assign $sidebar_id to new var
+      	$sidebar_id	= $this->get_current_sidebar_id();
 
-        //re-register the sidebar we just unregistered...
-        //TODO see if there is a better way to do this. Seems hacky.
-        //also, fails if slug name changes...
+        if ( ! $sidebar_id == null ) {
+          //this needs to remove all sidebars
+          remove_action( 'widgets_init', 'phila_gov_widgets_init', 10 );
 
-        register_sidebar( array(
-      		'name'          => __( $cat_object->name . ' Sidebar', 'phila-gov' ),
-      		'id'            => $sidebar_id,
-      		'description'   => '',
-      		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-      		'after_widget'  => '</aside>',
-      		'before_title'  => '<h1 class="widget-title">',
-      		'after_title'   => '</h1>',
-      	) );
+          //re-register the sidebar we just unregistered...
+          //TODO see if there is a better way to do this. Seems hacky.
+          //also, fails if slug name changes...
+
+          register_sidebar( array(
+        		'name'          => __( $cat_object->name . ' Sidebar', 'phila-gov' ),
+        		'id'            => $sidebar_id,
+        		'description'   => '',
+        		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+        		'after_widget'  => '</aside>',
+        		'before_title'  => '<h1 class="widget-title">',
+        		'after_title'   => '</h1>',
+        	) );
       }
     }
+  }
 }//end PhilaRoleAdministration
