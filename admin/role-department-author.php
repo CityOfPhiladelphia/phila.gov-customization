@@ -100,6 +100,7 @@ class PhilaRoleAdministration {
         return $current_user_cat_assignment;
       }
     }
+
   /**
    * Outputs the current sidebar ID.
    *
@@ -108,7 +109,7 @@ class PhilaRoleAdministration {
    * @uses get_category_by_slug()   https://codex.wordpress.org/Function_Reference/get_category_by_slug
    * @return $cat_slugs array Returns an array of all categories.
    */
-    public function get_current_sidebar_id(){
+    public function get_category_id(){
 
       $current_user_cat_assignment = $this->get_current_category_slug();
       if ( is_user_logged_in() ){
@@ -117,14 +118,25 @@ class PhilaRoleAdministration {
           $current_category = get_category_by_slug( $current_user_cat_assignment[1] );
           $current_cat_slug = strval( $current_category->slug );
           $current_cat_id = $current_category->cat_ID;
-          $sidebar_id = 'sidebar-' . $current_cat_slug . '-' . $current_cat_id ;
 
+          return $current_cat_id;
+        }
+      }
+    }
+
+    public function get_current_sidebar_id(){
+        $current_cat_id = $this->get_category_id();
+              $current_user_cat_assignment = $this->get_current_category_slug();
+
+        //TODO make this applicable to more than one sub category
+        $current_category = get_category_by_slug( $current_user_cat_assignment[1] );
+        $current_cat_slug = strval( $current_category->slug );
+
+          $sidebar_id = 'sidebar-' . $current_cat_slug . '-' . $current_cat_id ;
           //add_action( 'admin_enqueue_scripts', 'administration_admin_scripts' );
 
           return $sidebar_id;
-        }
       }
-  }
   /**
 	 * Removes widgets that don't belong to this department category
 	 *
@@ -158,6 +170,12 @@ class PhilaRoleAdministration {
         		'after_title'   => '</h1>',
         	) );
       }
+      //TODO really, I should do this with query vars, but it works for now
+      echo '<div id="dom-target" style="display: none;">';
+                $current_cat_id = $this->get_category_id();
+              print_r('locations-menu-'. $current_cat_id);
+      echo '</div>';
     }
   }
+
 }//end PhilaRoleAdministration

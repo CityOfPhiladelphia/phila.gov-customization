@@ -7,4 +7,13 @@ jQuery(document).ready(function($){
 
   $('a[href$="nav-menus.php?action=locations"]').hide();
 
+  var string = $('#dom-target').text();
+  var match = document.getElementById( string );
+  $('.menu-theme-locations input').each(function() {
+    if ( this == match ){
+      //nothing
+    }else{
+      $(this).parent().css('display', 'none');
+    }
+  });
 });
