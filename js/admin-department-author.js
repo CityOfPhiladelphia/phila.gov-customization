@@ -6,14 +6,20 @@ jQuery(document).ready(function($){
   }
 
   $('a[href$="nav-menus.php?action=locations"]').hide();
+  //$('.manage-menus').hide();
 
-  var string = $('#dom-target').text();
-  var match = document.getElementById( string );
+  var menuIdString = $('#menu-id').text();
+  var match = document.getElementById( menuIdString );
+
+  //hides the menus from
   $('.menu-theme-locations input').each(function() {
     if ( this == match ){
-      //nothing
     }else{
       $(this).parent().css('display', 'none');
     }
   });
+
+  var menuNameString = $('#menu-name').text();
+  $( '.manage-menus option' ).not(':contains("' + menuNameString + '")').hide();
+  $( '.manage-menus option:contains("' + menuNameString + '")').attr( 'selected', 'selected' );
 });

@@ -93,6 +93,7 @@ class PhilaRoleAdministration {
         $all_user_roles = $user->roles;
         $all_user_roles_to_cats = str_replace('_', '-', $all_user_roles);
 
+
         //matches rely on Category slug and
         //if there are matches, then you have a secondary role that should not be allowed to see other's menus, etc.
         $current_user_cat_assignment = array_intersect( $all_user_roles_to_cats, $cat_slugs );
@@ -126,17 +127,23 @@ class PhilaRoleAdministration {
 
     public function get_current_sidebar_id(){
         $current_cat_id = $this->get_category_id();
-              $current_user_cat_assignment = $this->get_current_category_slug();
+        $current_user_cat_assignment = $this->get_current_category_slug();
 
-        //TODO make this applicable to more than one sub category
-        $current_category = get_category_by_slug( $current_user_cat_assignment[1] );
-        $current_cat_slug = strval( $current_category->slug );
+        if ( current_user_can( 'department_author' ) ){
+          //TODO make this applicable to more than one sub category
+          if ( $current_user_cat_assignment == null ){
+            echo 'This user account must have a secondary role defined. Please contact your administrator.';
+          }else{
+          $current_category = get_category_by_slug( $current_user_cat_assignment[1] );
+          $current_cat_slug = strval( $current_category->slug );
 
-          $sidebar_id = 'sidebar-' . $current_cat_slug . '-' . $current_cat_id ;
-          //add_action( 'admin_enqueue_scripts', 'administration_admin_scripts' );
+            $sidebar_id = 'sidebar-' . $current_cat_slug . '-' . $current_cat_id ;
+            //add_action( 'admin_enqueue_scripts', 'administration_admin_scripts' );
 
-          return $sidebar_id;
+            return $sidebar_id;
+        }
       }
+    }
   /**
 	 * Removes widgets that don't belong to this department category
 	 *
@@ -171,9 +178,14 @@ class PhilaRoleAdministration {
         	) );
       }
       //TODO really, I should do this with query vars, but it works for now
-      echo '<div id="dom-target" style="display: none;">';
-                $current_cat_id = $this->get_category_id();
-              print_r('locations-menu-'. $current_cat_id);
+      echo '<div id="menu-id" style="display: none;">';
+            $current_cat_id = $this->get_category_id();
+            print_r('locations-menu-'. $current_cat_id);
+      echo '</div>';
+      echo '<div id="menu-name" style="display: none;">';
+        $current_user_cat_assignment = $this->get_current_category_slug();
+        $cat_object = get_category_by_slug($current_user_cat_assignment[1]);
+              print_r($cat_object->name);
       echo '</div>';
     }
   }
