@@ -9,7 +9,7 @@
 add_action( 'plugins_loaded', 'department_author_only' );
 
 function department_author_only(){
-  if ( current_user_can( 'department_author' ) ){
+  if ( ! current_user_can( PHILA_ADMIN ) ){
     add_action( 'admin_enqueue_scripts', 'administration_admin_scripts' );
   }
 }
@@ -41,6 +41,9 @@ class PhilaRoleAdministration {
 
         //remove our unwanted widgets
         add_action( 'after_setup_theme', array($this, 'remove_others_widgets'), 11 );
+
+        //adds the correct menu to admin menus
+        add_action( 'admin_menu', array($this, 'add_department_menu'));
 
     }
 
@@ -94,7 +97,7 @@ class PhilaRoleAdministration {
         $all_user_roles_to_cats = str_replace('_', '-', $all_user_roles);
 
 
-        //matches rely on Category slug and
+        //matches rely on Category slug and user role name matching
         //if there are matches, then you have a secondary role that should not be allowed to see other's menus, etc.
         $current_user_cat_assignment = array_intersect( $all_user_roles_to_cats, $cat_slugs );
 
@@ -129,7 +132,7 @@ class PhilaRoleAdministration {
         $current_cat_id = $this->get_category_id();
         $current_user_cat_assignment = $this->get_current_category_slug();
 
-        if ( current_user_can( 'department_author' ) ){
+        if ( ! current_user_can( PHILA_ADMIN ) ){
           //TODO make this applicable to more than one sub category
           if ( $current_user_cat_assignment == null ){
             echo 'This user account must have a secondary role defined. Please contact your administrator.';
@@ -152,7 +155,7 @@ class PhilaRoleAdministration {
 	  */
     public function remove_others_widgets(){
 
-      if ( current_user_can( 'department_author' ) ){
+      if ( ! current_user_can( PHILA_ADMIN ) ){
         $current_user_cat_assignment = $this->get_current_category_slug();
         $cat_object = get_category_by_slug($current_user_cat_assignment[1]);
 
@@ -177,7 +180,6 @@ class PhilaRoleAdministration {
         		'after_title'   => '</h1>',
         	) );
       }
-      //TODO really, I should do this with query vars, but it works for now
       echo '<div id="menu-id" style="display: none;">';
             $current_cat_id = $this->get_category_id();
             print_r('locations-menu-'. $current_cat_id);
@@ -187,7 +189,24 @@ class PhilaRoleAdministration {
         $cat_object = get_category_by_slug($current_user_cat_assignment[1]);
               print_r($cat_object->name);
       echo '</div>';
+
     }
+
   }
 
+  public function add_department_menu(){
+    if ( ! current_user_can( PHILA_ADMIN ) ){
+    $current_cat_id = $this->get_category_id();
+
+    $menu_locations = get_nav_menu_locations();
+    $key = 'menu-' . $current_cat_id;
+
+    $current_menu_value = $menu_locations[$key];
+
+    // Add Menus as a Department Site submenu
+    add_submenu_page( 'edit.php?post_type=department_page', 'Nav Menu', 'Nav Menu', 'edit_posts', 'nav-menus.php?action=edit&menu='. $current_menu_value );
+    }else{
+      add_submenu_page( 'edit.php?post_type=department_page', 'Nav Menu', 'Nav Menu', 'edit_posts', 'nav-menus.php' );
+    }
+  }
 }//end PhilaRoleAdministration

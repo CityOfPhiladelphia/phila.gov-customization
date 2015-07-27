@@ -17,6 +17,7 @@
  */
 
 
+
 /**
  * Change admin labels
  *
@@ -27,10 +28,8 @@
 
 if (!class_exists('PhilaGovCustomAdminLabels')){
     class PhilaGovCustomAdminLabels {
-        function change_admin_post_label(){
 
-            // Add Menus as a Department Site submenu
-            add_submenu_page( 'edit.php?post_type=department_page', 'Nav Menu', 'Nav Menu', 'edit_posts', 'nav-menus.php');
+        function change_admin_post_label(){
 
             // Add Menus as a Department Site submenu
             add_submenu_page( 'edit.php?post_type=department_page', 'Sidebar', 'Sidebar', 'edit_posts', 'widgets.php');
@@ -74,7 +73,6 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
             register_taxonomy_for_object_type('category', 'page');
 
         }
-
 
     }//end PhilaGovCustomAdminlabels
 }
