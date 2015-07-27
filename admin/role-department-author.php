@@ -193,16 +193,21 @@ class PhilaRoleAdministration {
         		'after_title'   => '</h1>',
         	) );
       }
-      echo '<div id="menu-id" style="display: none;">';
-            $current_cat_id = $this->get_category_id();
-            print_r('locations-menu-'. $current_cat_id);
-      echo '</div>';
-      echo '<div id="menu-name" style="display: none;">';
-        $current_user_cat_assignment = $this->get_current_category_slug();
-        $cat_object = get_category_by_slug($current_user_cat_assignment[1]);
-              print_r($cat_object->name);
-      echo '</div>';
-
+      if ( is_user_logged_in() ){
+        echo '<div id="menu-id" style="display: none;">';
+              $current_cat_id = $this->get_category_id();
+              print_r('locations-menu-'. $current_cat_id);
+        echo '</div>';
+        echo '<div id="menu-name" style="display: none;">';
+          $current_user_cat_assignment = $this->get_current_category_slug();
+          $cat_object = get_category_by_slug($current_user_cat_assignment[1]);
+          if (isset( $cat_object->name )){
+            var_dump($cat_object);
+            $name = $cat_object->name;
+            print_r( $name );
+          }
+        echo '</div>';
+      }
     }
   }
   /**
