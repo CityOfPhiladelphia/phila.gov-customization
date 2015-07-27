@@ -202,7 +202,6 @@ class PhilaRoleAdministration {
           $current_user_cat_assignment = $this->get_current_category_slug();
           $cat_object = get_category_by_slug($current_user_cat_assignment[1]);
           if (isset( $cat_object->name )){
-            var_dump($cat_object);
             $name = $cat_object->name;
             print_r( $name );
           }
