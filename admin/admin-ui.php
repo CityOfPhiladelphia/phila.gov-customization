@@ -10,12 +10,12 @@
     * Services - service_post
     * News - news_post
     * Alerts - site_wide_alert
-
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
  *
  * @package phila.gov-customization
  */
+
 
 
 /**
@@ -28,10 +28,8 @@
 
 if (!class_exists('PhilaGovCustomAdminLabels')){
     class PhilaGovCustomAdminLabels {
-        function change_admin_post_label(){
 
-            // Add Menus as a Department Site submenu
-            add_submenu_page( 'edit.php?post_type=department_page', 'Nav Menu', 'Nav Menu', 'edit_posts', 'nav-menus.php');
+        function change_admin_post_label(){
 
             // Add Menus as a Department Site submenu
             add_submenu_page( 'edit.php?post_type=department_page', 'Sidebar', 'Sidebar', 'edit_posts', 'widgets.php');
@@ -75,7 +73,6 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
             register_taxonomy_for_object_type('category', 'page');
 
         }
-
 
     }//end PhilaGovCustomAdminlabels
 }
@@ -277,23 +274,6 @@ if (isset($change_menu_order)){
     add_filter('menu_order', array($change_menu_order, 'custom_menu_order'));
 }
 
-
-/**
-* Add scripts only to site_wide_alert posts
-*
-*/
-add_action( 'admin_enqueue_scripts', 'enqueue_alert_scripts' );
-
-function enqueue_alert_scripts($hook) {
-  global $post;
-  if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
-    if ( 'site_wide_alert' === $post->post_type ) {
-        wp_enqueue_script( 'alerts-ui', plugin_dir_url( __FILE__ ) . 'js/scripts.js', array('jquery'));
-
-    }
-  }
-}
-
 /**
  * Hook into Restrict Categories plugin and allow custom post types to be filtered through posts()
  *
@@ -335,21 +315,4 @@ function phila_allow_draft_dropdown_pages_args($dropdown_args) {
     $dropdown_args['post_status'] = array('publish','draft');
 
     return $dropdown_args;
-}
-/**
- * Add custom js to force category selection for Department Author roles
- *
- * @since   0.10.0
- */
-
-add_action( 'plugins_loaded', 'department_author_only' );
-
-function department_author_only()
-{
-  if ( current_user_can( 'department_author' ) ){
-    add_action( 'admin_enqueue_scripts', 'admin_scripts' );
-  }
-}
-function admin_scripts() {
-	wp_enqueue_script( 'admin-script', plugins_url( '../js/admin-department-author.js' , __FILE__ ) );
 }

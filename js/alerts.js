@@ -1,3 +1,10 @@
+/*
+* Admin Alerts Custom Js
+*
+* Show/hide other icon box on a
+*
+*/
+
 jQuery(document).ready(function($) {
   $('.other-icon').hide();
 
