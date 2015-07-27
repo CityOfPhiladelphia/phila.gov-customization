@@ -135,10 +135,12 @@ class PhilaRoleAdministration {
         if ( ! current_user_can( PHILA_ADMIN ) ){
           //TODO make this applicable to more than one sub category
           if ( $current_user_cat_assignment == null ){
-            echo 'This user account must have a secondary role defined. Please contact your administrator.';
+            if (is_user_logged_in()) {
+              echo 'This user account must have a secondary role defined. Please contact your administrator.';
+            }
           }else{
-          $current_category = get_category_by_slug( $current_user_cat_assignment[1] );
-          $current_cat_slug = strval( $current_category->slug );
+            $current_category = get_category_by_slug( $current_user_cat_assignment[1] );
+            $current_cat_slug = strval( $current_category->slug );
 
             $sidebar_id = 'sidebar-' . $current_cat_slug . '-' . $current_cat_id ;
             //add_action( 'admin_enqueue_scripts', 'administration_admin_scripts' );
