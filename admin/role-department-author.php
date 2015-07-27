@@ -18,6 +18,11 @@ function administration_admin_scripts() {
 	wp_enqueue_script( 'admin-script', plugins_url( '../js/admin-department-author.js' , __FILE__ ) );
 }
 
+/**
+ * Define our custom role. If a user is not PHILA_ADMIN, then they get things hidden.
+ *
+ * @since   0.11.0
+ */
 // define the custom capability name for protected content
 define ( 'PHILA_ADMIN', 'see_all_content' );
 
@@ -106,7 +111,7 @@ class PhilaRoleAdministration {
     }
 
   /**
-   * Outputs the current sidebar ID.
+   * Outputs the current category ID.
    *
    * @since 0.11.0
    * @uses get_categories() Outputs all categories into an array w/ just slugs.
@@ -127,6 +132,14 @@ class PhilaRoleAdministration {
         }
       }
     }
+    /**
+     * Outputs the current sidebar ID.
+     *
+     * @since 0.11.0
+     * @uses get_categories() Outputs all categories into an array w/ just slugs.
+     * @uses get_category_by_slug()   https://codex.wordpress.org/Function_Reference/get_category_by_slug
+     * @return $cat_slugs array Returns an array of all categories.
+     */
 
     public function get_current_sidebar_id(){
         $current_cat_id = $this->get_category_id();
@@ -143,14 +156,12 @@ class PhilaRoleAdministration {
             $current_cat_slug = strval( $current_category->slug );
 
             $sidebar_id = 'sidebar-' . $current_cat_slug . '-' . $current_cat_id ;
-            //add_action( 'admin_enqueue_scripts', 'administration_admin_scripts' );
-
             return $sidebar_id;
         }
       }
     }
   /**
-	 * Removes widgets that don't belong to this department category
+	 * Removes widgets that don't belong to this department category & gives us varaibles to use in js/admin-department-author.js for hiding DOM elements.
 	 *
 	 * @since 0.11.0
    * @uses get_current_sidebar_id() Outputs all categories into an array w/ just slugs.
@@ -193,8 +204,15 @@ class PhilaRoleAdministration {
       echo '</div>';
 
     }
-
   }
+  /**
+	 * Gets the menu this user should see and passes the value to add_submenu_page
+	 *
+	 * @since 0.11.0
+   * @uses get_category_id() Outputs the current category ID.
+   * @uses add_submenu_page https://codex.wordpress.org/Function_Reference/add_submenu_page
+   * @uses get_nav_menu_locations() https://developer.wordpress.org/reference/functions/get_nav_menu_locations/
+	  */
 
   public function add_department_menu(){
     if ( ! current_user_can( PHILA_ADMIN ) ){
