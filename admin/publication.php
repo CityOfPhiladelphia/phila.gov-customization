@@ -7,6 +7,7 @@
   public function __construct(){
     add_action( 'save_post_publication', array( $this, 'save_publication_meta'), 10, 3 );
     add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_media_js') );
+    add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_css'), 11 );
   }
  /**
   * Save attachment metadata when a document page is saved.
@@ -60,6 +61,10 @@
     if ( $hook == 'post.php' ) {
     	wp_enqueue_script( 'admin-script', plugins_url( '../js/admin-media.js' , __FILE__, array('jQuery') ) );
     }
+  }
+  public function load_admin_css(){
+    wp_register_style( 'phila_admin_css', plugins_url( '../css/admin.css', __FILE__));
+    wp_enqueue_style( 'phila_admin_css' );
   }
 
 }//PhilaPublication
