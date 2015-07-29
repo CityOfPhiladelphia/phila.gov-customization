@@ -31,8 +31,8 @@ $dir = plugin_dir_path( __FILE__ );
 require $dir. '/admin/admin-ui.php';
 require $dir. '/admin/alerts.php';
 require $dir. '/admin/calendar.php';
-require $dir. '/admin/document-collection.php';
 require $dir. '/admin/meta-boxes.php';
+require $dir. '/admin/publication.php';
 require $dir. '/admin/role-department-author.php';
 require $dir. '/admin/taxonomies.php';
 

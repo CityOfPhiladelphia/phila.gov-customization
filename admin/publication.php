@@ -1,11 +1,11 @@
 <?php
  // Instantiate new class
- $phila_document_collection_load = new PhilaDocumentCollection();
+ $phila_publication_load = new PhilaPublication();
 
- class PhilaDocumentCollection {
+ class PhilaPublication {
 
   public function __construct(){
-       add_action( 'save_post_documents', array( $this, 'save_document_meta'), 10, 3 );
+       add_action( 'save_post_publication', array( $this, 'save_publication_meta'), 10, 3 );
   }
  /**
   * Save attachment metadata when a document page is saved.
@@ -17,7 +17,7 @@
   * @uses wp_set_object_terms() https://codex.wordpress.org/Function_Reference/wp_set_object_terms
   */
 
-  public function save_document_meta( $post_id, $post, $update ) {
+  public function save_publication_meta( $post_id, $post, $update ) {
 
     // Check permissions
     if ( !current_user_can( 'edit_page', $post_id ) )
@@ -29,22 +29,23 @@
 
     //make sure the metabox plugin exists
     if (function_exists('rwmb_meta')) {
-      $documents = rwmb_meta( 'phila_documents', $args = array('type' => 'file_advanced'));
+      $publications = rwmb_meta( 'phila_publications', $args = array('type' => 'file_advanced'));
     }
     //ensure we have documents attached
-    if(!$documents == null) {
+    if(!$publications == null) {
 
-      foreach ($documents as $document){
-         $current_pdf = $document[ID];
+      foreach ($publications as $document){
+        $current_pdf = $document[ID];
 
-         $categories = get_the_category($post_id);
+        $categories = get_the_category($post_id);
 
          //on save, set the current page category
         foreach ($categories as $category){
-          //false will override any existing categories, set to true to add new
-          wp_set_object_terms( $current_pdf, array($category->cat_ID), 'category', false );
+          $category_ids[] = $category->cat_ID;
+          wp_set_object_terms( $current_pdf, $category_ids, 'category', false );
+          wp_add_object_terms( $current_pdf, $category_ids, 'category' );
         }
       }
     }
   }
-}//PhilaDocumentCollection
+}//PhilaPublication

@@ -10,7 +10,7 @@
     * Services - service_post
     * News - news_post
     * Alerts - site_wide_alert
-    * Documents - documents
+    * Publications - publications
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
  *
@@ -223,22 +223,22 @@ if (!class_exists('PhilaGovCustomPostTypes')){
             )
           );
         }
-        function create_documents_post_type() {
-          register_post_type( 'documents',
+        function create_publication_post_type() {
+          register_post_type( 'publication',
             array(
                 'labels' => array(
-                    'name' => __( 'Document Page' ),
-                    'singular_name' => __( 'Document Page' ),
-                    'add_new'   => __('Add Document Page'),
-                    'all_items'   => __('All Document Pages'),
-                    'add_new_item' => __('Add Document Page'),
-                    'edit_item'   => __('Edit Document Page'),
-                    'view_item'   => __('View Document Page'),
-                    'search_items'   => __('Search Document Pages'),
-                    'not_found'   => __('Document Page Not Found'),
-                    'not_found_in_trash'   => __('Document Page not found in trash'),
+                    'name' => __( 'Publication' ),
+                    'singular_name' => __( 'Publication' ),
+                    'add_new'   => __('Add Publication'),
+                    'all_items'   => __('All Publications'),
+                    'add_new_item' => __('Add New Publication'),
+                    'edit_item'   => __('Edit Publication'),
+                    'view_item'   => __('View Publication'),
+                    'search_items'   => __('Search Publications'),
+                    'not_found'   => __('Publication Not Found'),
+                    'not_found_in_trash'   => __('Publication not found in trash'),
               ),
-                'taxonomies' => array('category', 'topics'),
+                'taxonomies' => array('category', 'publication_type'),
                 'supports' => array( 'title', 'editor', 'front-end-editor', 'revisions', 'excerpt'),
                 'public' => true,
                 'has_archive' => true,
@@ -246,7 +246,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
                 'menu_icon' => 'dashicons-media-text',
                 'hierarchical' => false,
                 'rewrite' => array(
-                    'slug' => 'documents',
+                    'slug' => 'publications',
                 ),
             )
           );
@@ -265,7 +265,7 @@ if (isset($custom_post_types)){
     add_action( 'init', array($custom_post_types, 'create_news_post_type'));
     add_action( 'init', array($custom_post_types, 'create_departments_page_type'));
     add_action( 'init', array($custom_post_types, 'create_site_wide_alert'));
-    add_action( 'init', array($custom_post_types, 'create_documents_post_type'));
+    add_action( 'init', array($custom_post_types, 'create_publication_post_type'));
     register_activation_hook( __FILE__, array($custom_post_types, 'rewrite_flush') );
 }
 
