@@ -9,139 +9,137 @@
 
 add_filter( 'rwmb_meta_boxes', 'phila_register_meta_boxes' );
 
-function phila_register_meta_boxes( $meta_boxes )
-{
+function phila_register_meta_boxes( $meta_boxes ){
     $prefix = 'phila_';
 
     $meta_boxes[] = array(
-        'id'       => 'service_additions',
-        'title'    => 'Service Description',
-        'pages'    => array( 'service_post' ),
-        'context'  => 'normal',
-        'priority' => 'high',
+      'id'       => 'service_additions',
+      'title'    => 'Service Description',
+      'pages'    => array( 'service_post' ),
+      'context'  => 'normal',
+      'priority' => 'high',
 
-        'fields' => array(
-            array(
-                'name'  => 'Description',
-                'desc'  => 'A short description of the Service',
-                'id'    => $prefix . 'service_desc',
-                'type'  => 'textarea',
-                'class' => 'service-description',
-                'clone' => false,
-            ),
-             array(
-                'name'  => 'Full URL of Service',
-                'desc'  => 'https://ework.phila.gov/revenue/',
-                'id'    => $prefix . 'service_url',
-                'type'  => 'URL',
-                'class' => 'service-url',
-                'clone' => false,
-            ),
-            array(
-                'name'  => 'Detail',
-                'desc'  => 'The name of the website',
-                'id'    => $prefix . 'service_detail',
-                'type'  => 'text',
-                'class' => 'service-detail',
-                'clone' => false,
-            ),
-        )
+      'fields' => array(
+        array(
+          'name'  => 'Description',
+          'desc'  => 'A short description of the Service',
+          'id'    => $prefix . 'service_desc',
+          'type'  => 'textarea',
+          'class' => 'service-description',
+          'clone' => false,
+        ),
+         array(
+          'name'  => 'Full URL of Service',
+          'desc'  => 'https://ework.phila.gov/revenue/',
+          'id'    => $prefix . 'service_url',
+          'type'  => 'URL',
+          'class' => 'service-url',
+          'clone' => false,
+        ),
+        array(
+          'name'  => 'Detail',
+          'desc'  => 'The name of the website',
+          'id'    => $prefix . 'service_detail',
+          'type'  => 'text',
+          'class' => 'service-detail',
+          'clone' => false,
+        ),
+      )
     );
 
     $meta_boxes[] = array(
-        'id'       => 'departments',
-        'title'    => 'Department Information',
-        'pages'    => array( 'department_page' ),
-        'context'  => 'normal',
-        'priority' => 'high',
+      'id'       => 'departments',
+      'title'    => 'Department Information',
+      'pages'    => array( 'department_page' ),
+      'context'  => 'normal',
+      'priority' => 'high',
 
-        'fields' => array(
-            array(
-                'name'  => 'Description',
-                'desc'  => 'A short description of the department. Required.',
-                'id'    => $prefix . 'dept_desc',
-                'type'  => 'textarea',
-                'class' => 'dept-description',
-                'clone' => false,
-            ),
-             array(
-                'name'  => 'External URL of Department',
-                'desc'  => 'If the department does not live on this website, enter the location here. Eg. http://phila.gov/revenue/',
-                'id'    => $prefix . 'dept_url',
-                'type'  => 'URL',
-                'class' => 'dept-url',
-                'clone' => false,
-            ),
-        )
+      'fields' => array(
+        array(
+          'name'  => 'Description',
+          'desc'  => 'A short description of the department. Required.',
+          'id'    => $prefix . 'dept_desc',
+          'type'  => 'textarea',
+          'class' => 'dept-description',
+          'clone' => false,
+        ),
+        array(
+          'name'  => 'External URL of Department',
+          'desc'  => 'If the department does not live on this website, enter the location here. Eg. http://phila.gov/revenue/',
+          'id'    => $prefix . 'dept_url',
+          'type'  => 'URL',
+          'class' => 'dept-url',
+          'clone' => false,
+        ),
+      )
     );
-
-   $meta_boxes[] = array(
-    'id'       => 'news',
-    'title'    => 'News Information',
-    'pages'    => array( 'news_post' ),
-    'context'  => 'normal',
-    'priority' => 'high',
-
-    'fields' => array(
-        array(
-            'name'  => 'Description',
-            'desc'  => 'A one or two sentence description describing this article. Required.',
-            'id'    => $prefix . 'news_desc',
-            'type'  => 'textarea',
-            'class' => 'news-description',
-            'clone' => false,
-        )
-    )
-);
-  $meta_boxes[] = array(
-   'id'       => 'external_news',
-   'title'    => 'News Linking to External Source',
-   'pages'    => array( 'news_post' ),
-   'context'  => 'normal',
-   'priority' => 'high',
-
-   'fields' => array(
-        array(
-           'name'  => 'URL of external news article',
-           'desc'  => 'http://www.phila.gov/experiencephila/mayor.html',
-           'id'    => $prefix . 'news_url',
-           'type'  => 'URL',
-           'class' => 'news-url',
-           'clone' => false,
-       ),
-       array(
-           'name'  => 'News article contributor name',
-           'desc'  => 'Eg. Experience Philadelphia',
-           'id'    => $prefix . 'news_contributor',
-           'type'  => 'text',
-           'class' => 'news-contributor',
-           'clone' => false,
-       ),
-
-   )
-);
 
     $meta_boxes[] = array(
-        'id'       => 'news-admin-only',
-        'title'    => 'Homepage Display',
-        'pages'    => array( 'news_post' ),
-        'context'  => 'side',
-        'priority' => 'high',
+      'id'       => 'news',
+      'title'    => 'News Information',
+      'pages'    => array( 'news_post' ),
+      'context'  => 'normal',
+      'priority' => 'high',
 
-        'fields' => array(
-            array(
-                'name'  => '',
-                'desc'  => 'Should this story appear on the homepage?',
-                'id'    => $prefix . 'show_on_home',
-                'type'  => 'radio',
-                'std'=> '0',
-                'options' =>  array(
-                    '0' => 'No',
-                    '1' => 'Yes'
-                )
-            ),
+      'fields' => array(
+        array(
+          'name'  => 'Description',
+          'desc'  => 'A one or two sentence description describing this article. Required.',
+          'id'    => $prefix . 'news_desc',
+          'type'  => 'textarea',
+          'class' => 'news-description',
+          'clone' => false,
         )
-    );
+      )
+    );//news description
+    $meta_boxes[] = array(
+     'id'       => 'external_news',
+     'title'    => 'News Linking to External Source',
+     'pages'    => array( 'news_post' ),
+     'context'  => 'normal',
+     'priority' => 'high',
+
+     'fields' => array(
+        array(
+          'name'  => 'URL of external news article',
+          'desc'  => 'http://www.phila.gov/experiencephila/mayor.html',
+          'id'    => $prefix . 'news_url',
+          'type'  => 'URL',
+          'class' => 'news-url',
+          'clone' => false,
+         ),
+        array(
+         'name'  => 'News article contributor name',
+         'desc'  => 'Eg. Experience Philadelphia',
+         'id'    => $prefix . 'news_contributor',
+         'type'  => 'text',
+         'class' => 'news-contributor',
+         'clone' => false,
+         ),
+      )
+    );//link to external news source
+
+    $meta_boxes[] = array(
+      'id'       => 'news-admin-only',
+      'title'    => 'Homepage Display',
+      'pages'    => array( 'news_post' ),
+      'context'  => 'side',
+      'priority' => 'high',
+
+      'fields' => array(
+        array(
+          'name'  => '',
+          'desc'  => 'Should this story appear on the homepage?',
+          'id'    => $prefix . 'show_on_home',
+          'type'  => 'radio',
+          'std'=> '0',
+          'options' =>  array(
+              '0' => 'No',
+              '1' => 'Yes'
+          )
+        ),
+      )
+    );//news homepage display
 
     $meta_boxes[] = array(
       'id'       => 'site-wide-alert',
@@ -211,7 +209,7 @@ function phila_register_meta_boxes( $meta_boxes )
           )
         ),
       )
-    );
+    );//site wide alert boxes
 
     return $meta_boxes;
 }
