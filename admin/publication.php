@@ -5,7 +5,8 @@
  class PhilaPublication {
 
   public function __construct(){
-       add_action( 'save_post_publication', array( $this, 'save_publication_meta'), 10, 3 );
+    add_action( 'save_post_publication', array( $this, 'save_publication_meta'), 10, 3 );
+    add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_media_js') );
   }
  /**
   * Save attachment metadata when a document page is saved.
@@ -45,7 +46,20 @@
           wp_set_object_terms( $current_pdf, $category_ids, 'category', false );
           wp_add_object_terms( $current_pdf, $category_ids, 'category' );
         }
+
+        $types =  get_the_terms( $post_id, 'publication_type' );
+
+        foreach ($types as $type){
+          $type_ids[] = $type->term_id;
+          wp_set_object_terms( $current_pdf, $type_ids, 'publication_type', false );
+        }
       }
     }
   }
+  public function load_admin_media_js($hook){
+    if ( $hook == 'post.php' ) {
+    	wp_enqueue_script( 'admin-script', plugins_url( '../js/admin-media.js' , __FILE__, array('jQuery') ) );
+    }
+  }
+
 }//PhilaPublication

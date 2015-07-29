@@ -227,7 +227,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
           register_post_type( 'publication',
             array(
                 'labels' => array(
-                    'name' => __( 'Publication' ),
+                    'name' => __( 'Publications' ),
                     'singular_name' => __( 'Publication' ),
                     'add_new'   => __('Add Publication'),
                     'all_items'   => __('All Publications'),
