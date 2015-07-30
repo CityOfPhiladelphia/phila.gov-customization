@@ -15,6 +15,7 @@ function department_author_only(){
 }
 
 function administration_admin_scripts() {
+  wp_enqueue_media();
 	wp_enqueue_script( 'admin-script', plugins_url( '../js/admin-department-author.js' , __FILE__ ) );
 }
 
@@ -49,6 +50,8 @@ class PhilaRoleAdministration {
 
         //adds the correct menu to admin menus
         add_action( 'admin_menu', array($this, 'add_department_menu'));
+        //no media uploads
+        add_action('admin_head',array($this, 'remove_media_controls'));
 
     }
 
@@ -233,4 +236,12 @@ class PhilaRoleAdministration {
       add_submenu_page( 'edit.php?post_type=department_page', 'Nav Menu', 'Nav Menu', 'edit_posts', 'nav-menus.php' );
     }
   }
+
+  /**
+  * Removes "Add Media" Button from the editor.
+  */
+  function remove_media_controls() {
+    remove_action( 'media_buttons', 'media_buttons' );
+  }
+
 }//end PhilaRoleAdministration
