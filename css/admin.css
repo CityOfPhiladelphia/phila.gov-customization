@@ -2,3 +2,8 @@
 .rwmb-file li {
   width:100%;
 }
+.remove-all{
+  position: absolute;
+  right: 30px;
+  bottom: 20px;
+}

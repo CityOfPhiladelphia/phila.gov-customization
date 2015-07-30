@@ -213,7 +213,7 @@ function phila_register_meta_boxes( $meta_boxes ){
     );//site wide alert boxes
 
     $meta_boxes[] = array(
-      'id'       => 'document-meta',
+      'id'       => 'publication-meta',
       'title'    => 'Publication Information',
       'pages'    => array( 'publication' ),
       'context'  => 'normal',
@@ -238,7 +238,7 @@ function phila_register_meta_boxes( $meta_boxes ){
           'type'  => 'file_advanced',
           'class' =>  'publication-list',
           'mime_type'  =>  'application/pdf',
-      )
+      ),
     )
   );//document metadata
 
