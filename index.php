@@ -41,3 +41,4 @@ require $dir. '/public/content-collection.php';
 require $dir. '/public/departments.php';
 require $dir. '/public/news.php';
 require $dir. '/public/removals.php';
+require $dir. '/public/rewrite-rules.php';
