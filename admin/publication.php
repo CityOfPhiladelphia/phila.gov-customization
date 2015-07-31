@@ -63,7 +63,7 @@
   }
 
   public function load_admin_media_js(){
-    	wp_enqueue_script( 'admin-script', plugins_url( '../js/admin-media.js' , __FILE__, array('jQuery') ) );
+    	wp_enqueue_script( 'admin-publication-script', plugins_url( '../js/admin-media.js' , __FILE__, array('jQuery') ) );
   }
   public function load_admin_css(){
     wp_register_style( 'phila_admin_css', plugins_url( '../css/admin.css', __FILE__));
