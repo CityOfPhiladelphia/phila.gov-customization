@@ -31,10 +31,11 @@ $dir = plugin_dir_path( __FILE__ );
 require $dir. '/admin/admin-ui.php';
 require $dir. '/admin/alerts.php';
 require $dir. '/admin/calendar.php';
+require $dir. '/admin/class-department-author.php';
+require $dir. '/admin/class-department-author-media.php';
+require $dir. '/admin/define-roles.php';
 require $dir. '/admin/meta-boxes.php';
 require $dir. '/admin/publication.php';
-require $dir. '/admin/role-department-author.php';
-require $dir. '/admin/role-media-changes.php';
 require $dir. '/admin/taxonomies.php';
 
 require $dir. '/public/browse.php';
