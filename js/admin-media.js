@@ -5,6 +5,10 @@ jQuery(document).ready(function($){
     $('.post-type-attachment #publication_typediv input').prop( 'disabled', true );
   }
 
+  //make upload tab the default
+  wp.media.controller.Library.prototype.defaults.contentUserSetting=false;
+  wp.media.controller.Library.prototype.defaults.searchable=false;
+  wp.media.controller.Library.prototype.defaults.sortable=false;
   //add delete all button to files page
   $('.rwmb-uploaded').append('<button class="remove-all button">Delete All Files</button>');
   //$('.rwmb-file_advanced-wrapper').append('<button class="phila-modal button">Phila model</button>');
