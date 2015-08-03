@@ -239,7 +239,7 @@ if (!class_exists('PhilaGovCustomPostTypes')){
                     'not_found_in_trash'   => __('Publication not found in trash'),
               ),
                 'taxonomies' => array('category', 'publication_type'),
-                'supports' => array( 'title', 'editor', 'front-end-editor', 'revisions', 'excerpt'),
+                'supports' => array( 'title', 'editor', 'front-end-editor', 'revisions'),
                 'public' => true,
                 'has_archive' => true,
                 'menu_position' => 5,

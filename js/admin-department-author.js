@@ -15,22 +15,28 @@ jQuery(document).ready(function($){
   //hide "Appearance" menu
   $('#menu-appearance').hide();
 
-  var menuIdString = $('#menu-id').text();
-  var match = document.getElementById( menuIdString );
+  var menuIdString = $('#menu-id').text().trim();
+  var allMenuIDs = menuIdString.split(" ");
+  var match = document.getElementById( allMenuIDs );
 
-  //hides other menu locations that do not match this menu ID
-  $('.menu-theme-locations input').each(function() {
-    if ( this == match ){
-    }else{
-      $(this).parent().css('display', 'none');
-    }
-  });
+  //hide all menu locations
+  $('.menu-theme-locations input').parent().css('display', 'none');
+  //display menu locations that match current user roles
+  for (var i = 0; i < allMenuIDs.length ; i++) {
+    var currentMenuId = document.getElementById( allMenuIDs[i] );
+    $(currentMenuId).parent().css('display', 'block');
+  }
 
-  var menuNameString = $('#menu-name').text();
-  //hide other menus from the menu selection dropdown
-  $( '.manage-menus option' ).not(':contains("' + menuNameString + '")').hide();
-  $( '.manage-menus option:contains("' + menuNameString + '")').attr( 'selected', 'selected' );
+  var menuNameString = $('#menu-name').text().trim();
+  var allMenuNames = menuNameString.split(" ");
+  //hide all menus from the menu selection dropdown
+  $('.manage-menus option').css('display', 'none');
 
+  //show menus that match current user roles
+  for (var i = 0; i < allMenuNames.length ; i++) {
+    var currentMenuName = allMenuNames[i];
+    $( '.manage-menus option:contains("' + currentMenuName + '")').show();
+  }
   //add correct menu classes to "nav menu" link
   var currentURL = window.location.pathname;
 

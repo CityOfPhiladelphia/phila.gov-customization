@@ -7,6 +7,7 @@ jQuery(document).ready(function($){
 
   //add delete all button to files page
   $('.rwmb-uploaded').append('<button class="remove-all button">Delete All Files</button>');
+  //$('.rwmb-file_advanced-wrapper').append('<button class="phila-modal button">Phila model</button>');
 
   // Delete all files via Ajax
   $( '.remove-all' ).on( 'click', function () {
