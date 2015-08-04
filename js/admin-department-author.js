@@ -48,4 +48,10 @@ jQuery(document).ready(function($){
     $('.menu-icon-department_page').addClass('wp-has-submenu wp-has-current-submenu wp-menu-open');
   }
 
+  //make upload tab the default
+  wp.media.controller.Library.prototype.defaults.contentUserSetting=false;
+  wp.media.controller.Library.prototype.defaults.searchable=false;
+  wp.media.controller.Library.prototype.defaults.sortable=false;
+
+
 });

@@ -64,7 +64,7 @@ class PhilaRoleAdministration {
 
       $cat_slugs = $this->get_categories();
 
-      if ( is_user_logged_in() ){
+      if ( is_user_logged_in() && ! current_user_can( PHILA_ADMIN ) ){
         //define current_user, we should only do this when we are logged in
         $user = wp_get_current_user();
         $all_user_roles = $user->roles;
@@ -89,7 +89,7 @@ class PhilaRoleAdministration {
 
       $current_user_cat_assignment = $this->get_current_user_category();
 
-      if ( is_user_logged_in() ){
+      if ( is_user_logged_in() && ! current_user_can( PHILA_ADMIN )  ){
         if( count( $current_user_cat_assignment ) > 1 ) {
           $assigned_roles = [];
           foreach ( $current_user_cat_assignment as $cat_assignment ) {

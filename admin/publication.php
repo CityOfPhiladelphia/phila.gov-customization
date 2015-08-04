@@ -8,7 +8,7 @@
     add_action( 'save_post_publication', array( $this, 'save_publication_meta'), 10, 3 );
 
     add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_media_js') );
-    
+
     add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_css'), 11 );
   }
  /**
@@ -36,9 +36,8 @@
       $publications = rwmb_meta( 'phila_publications', $args = array('type' => 'file_advanced'));
 
     }
-      var_dump($publications);
     //ensure we have documents attached
-    if(!$publications == null) {
+    if( !$publications == null) {
 
       foreach ($publications as $document){
         $current_pdf = $document[ID];
@@ -59,8 +58,7 @@
           wp_set_object_terms( $current_pdf, $type_ids, 'publication_type', false );
         }
       }
-      $list = get_post_meta($post_id, 'phila_publications');
-      var_dump($list);
+      //$list = get_post_meta($post_id, 'phila_publications');
     }
   }
 
