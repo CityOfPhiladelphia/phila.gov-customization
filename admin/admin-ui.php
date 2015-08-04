@@ -10,6 +10,7 @@
     * Services - service_post
     * News - news_post
     * Alerts - site_wide_alert
+    * Publications - publications
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
  *
@@ -222,6 +223,34 @@ if (!class_exists('PhilaGovCustomPostTypes')){
             )
           );
         }
+        function create_publication_post_type() {
+          register_post_type( 'publication',
+            array(
+                'labels' => array(
+                    'name' => __( 'Publications' ),
+                    'singular_name' => __( 'Publication' ),
+                    'add_new'   => __('Add Publication'),
+                    'all_items'   => __('All Publications'),
+                    'add_new_item' => __('Add New Publication'),
+                    'edit_item'   => __('Edit Publication'),
+                    'view_item'   => __('View Publication'),
+                    'search_items'   => __('Search Publications'),
+                    'not_found'   => __('Publication Not Found'),
+                    'not_found_in_trash'   => __('Publication not found in trash'),
+              ),
+                'taxonomies' => array('category', 'publication_type'),
+                'supports' => array( 'title', 'editor', 'front-end-editor', 'revisions'),
+                'public' => true,
+                'has_archive' => true,
+                'menu_position' => 5,
+                'menu_icon' => 'dashicons-media-text',
+                'hierarchical' => false,
+                'rewrite' => array(
+                    'slug' => 'publications',
+                ),
+            )
+          );
+        }
     }//end class
 }
 
@@ -236,6 +265,7 @@ if (isset($custom_post_types)){
     add_action( 'init', array($custom_post_types, 'create_news_post_type'));
     add_action( 'init', array($custom_post_types, 'create_departments_page_type'));
     add_action( 'init', array($custom_post_types, 'create_site_wide_alert'));
+    add_action( 'init', array($custom_post_types, 'create_publication_post_type'));
     register_activation_hook( __FILE__, array($custom_post_types, 'rewrite_flush') );
 }
 

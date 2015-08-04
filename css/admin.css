@@ -1,0 +1,12 @@
+/* only for admins */
+.rwmb-file li {
+  width:100%;
+}
+.remove-all{
+  position: absolute;
+  right: 30px;
+  bottom: 20px;
+}
+.rwmb-file .rwmb-info {
+  width:75%;
+}

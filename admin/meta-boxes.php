@@ -45,7 +45,7 @@ function phila_register_meta_boxes( $meta_boxes ){
           'clone' => false,
         ),
       )
-    );
+    );//Service page links and description
 
     $meta_boxes[] = array(
       'id'       => 'departments',
@@ -72,7 +72,7 @@ function phila_register_meta_boxes( $meta_boxes ){
           'clone' => false,
         ),
       )
-    );
+    );//External department link
 
     $meta_boxes[] = array(
       'id'       => 'news',
@@ -92,6 +92,7 @@ function phila_register_meta_boxes( $meta_boxes ){
         )
       )
     );//news description
+
     $meta_boxes[] = array(
      'id'       => 'external_news',
      'title'    => 'News Linking to External Source',
@@ -210,6 +211,36 @@ function phila_register_meta_boxes( $meta_boxes ){
         ),
       )
     );//site wide alert boxes
+
+    $meta_boxes[] = array(
+      'id'       => 'publication-meta',
+      'title'    => 'Publication Information',
+      'pages'    => array( 'publication' ),
+      'context'  => 'normal',
+      'priority' => 'high',
+
+      'fields' => array(
+        array(
+          'name'  => 'Published Date',
+          'id'    => $prefix . 'publication-released',
+          'type'  => 'datetime',
+          'class' =>  'publication-released',
+          'size'  =>  25,
+          'js_options' =>  array(
+            'timeFormat' =>  'hh:mm tt',
+            'dateFormat'=>'m-dd-yy',
+            'showTimepicker' => false
+          )
+        ),
+        array(
+          'name'  => 'Add Files',
+          'id'    => $prefix . 'publications',
+          'type'  => 'file_advanced',
+          'class' =>  'publication-list',
+          'mime_type'  =>  'application/pdf',
+      ),
+    )
+  );//document metadata
 
     return $meta_boxes;
 }
