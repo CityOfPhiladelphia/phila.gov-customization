@@ -6,7 +6,9 @@
 
   public function __construct(){
     add_action( 'save_post_publication', array( $this, 'save_publication_meta'), 10, 3 );
+
     add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_media_js') );
+    
     add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_css'), 11 );
   }
  /**
@@ -72,18 +74,3 @@
 
 
 }//PhilaPublication
-
- function phila_wp_ajax_attach_file(){
-			$post_id  = isset( $_REQUEST['post_id'] ) ? intval( $_REQUEST['post_id'] ) : 0;
-			$field_id       = isset( $_POST['field_id'] ) ? $_POST['field_id'] : 0;
-			$attachment_ids = isset( $_POST['attachment_ids'] ) ? (array) $_POST['attachment_ids'] : array();
-			//check_ajax_referer( "rwmb-attach-file_{$field_id}" );
-      var_dump($attachment_ids);
-			foreach ( $attachment_ids as $attachment_id )
-			{
-				delete_post_meta( $post_id, $field_id, $attachment_id, false );
-        var_dump($attachment_id);
-			}
-			//wp_send_json_success();
-		}
- // /phila_wp_ajax_attach_file();

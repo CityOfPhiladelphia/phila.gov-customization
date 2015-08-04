@@ -26,7 +26,7 @@ class PhilaDepartmentAuthorMedia {
  		if ( ! current_user_can( PHILA_ADMIN ) ){
 			add_filter( 'mla_media_modal_query_final_terms', 'PhilaDepartmentAuthorMedia::filter_media_modal_query_final_terms', 10, 1 );
 
-			add_filter( 'ajax_query_attachments_args', 'PhilaDepartmentAuthorMedia::show_current_user_attachments', 10, 1 );
+		  add_filter( 'ajax_query_attachments_args', 'PhilaDepartmentAuthorMedia::show_current_user_attachments', 10, 1 );
 		}
 	}
 	/**
@@ -89,14 +89,18 @@ class PhilaDepartmentAuthorMedia {
 	  return $request;
 
 	} // filter_media_modal_query_final_terms
-
-
-	function show_current_user_attachments( $query ) {
-	    $user_id = get_current_user_id();
-	    if ( $user_id ) {
-	        $query['author'] = $user_id;
-	    }
-	    return $query;
-	}
-
+  /**
+   * Only show attachments this user uploaded.
+   *
+   * @since 0.12.0
+   * @uses get_current_user_id() https://codex.wordpress.org/Function_Reference/get_current_user_id
+   * @return $cat_slugs array Returns an array of all categories.
+   */
+    function show_current_user_attachments( $query ) {
+      $user_id = get_current_user_id();
+      if ( $user_id ) {
+          $query['author'] = $user_id;
+      }
+      return $query;
+  	}
 }//end class

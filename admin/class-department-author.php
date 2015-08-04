@@ -20,12 +20,12 @@ class PhilaRoleAdministration {
 
   }
 
-    /**
-  	 * Outputs all categories into an array w/ just slugs.
-  	 *
-  	 * @since 0.11.0
-  	 * @return $cat_slugs array Returns an array of all categories.
-  	 */
+  /**
+	 * Outputs all categories into an array w/ just slugs.
+	 *
+	 * @since 0.11.0
+	 * @return $cat_slugs array Returns an array of all categories.
+	 */
     public function get_categories(){
       $categories_args = array(
           'type'                     => 'post',
