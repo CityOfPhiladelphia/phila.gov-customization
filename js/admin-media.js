@@ -9,9 +9,10 @@ jQuery(document).ready(function($){
   wp.media.controller.Library.prototype.defaults.contentUserSetting=false;
   wp.media.controller.Library.prototype.defaults.searchable=false;
   wp.media.controller.Library.prototype.defaults.sortable=false;
+
+
   //add delete all button to files page
   $('.rwmb-uploaded').append('<button class="remove-all button">Delete All Files</button>');
-  //$('.rwmb-file_advanced-wrapper').append('<button class="phila-modal button">Phila model</button>');
 
   // Delete all files via Ajax
   $( '.remove-all' ).on( 'click', function () {
@@ -42,6 +43,10 @@ jQuery(document).ready(function($){
           return;
         }
       }, 'json' );
+
+      return false;
+      
+    }else {
 
       return false;
     }
