@@ -18,6 +18,8 @@ class PhilaRoleAdministration {
 
     add_action( 'admin_head', array( $this, 'set_jquery_vars' ) );
 
+    add_filter( 'tiny_mce_before_init', array( $this, 'format_TinyMCE' ) );
+
   }
 
   /**
@@ -240,5 +242,18 @@ class PhilaRoleAdministration {
       remove_action( 'media_buttons', 'media_buttons' );
     }
   }
+
+  function format_TinyMCE( $in ) {
+    if ( ! current_user_can( PHILA_ADMIN ) ){
+    	$in['plugins'] = 'tabfocus,paste,media,fullscreen,wordpress,wplink,wpdialogs,wpfullscreen';
+    	$in['wpautop'] = true;
+    	$in['apply_source_formatting'] = false;
+            $in['block_formats'] = "Paragraph=p; Heading 1=h1; Heading 2=h2; Heading 3=h3; Heading 4=h4; Heading 5=h5; Heading 6=h6;";
+    	$in['toolbar1'] = 'bold,italic,bullist,numlist,blockquote,hr,link,unlink,spellchecker,formatselect,charmap,outdent,indent,wp_help';
+    	$in['toolbar2'] = '';
+    	return $in;
+    }
+    return $in;
+}
 
 }//end PhilaRoleAdministration
