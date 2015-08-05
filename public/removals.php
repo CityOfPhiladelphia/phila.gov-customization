@@ -23,3 +23,7 @@ function remove_x_pingback($headers) {
     return $headers;
 }
 add_filter('wp_headers', 'remove_x_pingback');
+
+// Remove all feed links because they don't do anything right now
+remove_action('wp_head', 'feed_links', 2);
+remove_action('wp_head', 'feed_links_extra', 3);
