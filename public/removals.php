@@ -31,3 +31,10 @@ remove_action('wp_head', 'feed_links_extra', 3);
 //Remove these because we don't need them
 remove_action('wp_head', 'wlwmanifest_link');
 remove_action('wp_head', 'rsd_link');
+
+//No need for the comments button in the admin bar
+add_action( 'admin_bar_menu', 'phila_remove_comments', 999 );
+
+function phila_remove_comments( $wp_admin_bar ) {
+	$wp_admin_bar->remove_node( 'comments' );
+}
