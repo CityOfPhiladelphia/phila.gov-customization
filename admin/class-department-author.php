@@ -292,13 +292,17 @@ class PhilaRoleAdministration {
 
   public function add_meta_data($post){
     global $post;
-    $categories = get_the_category($post->ID);
-    if ($post->post_type == 'department_page'){
-      foreach ($categories as $cat){
 
-        update_post_meta($post->ID, '_category', $cat->slug );
+  if ( isset($post->ID) ){
+      $categories = get_the_category($post->ID);
+
+      if ($post->post_type == 'department_page'){
+          foreach ($categories as $cat){
+
+            update_post_meta($post->ID, '_category', $cat->slug );
+          }
+        }
       }
-    }
-  }
+   }
 
 }//end PhilaRoleAdministration
