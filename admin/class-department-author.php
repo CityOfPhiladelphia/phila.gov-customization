@@ -240,13 +240,17 @@ class PhilaRoleAdministration {
 
   /**
   * Removes "Add Media" Button from the editor.
+  * @since 0.13.0
   */
   function remove_media_controls() {
     if ( ! current_user_can( PHILA_ADMIN ) ){
       remove_action( 'media_buttons', 'media_buttons' );
     }
   }
-
+  /**
+  * Removes unwanted butons from TinyMCE
+  * @since 0.13.0
+  */
   function format_TinyMCE( $in ) {
     if ( ! current_user_can( PHILA_ADMIN ) ){
     	$in['plugins'] = 'tabfocus,paste,media,fullscreen,wordpress,wplink,wpdialogs,wpfullscreen';
@@ -260,14 +264,13 @@ class PhilaRoleAdministration {
     return $in;
 }
   /**
-   * Set default parent by the `parent_id` URL Parameter
+   * Modifies args sent to page attributes dropdown. Only allows department authors to see pages in their deparment category.
    *
-   * @since    0.2.0
+   * @since    0.14.0
    */
   public function change_dropdown_args( $dropdown_args, $post ) {
 
     $current_user_cat = $this->get_current_user_category();
-
 
       $dropdown_args = array(
         'post_type'        => $post->post_type,
@@ -283,26 +286,34 @@ class PhilaRoleAdministration {
 
       return $dropdown_args;
   }
+  /**
+   * Ensures the change_dropdown_args runs at the correct time.
+   *
+   * @since 0.14.0
+   */
 
   public function abstract_user_role(){
     if ( ! current_user_can( PHILA_ADMIN )  ){
         add_filter( 'page_attributes_dropdown_pages_args', array( $this, 'change_dropdown_args' ), 9, 2 );
     }
   }
-
-  public function add_meta_data($post){
+  /**
+	 * Adds category as metadata for filtering the page attribute dropdown box.
+	 *
+	 * @since 0.14.0
+	 *
+	 */
+  public function add_meta_data( $post ){
     global $post;
+    if ( isset( $post->ID ) ){
+        $categories = get_the_category( $post->ID );
 
-  if ( isset($post->ID) ){
-      $categories = get_the_category($post->ID);
-
-      if ($post->post_type == 'department_page'){
-          foreach ($categories as $cat){
-
-            update_post_meta($post->ID, '_category', $cat->slug );
-          }
+        if ( $post->post_type == 'department_page' ){
+            foreach ( $categories as $cat ){
+              update_post_meta( $post->ID, '_category', $cat->slug );
+            }
         }
-      }
-   }
+    }
+  }
 
 }//end PhilaRoleAdministration
