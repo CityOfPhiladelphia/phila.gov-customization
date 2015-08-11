@@ -213,18 +213,18 @@ function phila_register_meta_boxes( $meta_boxes ){
     );//site wide alert boxes
 
     $meta_boxes[] = array(
-      'id'       => 'publication-meta',
-      'title'    => 'Publication Information',
-      'pages'    => array( 'publication' ),
+      'id'       => 'document-meta',
+      'title'    => 'Document Information',
+      'pages'    => array( 'document' ),
       'context'  => 'normal',
       'priority' => 'high',
 
       'fields' => array(
         array(
           'name'  => 'Published Date',
-          'id'    => $prefix . 'publication-released',
+          'id'    => $prefix . 'document-released',
           'type'  => 'datetime',
-          'class' =>  'publication-released',
+          'class' =>  'document-released',
           'size'  =>  25,
           'js_options' =>  array(
             'timeFormat' =>  'hh:mm tt',
@@ -234,9 +234,9 @@ function phila_register_meta_boxes( $meta_boxes ){
         ),
         array(
           'name'  => 'Add Files',
-          'id'    => $prefix . 'publications',
+          'id'    => $prefix . 'documents',
           'type'  => 'file_advanced',
-          'class' =>  'publication-list',
+          'class' =>  'document-list',
           'mime_type'  =>  'application/pdf',
       ),
     )
