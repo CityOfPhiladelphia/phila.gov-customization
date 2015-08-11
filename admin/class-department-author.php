@@ -20,6 +20,10 @@ class PhilaRoleAdministration {
 
     add_filter( 'tiny_mce_before_init', array( $this, 'format_TinyMCE' ) );
 
+    add_action('init', array( $this, 'abstract_user_role') );
+
+    add_action('admin_head', array($this, 'add_meta_data') );
+
   }
 
   /**
@@ -255,5 +259,46 @@ class PhilaRoleAdministration {
     }
     return $in;
 }
+  /**
+   * Set default parent by the `parent_id` URL Parameter
+   *
+   * @since    0.2.0
+   */
+  public function change_dropdown_args( $dropdown_args, $post ) {
+
+    $current_user_cat = $this->get_current_user_category();
+
+
+      $dropdown_args = array(
+        'post_type'        => $post->post_type,
+        'exclude_tree'     => $post->ID,
+        'selected'         => $post->post_parent,
+        'name'             => 'parent_id',
+        'show_option_none' => __('(no parent)'),
+        'sort_column'      => 'menu_order',
+        'echo'             => 0,
+        'meta_key'         =>'_category',
+        'meta_value'       => $current_user_cat
+      );
+
+      return $dropdown_args;
+  }
+
+  public function abstract_user_role(){
+    if ( ! current_user_can( PHILA_ADMIN )  ){
+        add_filter( 'page_attributes_dropdown_pages_args', array( $this, 'change_dropdown_args' ), 9, 2 );
+    }
+  }
+
+  public function add_meta_data($post){
+    global $post;
+    $categories = get_the_category($post->ID);
+    if ($post->post_type == 'department_page'){
+      foreach ($categories as $cat){
+
+        update_post_meta($post->ID, '_category', $cat->slug );
+      }
+    }
+  }
 
 }//end PhilaRoleAdministration

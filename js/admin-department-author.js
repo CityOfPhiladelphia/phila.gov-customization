@@ -2,6 +2,9 @@
 for users who do not have the PHILA_ADMIN capability */
 
 jQuery(document).ready(function($){
+
+  "use strict";
+
   //force top category to be checked all the time
   var required_cat = $('#categorychecklist li:first-child input');
   if( !required_cat.attr('checked')  ) {
@@ -48,10 +51,25 @@ jQuery(document).ready(function($){
     $('.menu-icon-department_page').addClass('wp-has-submenu wp-has-current-submenu wp-menu-open');
   }
 
-  //make upload tab the default
-  wp.media.controller.Library.prototype.defaults.contentUserSetting=false;
-  wp.media.controller.Library.prototype.defaults.searchable=false;
-  wp.media.controller.Library.prototype.defaults.sortable=false;
+  //only modify wp.media if this is a department site, or publication
+  if (typenow == 'department_page' || typenow == 'publication'){
+    //make upload tab the default'
+    wp.media.controller.Library.prototype.defaults.contentUserSetting=false;
+    wp.media.controller.Library.prototype.defaults.searchable=false;
+    wp.media.controller.Library.prototype.defaults.sortable=false;
+  }
+
+  var post_ID = $('#post_ID').val(),
+  parent_id = ( '' == $('#parent_id').val() ) ? 0 : $('#parent_id').val(),
+  addNew = $('.add-new-h2'),
+  html = '';
+
+  html += '<a id="add_new_child" href="post-new.php?post_type=' + typenow + '&parent_id=' + post_ID + '" class="add-new-h2" target="_blank">' + 'Add New Page' + '</a>';
+
+  console.log('type: '+ typenow);
+  console.log('current page: ' +  pagenow);
+  console.log('admin page: ' +  adminpage);
+  $(html).insertAfter(addNew);
 
 
 });
