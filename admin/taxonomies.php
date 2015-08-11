@@ -43,7 +43,7 @@ if (!class_exists("PhilaGovCustomTax")){
       ));
       register_taxonomy('document_type',
           array(
-              'document', 'attachment'
+              'document'
           ), array(
               'hierarchical' => true,
               // This array of options controls the labels displayed in the WordPress Admin UI
@@ -64,6 +64,32 @@ if (!class_exists("PhilaGovCustomTax")){
           // Control the slugs used for this taxonomy
           'rewrite' => array(
             'slug' => 'document-type', // This controls the base slug that will display before each term
+            'hierarchical' => false // This will allow URL's like "/topics/water/billing"
+          ),
+      ));
+      register_taxonomy('document_topics',
+          array(
+              'document'
+          ), array(
+              'hierarchical' => true,
+              // This array of options controls the labels displayed in the WordPress Admin UI
+              'labels' => array(
+                  'name' => _x( 'Document Topic', 'taxonomy general name'),
+                  'singular_name' => _x( 'Document Topic', 'taxonomy singular name'),
+                  'menu_name' =>     __('Document Topic'),
+                  'search_items' =>  __( 'Search Document Topics' ),
+                  'all_items' =>     __( 'All Document Topics' ),
+                  'edit_item' =>     __( 'Edit Document Topic' ),
+                  'update_item' =>   __( 'Update Document Topic' ),
+                  'add_new_item' =>  __( 'Add New Document Topic' ),
+                  'new_item_name' => __( 'New Document Topic' ),
+                  'menu_name' =>     __( 'Document Topics' ),
+              ),
+          'public' => true,
+          'show_admin_column' => true,
+          // Control the slugs used for this taxonomy
+          'rewrite' => array(
+            'slug' => 'document-topics', // This controls the base slug that will display before each term
             'hierarchical' => false // This will allow URL's like "/topics/water/billing"
           ),
       ));
