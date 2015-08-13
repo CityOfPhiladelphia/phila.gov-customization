@@ -37,6 +37,8 @@ require $dir. '/admin/define-roles.php';
 require $dir. '/admin/documents.php';
 require $dir. '/admin/meta-boxes.php';
 require $dir. '/admin/taxonomies.php';
+require $dir. '/admin/tiny-mce.php';
+
 
 require $dir. '/public/browse.php';
 require $dir. '/public/calendar-display.php';
