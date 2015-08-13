@@ -34,7 +34,7 @@ require $dir. '/admin/calendar.php';
 require $dir. '/admin/class-department-author.php';
 require $dir. '/admin/class-department-author-media.php';
 require $dir. '/admin/define-roles.php';
-//require $dir. '/admin/documents.php';
+require $dir. '/admin/documents.php';
 require $dir. '/admin/meta-boxes.php';
 require $dir. '/admin/taxonomies.php';
 

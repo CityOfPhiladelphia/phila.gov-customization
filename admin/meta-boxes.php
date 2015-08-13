@@ -214,12 +214,13 @@ function phila_register_meta_boxes( $meta_boxes ){
 
     $meta_boxes[] = array(
       'id'       => 'document-meta',
-      'title'    => 'Document Information',
+      'title'    => 'Primary Document',
       'pages'    => array( 'document' ),
       'context'  => 'normal',
       'priority' => 'high',
 
       'fields' => array(
+
         array(
           'name'  => 'Published Date',
           'id'    => $prefix . 'document-released',
@@ -233,11 +234,90 @@ function phila_register_meta_boxes( $meta_boxes ){
           )
         ),
         array(
-          'name'  => 'Add Files',
+          'name'  => 'Add English Document',
           'id'    => $prefix . 'documents',
-          'type'  => 'file_advanced',
-          'class' =>  'document-list',
+          'type'  => 'file_input',
+          'class' =>  'document-list-eng',
           'mime_type'  =>  'application/pdf',
+      ),
+    )
+  );
+  $meta_boxes[] = array(
+    'id'       => 'document-other-langs',
+    'title'    => 'Alternate Languages',
+    'pages'    => array( 'document' ),
+    'context'  => 'normal',
+    'priority' => 'high',
+
+    'fields' => array(
+      array(
+        'name' => 'Add More Languages',
+        'id'   => $prefix . 'doc-lang',
+        'type'  => 'select_advanced',
+        'class' => 'docu-list-mutiple',
+        'placeholder' => 'Choose...',
+        'js_options' => array(
+          'minimumResultsForSearch' => 'Infinity',
+          'allowClear'  => false
+        ),
+        'options' => array(
+            'spanish' => 'Spanish',
+            'french' => 'French',
+            'chinese' => 'Chinese',
+            'korean' => 'Korean',
+            'khmer' => 'Khmer',
+            'russian' => 'Russian',
+            'vietnamese' => 'Vietnamese',
+        ),
+      ),
+      array(
+        'name'  => 'Spanish Version',
+        'id'    => $prefix . 'documents-spanish',
+        'type'  => 'file_input',
+        'class' =>  'phila-lang document-list-spanish',
+        'mime_type'  =>  'application/pdf',
+      ),
+      array(
+        'name'  => 'French Version',
+        'id'    => $prefix . 'documents-french',
+        'type'  => 'file_input',
+        'class' =>  'phila-lang document-list-french',
+        'mime_type'  =>  'application/pdf',
+      ),
+      array(
+        'name'  => 'Chinese Version',
+        'id'    => $prefix . 'documents-chinese',
+        'type'  => 'file_input',
+        'class' =>  'phila-lang document-list-chinese',
+        'mime_type'  =>  'application/pdf',
+      ),
+      array(
+        'name'  => 'Korean Version',
+        'id'    => $prefix . 'documents-korean',
+        'type'  => 'file_input',
+        'class' =>  'phila-lang document-list-korean',
+        'mime_type'  =>  'application/pdf',
+      ),
+      array(
+        'name'  => 'Khmer Version',
+        'id'    => $prefix . 'documents-khmer',
+        'type'  => 'file_input',
+        'class' =>  'phila-lang document-list-khmer',
+        'mime_type'  =>  'application/pdf',
+      ),
+      array(
+        'name'  => 'Russian Version',
+        'id'    => $prefix . 'documents-russian',
+        'type'  => 'file_input',
+        'class' =>  'phila-lang document-list-russian',
+        'mime_type'  =>  'application/pdf',
+      ),
+      array(
+        'name'  => 'Vietnamese Version',
+        'id'    => $prefix . 'documents-vietnamese',
+        'type'  => 'file_input',
+        'class' =>  'phila-lang document-list-vietnamese',
+        'mime_type'  =>  'application/pdf',
       ),
     )
   );//document metadata
