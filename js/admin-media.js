@@ -16,6 +16,7 @@ jQuery(document).ready(function($){
   /*documents page */
   if ( ( typenow == 'document') && adminpage.indexOf('post') > -1 ){
 
+    $('.postarea').before('<h2>Document Description</h2>');
 
     $("#post").validate({
       rules: {
@@ -98,12 +99,12 @@ jQuery(document).ready(function($){
 });
 
 if ( (typenow == 'document') && adminpage.indexOf('post') > -1 ){
-
   // prevent users from entering more than 300 chars
   window.onload = function () {
     jQuery('#post-status-info').append('<span class="character-limit"></span>');
     jQuery('.character-limit').hide();
     var editor_char_limit = 300;
+
 
     tinymce.activeEditor.on('keyup', function(e) {
 

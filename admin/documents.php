@@ -36,7 +36,6 @@
       $documents = rwmb_meta( 'phila_documents', $args = array('type' => 'file_advanced'));
 
     }
-      var_dump($documents);
     //ensure we have documents attached
     if(!$documents == null) {
 
@@ -60,7 +59,6 @@
         }
       }
       $list = get_post_meta($post_id, 'phila_documents');
-      var_dump($list);
     }
   }
 

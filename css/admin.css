@@ -19,3 +19,6 @@
 #post-status-info .character-limit::after {
   content:'Please enter less text';
 }
+#body.post-type-document:after{
+  content: 'Enter description';
+}
