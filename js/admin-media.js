@@ -99,7 +99,7 @@ jQuery(document).ready(function($){
 });
 
 if ( (typenow == 'document') && adminpage.indexOf('post') > -1 ){
-  // prevent users from entering more than 300 chars
+  // prevent users from entering more than 300 chars in tinyMCE
   window.onload = function () {
     jQuery('#post-status-info').append('<span class="character-limit"></span>');
     jQuery('.character-limit').hide();

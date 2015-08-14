@@ -237,7 +237,6 @@ function phila_register_meta_boxes( $meta_boxes ){
           'id'    => $prefix . 'documents',
           'type'  => 'file_input',
           'class' =>  'document-list-eng',
-          'mime_type'  =>  'application/pdf',
           'required'  => true
       ),
     )
@@ -275,49 +274,42 @@ function phila_register_meta_boxes( $meta_boxes ){
         'id'    => $prefix . 'documents-spanish',
         'type'  => 'file_input',
         'class' =>  'phila-lang document-list-spanish',
-        'mime_type'  =>  'application/pdf',
       ),
       array(
         'name'  => 'French Version',
         'id'    => $prefix . 'documents-french',
         'type'  => 'file_input',
         'class' =>  'phila-lang document-list-french',
-        'mime_type'  =>  'application/pdf',
       ),
       array(
         'name'  => 'Chinese Version',
         'id'    => $prefix . 'documents-chinese',
         'type'  => 'file_input',
         'class' =>  'phila-lang document-list-chinese',
-        'mime_type'  =>  'application/pdf',
       ),
       array(
         'name'  => 'Korean Version',
         'id'    => $prefix . 'documents-korean',
         'type'  => 'file_input',
         'class' =>  'phila-lang document-list-korean',
-        'mime_type'  =>  'application/pdf',
       ),
       array(
         'name'  => 'Khmer Version',
         'id'    => $prefix . 'documents-khmer',
         'type'  => 'file_input',
         'class' =>  'phila-lang document-list-khmer',
-        'mime_type'  =>  'application/pdf',
       ),
       array(
         'name'  => 'Russian Version',
         'id'    => $prefix . 'documents-russian',
         'type'  => 'file_input',
         'class' =>  'phila-lang document-list-russian',
-        'mime_type'  =>  'application/pdf',
       ),
       array(
         'name'  => 'Vietnamese Version',
         'id'    => $prefix . 'documents-vietnamese',
         'type'  => 'file_input',
         'class' =>  'phila-lang document-list-vietnamese',
-        'mime_type'  =>  'application/pdf',
       ),
     )
   );//document metadata
