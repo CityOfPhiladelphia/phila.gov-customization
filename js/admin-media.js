@@ -6,120 +6,117 @@ jQuery(document).ready(function($){
     $('.post-type-attachment #publication_typediv input').prop( 'disabled', true );
   }
 
-  //make upload tab the default
-  wp.media.controller.Library.prototype.defaults.contentUserSetting=false;
-  wp.media.controller.Library.prototype.defaults.searchable=false;
-  wp.media.controller.Library.prototype.defaults.sortable=false;
+  //only modify wp.media if this is a department site, or publication
+  if ( (typenow == 'department_page' || typenow == 'document') && adminpage.indexOf('post') > -1 ){
+    //make upload tab the default
+    wp.media.controller.Library.prototype.defaults.contentUserSetting=false;
+    wp.media.controller.Library.prototype.defaults.searchable=false;
+    wp.media.controller.Library.prototype.defaults.sortable=false;
+  }
+  /*documents page */
+  if ( ( typenow == 'document') && adminpage.indexOf('post') > -1 ){
 
-  //add delete all button to files page
-  $('.rwmb-uploaded').append('<button class="remove-all button">Delete All Files</button>');
 
-  // Delete all files via Ajax
-  $( '.remove-all' ).on( 'click', function () {
-    if (confirm('Delete all files?')) {
-    // Save it!
+    $("#post").validate({
+      rules: {
+       'phila_documents': 'required',
+       'post_title' : 'required',
+       'mce-tinymce' : 'required'
+     }
+    });
 
-    var $this = $( this ),
-      $parent = $this.parents( 'li' ),
-      $container = $this.closest( '.rwmb-uploaded' ),
-      data = {
-        action       : 'rwmb_delete_file',
-        _ajax_nonce  : $container.data( 'delete_nonce' ),
-        post_id      : $( '#post_ID' ).val(),
-        field_id     : $container.data( 'field_id' ),
-        attachment_id: $this.data( 'attachment_id' ),
-        force_delete : $container.data( 'force_delete' )
-      };
+    /*documents page */
+    $('.rwmb-datetime').datepicker();
+    $('.rwmb-datetime').datepicker('setDate', new Date());
 
-      $('.rwmb-uploaded').addClass('transitionend webkitTransitionEnd otransitionend').children('li').remove();
+    var $eventSelect = $('.rwmb-select-advanced');
 
-      $('html,body').animate({
-        scrollTop: $("#publication-meta").offset().top
-      });
-
-      $.post( ajaxurl, data, function ( r ) {
-        if ( !r.success ) {
-          alert( r.data );
-          return;
+    $('.phila-lang input').each(function(){
+        if( $(this).attr('value') == '' ) {
+          $(this).parent().parent().hide();
         }
-      }, 'json' );
+        if( $('phila-lang input').attr('value') ) {
+          console.log('bbom');
+        }
+    });
 
-      return false;
+    $('.wp-core-ui .phila-lang .button.hidden').removeClass('hidden');
 
-    }else {
+    $eventSelect.on('change', function (e) {
+      var lang = $('.rwmb-select-advanced').select2('val');
+      var currentClass = '.document-list-' + lang;
+      switch ( lang ) {
 
-      return false;
-    }
-  });
+        case ('spanish'):
+          $("option[value='"+lang+"']").prop('disabled', true);
+          $(currentClass).toggle();
+        break;
 
-  /*publications page */
+        case ('french'):
+          $("option[value='"+lang+"']").prop('disabled', true);
+          $(currentClass).toggle();
+        break;
 
-  var $eventSelect = $('.rwmb-select-advanced');
+        case ('chinese'):
+          $("option[value='"+lang+"']").prop('disabled', true);
+          $(currentClass).toggle();
+        break;
 
-  $('.phila-lang input').each(function(){
-      if( $(this).attr('value') == '' ) {
-        $(this).parent().parent().hide();
+        case ('korean'):
+          $("option[value='"+lang+"']").prop('disabled', true);
+          $(currentClass).toggle();
+        break;
+
+        case ('khmer'):
+          $("option[value='"+lang+"']").prop('disabled', true);
+          $(currentClass).toggle();
+        break;
+
+        case ('russian'):
+          $("option[value='"+lang+"']").prop('disabled', true);
+          $(currentClass).toggle();
+        break;
+
+        case ('vietnamese'):
+          $("option[value='"+lang+"']").prop('disabled', true);
+          $(currentClass).toggle();
+        break;
+
+        case ('french'):
+          $("option[value='"+lang+"']").prop('disabled', true);
+          $(currentClass).toggle();
+        break;
       }
-      if( $('phila-lang input').attr('value') ) {
-        console.log('bbom');
-      }
+   });
 
-  });
+   $('#document-other-langs .rwmb-file-input-remove').click(function() {
+     $(this).parent().parent().hide();
 
-  $('.wp-core-ui .phila-lang .button.hidden').removeClass('hidden');
-
-  $eventSelect.on("change", function (e) {
-    var lang = $(".rwmb-select-advanced").select2("val");
-    var currentClass = '.document-list-' + lang;
-    switch ( lang ) {
-
-      case ('spanish'):
-        $("option[value='"+lang+"']").prop('disabled', true);
-        $(currentClass).toggle();
-      break;
-
-      case ('french'):
-        $("option[value='"+lang+"']").prop('disabled', true);
-        $(currentClass).toggle();
-      break;
-
-      case ('chinese'):
-        $("option[value='"+lang+"']").prop('disabled', true);
-        $(currentClass).toggle();
-      break;
-
-      case ('korean'):
-        $("option[value='"+lang+"']").prop('disabled', true);
-        $(currentClass).toggle();
-      break;
-
-      case ('khmer'):
-        $("option[value='"+lang+"']").prop('disabled', true);
-        $(currentClass).toggle();
-      break;
-
-      case ('russian'):
-        $("option[value='"+lang+"']").prop('disabled', true);
-        $(currentClass).toggle();
-      break;
-
-      case ('vietnamese'):
-        $("option[value='"+lang+"']").prop('disabled', true);
-        $(currentClass).toggle();
-      break;
-
-      case ('french'):
-        $("option[value='"+lang+"']").prop('disabled', true);
-        $(currentClass).toggle();
-      break;
-    }
- });
-
- $('#document-other-langs .rwmb-file-input-remove').click(function() {
-   $(this).parent().parent().hide();
-
-  // $("option[value='spanish']").prop('disabled', false);
-
- });
-
+    // $("option[value='spanish']").prop('disabled', false);
+   });
+  }
 });
+
+if ( (typenow == 'document') && adminpage.indexOf('post') > -1 ){
+
+  // prevent users from entering more than 300 chars
+  window.onload = function () {
+    jQuery('#post-status-info').append('<span class="character-limit"></span>');
+    jQuery('.character-limit').hide();
+    var editor_char_limit = 300;
+
+    tinymce.activeEditor.on('keyup', function(e) {
+
+      if ( tinyMCE.activeEditor.getContent().length > editor_char_limit ) {
+        jQuery('.character-limit').show();
+        jQuery('#publishing-action #publish').attr('disabled', 'disabled');
+        jQuery('#wp-content-editor-container').css('border', '1px solid #FFA2A2');
+
+      } else {
+        jQuery('.character-limit').hide();
+        jQuery('#publishing-action #publish').removeAttr('disabled', 'disabled');
+        jQuery('#wp-content-editor-container').css('border', 'none');
+      }
+    });
+  }
+}

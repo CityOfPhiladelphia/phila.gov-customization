@@ -10,3 +10,12 @@
 .rwmb-file .rwmb-info {
   width:75%;
 }
+#post-status-info .character-limit{
+  display: block;
+  background:#FFA2A2;
+  padding:10px;
+  width:100%;
+}
+#post-status-info .character-limit::after {
+  content:'Please enter less text';
+}
