@@ -228,8 +228,7 @@ function phila_register_meta_boxes( $meta_boxes ){
           'class' =>  'document-released',
           'size'  =>  25,
           'js_options' =>  array(
-            'timeFormat' =>  'hh:mm tt',
-            'dateFormat'=>'m-dd-yy',
+            'dateFormat'=>'m\dd\yy',
             'showTimepicker' => false
           )
         ),
@@ -239,6 +238,7 @@ function phila_register_meta_boxes( $meta_boxes ){
           'type'  => 'file_input',
           'class' =>  'document-list-eng',
           'mime_type'  =>  'application/pdf',
+          'required'  => true
       ),
     )
   );
