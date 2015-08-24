@@ -77,7 +77,6 @@
     wp_enqueue_style( 'phila_admin_css' );
   }
 
-
   public function set_default_editor() {
       $r = 'tinymce';
       return $r;
