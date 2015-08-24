@@ -22,3 +22,6 @@
 #body.post-type-document:after{
   content: 'Enter description';
 }
+.wp-core-ui #document-other-langs .button.hidden {
+  display: inline-block !important;
+}
