@@ -13,6 +13,7 @@ jQuery(document).ready(function($){
     wp.media.controller.Library.prototype.defaults.searchable=false;
     wp.media.controller.Library.prototype.defaults.sortable=false;
   }
+
   /*documents page */
   if ( ( typenow == 'document') && adminpage.indexOf('post') > -1 ){
 
@@ -41,13 +42,11 @@ jQuery(document).ready(function($){
 
     });
 
-    $('.wp-core-ui .phila-lang .button.hidden').removeClass('hidden');
-
     var languages = [];
 
     $eventSelect.on('change', function (e) {
       var lang = $('.rwmb-select-advanced').select2('val');
-      var currentClass = '.document-list-' + lang;
+      var currentClass = '.' + lang;
 
       switch ( lang ) {
 
@@ -101,23 +100,31 @@ jQuery(document).ready(function($){
       }
    });
 
+   //Logic for adding/removing a language field. Matches on class names from the options dropdown.
    $('#document-other-langs .rwmb-file-input-remove').click(function() {
+
      $(this).parent().parent().hide();
-     var thing = $(this).parent().parent();
-     //$("option[value='"+lang+"']").prop('disabled', false);
-      console.log(thing);
+     var currentItem = $(this).parent().parent();
+
+     var lastClick = $(currentItem).attr('class').split(' ').pop();
+
      $.each(languages, function(index, value){
+       if(languages[index] === lastClick) {
 
-      if ($(this).parent().parent().className === value ){
-         console.log('yuuup');
-       }
+          $("option[value='"+lastClick+"']").prop('disabled', false);
+
+          languages.splice(index, 1);
+
+          return( false );
+         }
+
     });
-
 
    });
   }
 });
-
+//We are going to hold off on this for now, and make a plain text field required.
+/*
 if ( (typenow == 'document') && adminpage.indexOf('post') > -1 ){
   // prevent users from entering more than 300 chars in tinyMCE
   window.onload = function () {
@@ -141,3 +148,4 @@ if ( (typenow == 'document') && adminpage.indexOf('post') > -1 ){
     });
   }
 }
+*/
