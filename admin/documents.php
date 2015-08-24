@@ -10,6 +10,9 @@
     add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_media_js') );
 
     add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_css'), 11 );
+
+    add_filter( 'wp_default_editor', array( $this, 'set_default_editor' ) );
+
   }
  /**
   * Save attachment metadata when a document page is saved.
@@ -72,6 +75,12 @@
   public function load_admin_css(){
     wp_register_style( 'phila_admin_css', plugins_url( '../css/admin.css', __FILE__));
     wp_enqueue_style( 'phila_admin_css' );
+  }
+
+
+  public function set_default_editor() {
+      $r = 'tinymce';
+      return $r;
   }
 
 

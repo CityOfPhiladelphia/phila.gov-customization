@@ -35,65 +35,85 @@ jQuery(document).ready(function($){
     $('.phila-lang input').each(function(){
         if( $(this).attr('value') == '' ) {
           $(this).parent().parent().hide();
+        }else{
+          $("option[value='spanish']").prop('disabled', true);
         }
-        if( $('phila-lang input').attr('value') ) {
-          console.log('bbom');
-        }
+
     });
 
     $('.wp-core-ui .phila-lang .button.hidden').removeClass('hidden');
 
+    var languages = [];
+
     $eventSelect.on('change', function (e) {
       var lang = $('.rwmb-select-advanced').select2('val');
       var currentClass = '.document-list-' + lang;
+
       switch ( lang ) {
 
         case ('spanish'):
           $("option[value='"+lang+"']").prop('disabled', true);
           $(currentClass).toggle();
+          languages.push(lang);
         break;
 
         case ('french'):
           $("option[value='"+lang+"']").prop('disabled', true);
           $(currentClass).toggle();
+          languages.push(lang);
         break;
 
         case ('chinese'):
           $("option[value='"+lang+"']").prop('disabled', true);
           $(currentClass).toggle();
+          languages.push(lang);
         break;
 
         case ('korean'):
           $("option[value='"+lang+"']").prop('disabled', true);
           $(currentClass).toggle();
+          languages.push(lang);
         break;
 
         case ('khmer'):
           $("option[value='"+lang+"']").prop('disabled', true);
           $(currentClass).toggle();
+          languages.push(lang);
         break;
 
         case ('russian'):
           $("option[value='"+lang+"']").prop('disabled', true);
           $(currentClass).toggle();
+          languages.push(lang);
         break;
 
         case ('vietnamese'):
           $("option[value='"+lang+"']").prop('disabled', true);
           $(currentClass).toggle();
+          languages.push(lang);
         break;
 
         case ('french'):
           $("option[value='"+lang+"']").prop('disabled', true);
           $(currentClass).toggle();
+          languages.push(lang);
         break;
       }
    });
 
    $('#document-other-langs .rwmb-file-input-remove').click(function() {
      $(this).parent().parent().hide();
+     var thing = $(this).parent().parent();
+     //$("option[value='"+lang+"']").prop('disabled', false);
+      console.log(thing);
+     $.each(languages, function(index, value){
 
-    // $("option[value='spanish']").prop('disabled', false);
+      if ($(this).parent().parent().className === value ){
+         console.log('yuuup');
+       }
+    });
+
+
    });
   }
 });
