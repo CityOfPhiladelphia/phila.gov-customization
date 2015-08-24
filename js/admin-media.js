@@ -13,19 +13,16 @@ jQuery(document).ready(function($){
     wp.media.controller.Library.prototype.defaults.searchable=false;
     wp.media.controller.Library.prototype.defaults.sortable=false;
   }
-
-  /*documents page */
-  if ( ( typenow == 'document') && adminpage.indexOf('post') > -1 ){
-
-    $('.postarea').before('<h2>Document Description</h2>');
-
-    $("#post").validate({
+  $("#post").validate({
       rules: {
-       'phila_documents': 'required',
-       'post_title' : 'required',
-       'mce-tinymce' : 'required'
+        'phila_news_desc' : 'required',
+        'phila_document_description' : 'required',
+        'phila_english_document': 'required',
+        'post_title' : 'required'
      }
     });
+  /*documents page */
+  if ( ( typenow == 'document') && adminpage.indexOf('post') > -1 ){
 
     /*documents page */
     $('.rwmb-datetime').datepicker();
@@ -34,8 +31,9 @@ jQuery(document).ready(function($){
     var $eventSelect = $('.rwmb-select-advanced');
 
     var languages = [];
+
     //Logic for showing/hiding based on language selected
-    
+
     $eventSelect.on('change', function (e) {
       var lang = $('.rwmb-select-advanced').select2('val');
       var currentClass = '.' + lang;
