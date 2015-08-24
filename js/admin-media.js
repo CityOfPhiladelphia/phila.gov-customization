@@ -33,17 +33,9 @@ jQuery(document).ready(function($){
 
     var $eventSelect = $('.rwmb-select-advanced');
 
-    $('.phila-lang input').each(function(){
-        if( $(this).attr('value') == '' ) {
-          $(this).parent().parent().hide();
-        }else{
-          $("option[value='spanish']").prop('disabled', true);
-        }
-
-    });
-
     var languages = [];
-
+    //Logic for showing/hiding based on language selected
+    
     $eventSelect.on('change', function (e) {
       var lang = $('.rwmb-select-advanced').select2('val');
       var currentClass = '.' + lang;
@@ -98,6 +90,19 @@ jQuery(document).ready(function($){
           languages.push(lang);
         break;
       }
+   });
+
+   $('.phila-lang input').each(function(){
+     if( $(this).attr('value') == '' ) {
+       $(this).parent().parent().hide();
+     }else{
+
+       //When a user comes to a page, items that already have a document shouldn't be selectable
+       var disabledLang = $(this).parent().parent();
+       var disabledLangClass = $(disabledLang).attr('class').split(' ').pop();
+       $("option[value='"+disabledLangClass+"']").prop('disabled', true);
+       languages.push(disabledLangClass);
+     }
    });
 
    //Logic for adding/removing a language field. Matches on class names from the options dropdown.
