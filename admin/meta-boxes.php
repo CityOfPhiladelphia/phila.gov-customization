@@ -213,8 +213,23 @@ function phila_register_meta_boxes( $meta_boxes ){
     );//site wide alert boxes
 
     $meta_boxes[] = array(
+      'id'       => 'document-description',
+      'title'    => 'Document Description',
+      'pages'    => array( 'document' ),
+      'context'  => 'normal',
+      'priority' => 'high',
+
+      'fields' => array(
+        array(
+         'name' => 'Description',
+         'id'   => $prefix . 'document_description',
+         'type' => 'textarea'
+       ),
+      )
+    );
+    $meta_boxes[] = array(
       'id'       => 'document-meta',
-      'title'    => 'Primary Document',
+      'title'    => 'Attach Primary Document',
       'pages'    => array( 'document' ),
       'context'  => 'normal',
       'priority' => 'high',
@@ -223,7 +238,7 @@ function phila_register_meta_boxes( $meta_boxes ){
 
         array(
           'name'  => 'Published Date',
-          'id'    => $prefix . 'document-released',
+          'id'    => $prefix . 'document_released',
           'type'  => 'datetime',
           'class' =>  'document-released',
           'size'  =>  25,
@@ -234,16 +249,15 @@ function phila_register_meta_boxes( $meta_boxes ){
         ),
         array(
           'name'  => 'Add English Document',
-          'id'    => $prefix . 'documents',
+          'id'    => $prefix . 'english_document',
           'type'  => 'file_input',
-          'class' =>  'eng',
-          'required'  => true
+          'class' =>  'english'
       ),
     )
   );
   $meta_boxes[] = array(
     'id'       => 'document-other-langs',
-    'title'    => 'Alternate Languages',
+    'title'    => 'Attach Alternate Languages',
     'pages'    => array( 'document' ),
     'context'  => 'normal',
     'priority' => 'high',
@@ -251,7 +265,7 @@ function phila_register_meta_boxes( $meta_boxes ){
     'fields' => array(
       array(
         'name' => 'Add More Languages',
-        'id'   => $prefix . 'doc-lang',
+        'id'   => $prefix . 'doc_lang',
         'type'  => 'select_advanced',
         'class' => 'docu-list-mutiple',
         'placeholder' => 'Choose...',
@@ -271,43 +285,43 @@ function phila_register_meta_boxes( $meta_boxes ){
       ),
       array(
         'name'  => 'Spanish Version',
-        'id'    => $prefix . 'documents-spanish',
+        'id'    => $prefix . 'documents_spanish',
         'type'  => 'file_input',
         'class' =>  'phila-lang spanish',
       ),
       array(
         'name'  => 'French Version',
-        'id'    => $prefix . 'documents-french',
+        'id'    => $prefix . 'documents_french',
         'type'  => 'file_input',
         'class' =>  'phila-lang french',
       ),
       array(
         'name'  => 'Chinese Version',
-        'id'    => $prefix . 'documents-chinese',
+        'id'    => $prefix . 'documents_chinese',
         'type'  => 'file_input',
         'class' =>  'phila-lang chinese',
       ),
       array(
         'name'  => 'Korean Version',
-        'id'    => $prefix . 'documents-korean',
+        'id'    => $prefix . 'documents_korean',
         'type'  => 'file_input',
         'class' =>  'phila-lang korean',
       ),
       array(
         'name'  => 'Khmer Version',
-        'id'    => $prefix . 'documents-khmer',
+        'id'    => $prefix . 'documents_khmer',
         'type'  => 'file_input',
         'class' =>  'phila-lang khmer',
       ),
       array(
         'name'  => 'Russian Version',
-        'id'    => $prefix . 'documents-russian',
+        'id'    => $prefix . 'documents_russian',
         'type'  => 'file_input',
         'class' =>  'phila-lang russian',
       ),
       array(
         'name'  => 'Vietnamese Version',
-        'id'    => $prefix . 'documents-vietnamese',
+        'id'    => $prefix . 'documents_vietnamese',
         'type'  => 'file_input',
         'class' =>  'phila-lang vietnamese',
       ),
