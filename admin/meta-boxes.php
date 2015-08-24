@@ -236,7 +236,7 @@ function phila_register_meta_boxes( $meta_boxes ){
           'name'  => 'Add English Document',
           'id'    => $prefix . 'documents',
           'type'  => 'file_input',
-          'class' =>  'document-list-eng',
+          'class' =>  'eng',
           'required'  => true
       ),
     )
@@ -273,43 +273,43 @@ function phila_register_meta_boxes( $meta_boxes ){
         'name'  => 'Spanish Version',
         'id'    => $prefix . 'documents-spanish',
         'type'  => 'file_input',
-        'class' =>  'phila-lang document-list-spanish',
+        'class' =>  'phila-lang spanish',
       ),
       array(
         'name'  => 'French Version',
         'id'    => $prefix . 'documents-french',
         'type'  => 'file_input',
-        'class' =>  'phila-lang document-list-french',
+        'class' =>  'phila-lang french',
       ),
       array(
         'name'  => 'Chinese Version',
         'id'    => $prefix . 'documents-chinese',
         'type'  => 'file_input',
-        'class' =>  'phila-lang document-list-chinese',
+        'class' =>  'phila-lang chinese',
       ),
       array(
         'name'  => 'Korean Version',
         'id'    => $prefix . 'documents-korean',
         'type'  => 'file_input',
-        'class' =>  'phila-lang document-list-korean',
+        'class' =>  'phila-lang korean',
       ),
       array(
         'name'  => 'Khmer Version',
         'id'    => $prefix . 'documents-khmer',
         'type'  => 'file_input',
-        'class' =>  'phila-lang document-list-khmer',
+        'class' =>  'phila-lang khmer',
       ),
       array(
         'name'  => 'Russian Version',
         'id'    => $prefix . 'documents-russian',
         'type'  => 'file_input',
-        'class' =>  'phila-lang document-list-russian',
+        'class' =>  'phila-lang russian',
       ),
       array(
         'name'  => 'Vietnamese Version',
         'id'    => $prefix . 'documents-vietnamese',
         'type'  => 'file_input',
-        'class' =>  'phila-lang document-list-vietnamese',
+        'class' =>  'phila-lang vietnamese',
       ),
     )
   );//document metadata
