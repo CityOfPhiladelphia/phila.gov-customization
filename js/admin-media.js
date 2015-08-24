@@ -15,14 +15,21 @@ jQuery(document).ready(function($){
   }
   $("#post").validate({
       rules: {
-        'phila_news_desc' : 'required',
-        'phila_document_description' : 'required',
         'phila_english_document': 'required',
         'post_title' : 'required'
      }
     });
+    if ( ( typenow == 'news_post') && adminpage.indexOf('post') > -1 ){
+      $( "#phila_news_desc" ).rules( "add", {
+       maxlength: 225, required: true
+      });
+    }
   /*documents page */
   if ( ( typenow == 'document') && adminpage.indexOf('post') > -1 ){
+
+    $( "#phila_document_description" ).rules( "add", {
+     maxlength: 225, required: true
+    });
 
     /*documents page */
     $('.rwmb-datetime').datepicker();
