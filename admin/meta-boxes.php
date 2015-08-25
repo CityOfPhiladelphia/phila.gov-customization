@@ -213,31 +213,117 @@ function phila_register_meta_boxes( $meta_boxes ){
     );//site wide alert boxes
 
     $meta_boxes[] = array(
-      'id'       => 'publication-meta',
-      'title'    => 'Publication Information',
-      'pages'    => array( 'publication' ),
+      'id'       => 'document-description',
+      'title'    => 'Document Description',
+      'pages'    => array( 'document' ),
       'context'  => 'normal',
       'priority' => 'high',
 
       'fields' => array(
         array(
+         'name' => 'Description',
+         'id'   => $prefix . 'document_description',
+         'type' => 'textarea'
+       ),
+      )
+    );
+    $meta_boxes[] = array(
+      'id'       => 'document-meta',
+      'title'    => 'Attach Primary Document',
+      'pages'    => array( 'document' ),
+      'context'  => 'normal',
+      'priority' => 'high',
+
+      'fields' => array(
+
+        array(
           'name'  => 'Published Date',
-          'id'    => $prefix . 'publication-released',
+          'id'    => $prefix . 'document_released',
           'type'  => 'datetime',
-          'class' =>  'publication-released',
+          'class' =>  'document-released',
           'size'  =>  25,
           'js_options' =>  array(
-            'timeFormat' =>  'hh:mm tt',
-            'dateFormat'=>'m-dd-yy',
+            'dateFormat'=>'m\dd\yy',
             'showTimepicker' => false
           )
         ),
         array(
-          'name'  => 'Add Files',
-          'id'    => $prefix . 'publications',
-          'type'  => 'file_advanced',
-          'class' =>  'publication-list',
-          'mime_type'  =>  'application/pdf',
+          'name'  => 'Add English Document',
+          'id'    => $prefix . 'english_document',
+          'type'  => 'file_input',
+          'class' =>  'english'
+      ),
+    )
+  );
+  $meta_boxes[] = array(
+    'id'       => 'document-other-langs',
+    'title'    => 'Attach Alternate Languages',
+    'pages'    => array( 'document' ),
+    'context'  => 'normal',
+    'priority' => 'high',
+
+    'fields' => array(
+      array(
+        'name' => 'Add More Languages',
+        'id'   => $prefix . 'doc_lang',
+        'type'  => 'select_advanced',
+        'class' => 'docu-list-mutiple',
+        'placeholder' => 'Choose...',
+        'js_options' => array(
+          'minimumResultsForSearch' => 'Infinity',
+          'allowClear'  => false
+        ),
+        'options' => array(
+            'spanish' => 'Spanish',
+            'french' => 'French',
+            'chinese' => 'Chinese',
+            'korean' => 'Korean',
+            'khmer' => 'Khmer',
+            'russian' => 'Russian',
+            'vietnamese' => 'Vietnamese',
+        ),
+      ),
+      array(
+        'name'  => 'Spanish Version',
+        'id'    => $prefix . 'documents_spanish',
+        'type'  => 'file_input',
+        'class' =>  'phila-lang spanish',
+      ),
+      array(
+        'name'  => 'French Version',
+        'id'    => $prefix . 'documents_french',
+        'type'  => 'file_input',
+        'class' =>  'phila-lang french',
+      ),
+      array(
+        'name'  => 'Chinese Version',
+        'id'    => $prefix . 'documents_chinese',
+        'type'  => 'file_input',
+        'class' =>  'phila-lang chinese',
+      ),
+      array(
+        'name'  => 'Korean Version',
+        'id'    => $prefix . 'documents_korean',
+        'type'  => 'file_input',
+        'class' =>  'phila-lang korean',
+      ),
+      array(
+        'name'  => 'Khmer Version',
+        'id'    => $prefix . 'documents_khmer',
+        'type'  => 'file_input',
+        'class' =>  'phila-lang khmer',
+      ),
+      array(
+        'name'  => 'Russian Version',
+        'id'    => $prefix . 'documents_russian',
+        'type'  => 'file_input',
+        'class' =>  'phila-lang russian',
+      ),
+      array(
+        'name'  => 'Vietnamese Version',
+        'id'    => $prefix . 'documents_vietnamese',
+        'type'  => 'file_input',
+        'class' =>  'phila-lang vietnamese',
       ),
     )
   );//document metadata

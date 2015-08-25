@@ -10,3 +10,20 @@
 .rwmb-file .rwmb-info {
   width:75%;
 }
+/* By default, show the remove buttons on document page */
+.wp-core-ui #document-other-langs .button.hidden {
+  display: inline-block !important;
+}
+
+
+/* We aren't doing to use this for now*/
+/*
+#post-status-info .character-limit{
+  display: block;
+  background:#FFA2A2;
+  padding:10px;
+  width:100%;
+}
+#post-status-info .character-limit::after {
+  content:'Please enter less text';
+}*/
