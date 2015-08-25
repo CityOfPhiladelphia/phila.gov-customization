@@ -249,7 +249,7 @@ function phila_register_meta_boxes( $meta_boxes ){
         ),
         array(
           'name'  => 'Add English Document',
-          'id'    => $prefix . 'english_document',
+          'id'    => $prefix . 'document_english',
           'type'  => 'file_input',
           'class' =>  'english'
       ),
