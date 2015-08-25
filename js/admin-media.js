@@ -133,29 +133,3 @@ jQuery(document).ready(function($){
    });
   }
 });
-//We are going to hold off on this for now, and make a plain text field required.
-/*
-if ( (typenow == 'document') && adminpage.indexOf('post') > -1 ){
-  // prevent users from entering more than 300 chars in tinyMCE
-  window.onload = function () {
-    jQuery('#post-status-info').append('<span class="character-limit"></span>');
-    jQuery('.character-limit').hide();
-    var editor_char_limit = 300;
-
-
-    tinymce.activeEditor.on('keyup', function(e) {
-
-      if ( tinyMCE.activeEditor.getContent().length > editor_char_limit ) {
-        jQuery('.character-limit').show();
-        jQuery('#publishing-action #publish').attr('disabled', 'disabled');
-        jQuery('#wp-content-editor-container').css('border', '1px solid #FFA2A2');
-
-      } else {
-        jQuery('.character-limit').hide();
-        jQuery('#publishing-action #publish').removeAttr('disabled', 'disabled');
-        jQuery('#wp-content-editor-container').css('border', 'none');
-      }
-    });
-  }
-}
-*/
