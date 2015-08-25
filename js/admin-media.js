@@ -21,14 +21,14 @@ jQuery(document).ready(function($){
     });
     if ( ( typenow == 'news_post') && adminpage.indexOf('post') > -1 ){
       $( "#phila_news_desc" ).rules( "add", {
-       maxlength: 225, required: true
+       maxlength: 350, required: true
       });
     }
   /*documents page */
   if ( ( typenow == 'document') && adminpage.indexOf('post') > -1 ){
 
     $( "#phila_document_description" ).rules( "add", {
-     maxlength: 225, required: true
+     maxlength: 350, required: true
     });
 
     /*documents page */
