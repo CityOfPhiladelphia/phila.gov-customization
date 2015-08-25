@@ -239,11 +239,11 @@ function phila_register_meta_boxes( $meta_boxes ){
         array(
           'name'  => 'Published Date',
           'id'    => $prefix . 'document_released',
-          'type'  => 'datetime',
+          'type'  => 'date',
           'class' =>  'document-released',
           'size'  =>  25,
           'js_options' =>  array(
-            'dateFormat'=>'m\dd\yy',
+            'dateFormat'=>'MM dd, yy',
             'showTimepicker' => false
           )
         ),
