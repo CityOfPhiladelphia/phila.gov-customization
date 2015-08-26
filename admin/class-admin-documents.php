@@ -1,8 +1,8 @@
 <?php
  // Instantiate new class
- $phila_document_load = new PhilaDocument();
+ $phila_document_load = new PhilaAdminDocuments();
 
- class PhilaDocument {
+ class PhilaAdminDocuments {
 
   public function __construct(){
     add_action( 'save_post_document', array( $this, 'save_document_meta'), 10, 3 );
@@ -83,4 +83,4 @@
   }
 
 
-}//PhilaDocument
+}//PhilaAdminDocuments
