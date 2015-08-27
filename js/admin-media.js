@@ -32,8 +32,8 @@ jQuery(document).ready(function($){
     });
 
     /*documents page */
-    $('.rwmb-datetime').datepicker();
-    $('.rwmb-datetime').datepicker('setDate', new Date());
+    $('.rwmb-date').datepicker();
+    $('.rwmb-date').datepicker('setDate', new Date());
 
     var $eventSelect = $('.rwmb-select-advanced');
 
