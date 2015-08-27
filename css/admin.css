@@ -10,6 +10,7 @@
 .rwmb-file .rwmb-info {
   width:75%;
 }
+
 /* By default, show the remove buttons on document page */
 .wp-core-ui #document-other-langs .button.hidden {
   display: inline-block !important;
