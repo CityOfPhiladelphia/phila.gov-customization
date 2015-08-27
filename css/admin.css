@@ -10,3 +10,9 @@
 .rwmb-file .rwmb-info {
   width:75%;
 }
+
+/* hide wp target=_blank selector */
+#wp-link .link-target label:first-child,
+#wp-link-target {
+  display: none !important;
+}
