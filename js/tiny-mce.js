@@ -1,30 +1,29 @@
 //pretty much all of this came from https://gist.github.com/figureone/43661c51d992d89e56e1
 
 ( function ( $ ) {
-  var clicked = false;
-
 	$( document ).ready( function () {
 		// Global: wpLink.
 
-    /* When a link gets added from existing content, set clicked */
-    $("#most-recent-results").contents().click(function(){
-      clicked = true;
-      return clicked;
-    });
-
-		// Extend the getAttrs() function to include the required link class.
-		// getAttrs() returns { href: '', title: '', target: '' }, so we will
-		// just add class: 'required' to that if the checkbox is checked.
-		var core_getAttrs = wpLink.getAttrs;
-		wpLink.getAttrs = function () {
-		var attributes = core_getAttrs.apply( core_getAttrs );
-    //if the user is adding existing content, don't add the class.
-    attributes.class = (clicked) ? '' : 'external';
-		return attributes;
+		// Add function that includes the external link checkbox in the insert link modal.
+		wpLink.addexternalCheckbox = function () {
+			$( '#wp-link .link-target' ).append( '<label><span> </span><input type="checkbox" id="link-external-checkbox" />This website is not part of phila.gov</label>' );
 		}
 
-		// Extend the htmlUpdate() function to include the 'required' class
-		// in the generated markup if the required link checkbox is set.
+		// Add the checkbox to the wplink modal (on post.php and post-new.php pages).
+		wpLink.addexternalCheckbox();
+
+		// Extend the getAttrs() function to include the external link class.
+		// getAttrs() returns { href: '', title: '', target: '' }, so we will
+		// just add class: 'external' to that if the checkbox is checked.
+		var core_getAttrs = wpLink.getAttrs;
+		wpLink.getAttrs = function () {
+			var attributes = core_getAttrs.apply( core_getAttrs );
+			attributes.class = $( '#link-external-checkbox' ).is( ':checked' ) ? 'external' : '';
+			return attributes;
+		}
+
+		// Extend the htmlUpdate() function to include the 'external' class
+		// in the generated markup if the external link checkbox is set.
 		var core_htmlUpdate = wpLink.htmlUpdate;
 		wpLink.htmlUpdate = function () {
 			// Extend: recreate out-of-scope variables from wplink.js.
@@ -50,16 +49,14 @@
 			// Build HTML
 			html = '<a href="' + attrs.href + '"';
 
-			if ( attrs.target ) {
-				html += ' target="' + attrs.target + '"';
-			}
+			//html = ' target="' + attrs.target + '"';
 
 			// Extend: Add class to generated markup.
 			if ( attrs.class ) {
-				html += ' class="' + attrs.class + '"';
+				html = ' class="' + attrs.class + '"';
 			}
 
-			html += '>';
+			html = '>';
 
 			// Insert HTML
 			if ( document.selection && wpLink.range ) {
@@ -99,18 +96,20 @@
 			textarea.focus();
 		}
 
-		// Extend refresh() to check/uncheck required link checkbox if it's set on the selected link.
+		// Extend refresh() to check/uncheck external link checkbox if it's set on the selected link.
 		var core_refresh = wpLink.refresh;
 		wpLink.refresh = function () {
 			// Run original function.
 			core_refresh.apply( core_refresh );
-      //reset clicked
-      clicked = false;
 
 			// Extend: recreate out-of-scope variables from wplink.js.
 			var editor = tinymce.get( wpActiveEditor ),
 				selectedNode = editor.selection.getNode(),
 				linkNode = editor.dom.getParent( selectedNode, 'a[href]' );
+
+			// Toggle checkbox based on class in selected link.
+			$( '#link-external-checkbox' ).prop( 'checked', 'external' === editor.dom.getAttrib( linkNode, 'class' ) );
 		}
+
 	});
 })( jQuery );
