@@ -139,33 +139,24 @@ function recent_news_shortcode($atts) {
 
       if (!$url == ''){
 
-        $output .= '<a href="' . $url .'" target="_blank">';
-        $output .=  get_the_post_thumbnail( $post->ID );;
-        $output .= '<span class="accessible"> Opens in new window</span></a>';
-
-        $output .= '<a href="' . $url .'" target="_blank">';
+        $output .= '<a href="' . $url .'">'; //a tag ends after all the content
+        $output .=  get_the_post_thumbnail( $post->ID );
         $output .= '<h3>' . get_the_title( $post->ID ) . '</h3>';
-        $output .= '<span class="accessible"> Opens in new window</span></a>';
 
       }else{
-        $output .= '<a href="' . get_permalink() .'">';
+        $output .= '<a href="' . get_permalink() .'">';//a tag ends after all the content
         $output .=   get_the_post_thumbnail( $post->ID );
-        $output .= '</a>';
 
-        $output .= '<a href="' . get_permalink().'">';
         $output .=  '<h3>' . get_the_title( $post->id ) . '</h3>';
-        $output .= '</a>';
       }
 
       if (function_exists('rwmb_meta')) {
-        if ($contributor === ''){
-          $output .= '<span class="small-text">' . $category[0]->cat_name . '</span>';
-        }else {
+        if ( $contributor != ''){
           $output .= '<span class="small-text">' . $contributor . '</span>';
         }
         $output .= '<p>' . $desc  . '</p>';
       }
-      $output .= '</div></div>';
+      $output .= '</a></div></div>';
 
       endwhile;
   }else {
