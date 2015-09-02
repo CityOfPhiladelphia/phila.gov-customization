@@ -59,4 +59,12 @@ jQuery(document).ready(function($){
     wp.media.controller.Library.prototype.defaults.sortable=false;
   }
 
+  if ( ( typenow == 'news_post') && adminpage.indexOf('post') > -1 ){
+
+
+    $( "#title" ).rules( "add", {
+     maxlength: 70, required: true
+    });
+  }
+
 });
