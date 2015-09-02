@@ -1,6 +1,8 @@
 .media-modal .attachments{
   top:0 !important;
 }
+/*hide all these things */
+#wp-content-media-buttons,
 .media-toolbar-secondary{
   display:none !important;
 }
