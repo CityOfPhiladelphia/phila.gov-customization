@@ -61,7 +61,6 @@ jQuery(document).ready(function($){
 
   if ( ( typenow == 'news_post') && adminpage.indexOf('post') > -1 ){
 
-
     $( "#title" ).rules( "add", {
      maxlength: 70, required: true
     });
