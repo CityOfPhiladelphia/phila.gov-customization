@@ -24,9 +24,7 @@ class PhilaRoleAdministration {
 
     add_action( 'admin_menu', array( $this, 'remove_page_attribute_meta_box' ) );
 
-    add_filter( 'mce_buttons',  array( $this, 'remove_top_tinymce_button' ) );
-
-    add_filter( 'mce_buttons_2', array( $this,'remove_bottom_tinymce2_buttons')  );
+    add_action('admin_head', array($this, 'tinyMCE_edits' ) );
 
   }
 
@@ -266,6 +264,13 @@ class PhilaRoleAdministration {
     $remove = array( 'pastetext', 'underline', 'alignjustify', 'forecolor', 'outdent', 'indent', 'removeformat' );
 
   	return array_diff( $buttons, $remove );
+   }
+   function tinyMCE_edits(){
+     if ( ! current_user_can( PHILA_ADMIN ) ){
+       add_filter( 'mce_buttons',  array( $this, 'remove_top_tinymce_button' ) );
+
+       add_filter( 'mce_buttons_2', array( $this,'remove_bottom_tinymce2_buttons')  );
+     }
    }
   /**
    * Modifies args sent to page attributes dropdown. Only allows department authors to see pages in their deparment category.
