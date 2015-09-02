@@ -18,11 +18,15 @@ class PhilaRoleAdministration {
 
     add_action( 'admin_head', array( $this, 'set_jquery_vars' ) );
 
-    add_filter( 'tiny_mce_before_init', array( $this, 'format_TinyMCE' ) );
+    add_action( 'init', array( $this, 'abstract_user_role') );
 
-    add_action('init', array( $this, 'abstract_user_role') );
+    add_action( 'admin_head', array( $this, 'add_meta_data') );
 
-    add_action('admin_head', array($this, 'add_meta_data') );
+    add_action( 'admin_menu', array( $this, 'remove_page_attribute_meta_box' ) );
+
+    add_filter( 'mce_buttons',  array( $this, 'remove_top_tinymce_button' ) );
+
+    add_filter( 'mce_buttons_2', array( $this,'remove_bottom_tinymce2_buttons')  );
 
   }
 
@@ -251,18 +255,18 @@ class PhilaRoleAdministration {
   * Removes unwanted butons from TinyMCE
   * @since 0.13.0
   */
-  function format_TinyMCE( $in ) {
-    if ( ! current_user_can( PHILA_ADMIN ) ){
-    	$in['plugins'] = 'tabfocus,paste,media,fullscreen,wordpress,wplink,wpdialogs,wpfullscreen';
-    	$in['wpautop'] = true;
-    	$in['apply_source_formatting'] = false;
-            $in['block_formats'] = "Paragraph=p; Heading 1=h1; Heading 2=h2; Heading 3=h3; Heading 4=h4; Heading 5=h5; Heading 6=h6;";
-    	$in['toolbar1'] = 'bold,italic,bullist,numlist,blockquote,hr,link,unlink,spellchecker,formatselect,charmap,outdent,indent,wp_help';
-    	$in['toolbar2'] = '';
-    	return $in;
-    }
-    return $in;
-}
+
+  function remove_top_tinymce_button( $buttons ){
+    $remove = array( 'alignleft', 'aligncenter', 'alignright', 'wp-more', 'fullscreen', 'wp-more', 'wp_adv', 'strikethrough' );
+
+    return array_diff( $buttons, $remove );
+   }
+
+  function remove_bottom_tinymce2_buttons( $buttons ){
+    $remove = array( 'pastetext', 'underline', 'alignjustify', 'forecolor', 'outdent', 'indent', 'removeformat' );
+
+  	return array_diff( $buttons, $remove );
+   }
   /**
    * Modifies args sent to page attributes dropdown. Only allows department authors to see pages in their deparment category.
    *
@@ -294,7 +298,7 @@ class PhilaRoleAdministration {
 
   public function abstract_user_role(){
     if ( ! current_user_can( PHILA_ADMIN )  ){
-        add_filter( 'page_attributes_dropdown_pages_args', array( $this, 'change_dropdown_args' ), 9, 2 );
+      add_filter( 'page_attributes_dropdown_pages_args', array( $this, 'change_dropdown_args' ), 9, 2 );
     }
   }
   /**
@@ -313,6 +317,19 @@ class PhilaRoleAdministration {
               update_post_meta( $post->ID, '_category', $cat->slug );
             }
         }
+    }
+  }
+  /**
+   * Hides page attributes meta box for non-admins.
+   *
+   * @since 0.15.6
+   *
+   */
+  public function remove_page_attribute_meta_box(){
+    if ( is_admin() ) {
+      if ( ! current_user_can( PHILA_ADMIN ) ) {
+          remove_meta_box('pageparentdiv', 'page', 'normal');
+      }
     }
   }
 
