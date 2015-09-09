@@ -27,7 +27,7 @@ function get_home_news(){
     if (!$url == ''){
 
         echo '<a href="' . $url .'" target="_blank">';
-        the_post_thumbnail( 'full' );
+        the_post_thumbnail(  );
         echo '<span class="accessible"> Opens in new window</span></a>';
 
         echo '<a href="' . $url .'" target="_blank">';
@@ -37,7 +37,7 @@ function get_home_news(){
 
     }else{
         echo '<a href="' . get_permalink() .'">';
-        the_post_thumbnail( 'full' );
+        the_post_thumbnail(  );
         echo '</a>';
 
         echo '<a href="' . get_permalink().'">';
@@ -129,7 +129,7 @@ function recent_news_shortcode($atts) {
 
     $link = get_permalink();
 
-      $output .=  '<div class="large-8 columns">';
+      $output .=  '<div class="medium-8 columns">';
       //news title on first item
       if ( $post_counter == 1 && $a['posts'] == 1) {
         $output .= '<h2 class="alternate divide title-offset">' . __('News', 'phila.gov') . '</h2>';
@@ -140,12 +140,12 @@ function recent_news_shortcode($atts) {
       if (!$url == ''){
 
         $output .= '<a href="' . $url .'">'; //a tag ends after all the content
-        $output .=  get_the_post_thumbnail( $post->ID );
+        $output .=  get_the_post_thumbnail( $post->ID, 'news-thumb' );
         $output .= '<h3>' . get_the_title( $post->ID ) . '</h3>';
 
       }else{
         $output .= '<a href="' . get_permalink() .'">';//a tag ends after all the content
-        $output .=   get_the_post_thumbnail( $post->ID );
+        $output .=   get_the_post_thumbnail( $post->ID, 'news-thumb' );
 
         $output .=  '<h3>' . get_the_title( $post->id ) . '</h3>';
       }
