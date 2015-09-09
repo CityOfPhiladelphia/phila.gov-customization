@@ -129,7 +129,7 @@ function recent_news_shortcode($atts) {
 
     $link = get_permalink();
 
-      $output .=  '<div class="large-8 columns">';
+      $output .=  '<div class="medium-8 columns">';
       //news title on first item
       if ( $post_counter == 1 && $a['posts'] == 1) {
         $output .= '<h2 class="alternate divide title-offset">' . __('News', 'phila.gov') . '</h2>';
