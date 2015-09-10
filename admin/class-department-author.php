@@ -22,7 +22,7 @@ class PhilaRoleAdministration {
 
     add_action( 'admin_head', array( $this, 'add_meta_data') );
 
-    add_action( 'admin_menu', array( $this, 'remove_page_attribute_meta_box' ) );
+    add_action( 'admin_head', array( $this, 'remove_meta_boxes' ) );
 
     add_action('admin_head', array($this, 'tinyMCE_edits' ) );
 
@@ -330,12 +330,13 @@ class PhilaRoleAdministration {
    * @since 0.15.6
    *
    */
-  public function remove_page_attribute_meta_box(){
+  public function remove_meta_boxes(){
     if ( is_admin() ) {
       if ( ! current_user_can( PHILA_ADMIN ) ) {
-          remove_meta_box('pageparentdiv', 'page', 'normal');
+          remove_meta_box('pageparentdiv', 'page', 'side');
+          remove_meta_box('pageparentdiv', 'department_page', 'side');
+          remove_meta_box('news-admin-only', 'news_post', 'side');
       }
     }
   }
-
 }//end PhilaRoleAdministration

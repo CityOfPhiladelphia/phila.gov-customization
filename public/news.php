@@ -8,16 +8,6 @@
  */
 
 
-//logic for user role that can see "add to home" metabox
-if (is_admin()) :
-    function remove_news_meta_boxes() {
-         if( !current_user_can('create_users') ) {
-            remove_meta_box('news-admin-only', 'news_post', 'side');
-         }
-    }
-    add_action( 'admin_head', 'remove_news_meta_boxes' );
-endif;
-
 function get_home_news(){
     $category = get_the_category();
     $url = rwmb_meta('phila_news_url', $args = array('type'=>'url'));
