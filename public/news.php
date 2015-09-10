@@ -148,7 +148,7 @@ function recent_news_shortcode($atts) {
       }else{
         $output .= '<a href="' . get_permalink() .'">';
       }
-      $output .=  get_the_post_thumbnail( $post->ID, 'news-thumb', 'class=alignleft super-small' );
+      $output .=  get_the_post_thumbnail( $post->ID, 'news-thumb', 'class=alignleft small-thumb' );
       $output .= 	'<span class="entry-date small-text">'. get_the_date() . '</span>';
       $output .=  '<h3>' . get_the_title( $post->ID ) . '</h3>';
       $output .= '<span class="small-text">' . $desc . '</span>';
