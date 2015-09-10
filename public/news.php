@@ -85,73 +85,113 @@ add_filter( 'post_type_link', 'phila_news_link' , 10, 2 );
 * @package phila.gov-customization
 */
 
+
 function recent_news_shortcode($atts) {
   global $post;
   $category = get_the_category();
   $a = shortcode_atts( array(
    'posts' => 1,
+    0 => 'list'
  ), $atts );
 
- $current_category = $category[0]->cat_ID;
+ function is_flag( $flag, $atts ) {
+     foreach ( $atts as $key => $value )
+         if ( $value === $flag && is_int( $key ) ) return true;
+     return false;
+ }
 
-  $args = array( 'posts_per_page' => $a['posts'], 'order'=> 'DESC', 'orderby' => 'date', 'post_type'  => 'news_post', 'cat' => $current_category);
+   $current_category = $category[0]->cat_ID;
 
-  $news_loop = new WP_Query( $args );
+   if ( is_flag( 'list', $atts ) ){
+     $a['posts'] = 5;
+   }
+    $args = array( 'posts_per_page' => $a['posts'], 'order'=> 'DESC', 'orderby' => 'date', 'post_type'  => 'news_post', 'cat' => $current_category);
 
-  $output = '';
+    $news_loop = new WP_Query( $args );
 
-  if( $news_loop->have_posts() ) {
-    $post_counter = 0;
+    $output = '';
 
-    if ( $a['posts'] == 2) {
-      $output .= '<div class="row title-push"><h2 class="alternate divide large-16 columns">' . __('News', 'phila.gov') . '</h2></div>';
-    }
-    if ( $a['posts'] == 3) {
-      $output .= '<div class="row title-push"><h2 class="alternate divide large-24 columns">' . __('News', 'phila.gov') . '</h2></div>';
-    }
+    if( $news_loop->have_posts() ) {
+      $post_counter = 0;
 
-    while( $news_loop->have_posts() ) : $news_loop->the_post();
-    $post_counter++;
+      $output .= '<div class="department-news">';
 
-    $url = rwmb_meta('phila_news_url', $args = array('type'=>'url'));
-    $contributor = rwmb_meta('phila_news_contributor', $args = array('type'=>'text'));
-    $desc = rwmb_meta('phila_news_desc', $args = array('type'=>'textarea'));
-
-    $link = get_permalink();
-
-      $output .=  '<div class="medium-8 columns">';
-      //news title on first item
-      if ( $post_counter == 1 && $a['posts'] == 1) {
-        $output .= '<h2 class="alternate divide title-offset">' . __('News', 'phila.gov') . '</h2>';
+      if ( $a['posts'] == 2) {
+        $output .= '<div class="row title-push"><h2 class="alternate divide large-16 columns">' . __('News', 'phila.gov') . '</h2></div>';
+      }
+      if ( $a['posts'] == 3) {
+        $output .= '<div class="row title-push"><h2 class="alternate divide large-24 columns">' . __('News', 'phila.gov') . '</h2></div>';
+      }
+      if ( is_flag ('list', $atts) ) {
+        $output .= '<div class="row"><h2 class="alternate divide large-24 columns">' . __('News', 'phila.gov') . '</h2></div><div class="row"><div class="medium-24 columns"><ul class="news-list">';
       }
 
-      $output .= '<div class="story s-box">';
+      while( $news_loop->have_posts() ) : $news_loop->the_post();
+      $post_counter++;
 
-      if (!$url == ''){
+      $url = rwmb_meta('phila_news_url', $args = array('type'=>'url'));
+      $contributor = rwmb_meta('phila_news_contributor', $args = array('type'=>'text'));
+      $desc = rwmb_meta('phila_news_desc', $args = array('type'=>'textarea'));
 
-        $output .= '<a href="' . $url .'">'; //a tag ends after all the content
-        $output .=  get_the_post_thumbnail( $post->ID, 'news-thumb' );
-        $output .= '<h3>' . get_the_title( $post->ID ) . '</h3>';
+      $link = get_permalink();
+
+      if ( is_flag( 'list', $atts ) ){
+        $output .= '<li>';
+        if ( !$url == '' ){
+          $output .= '<a href="' . $url .'">';
+        }else{
+          $output .= '<a href="' . get_permalink() .'">';
+        }
+        $output .=  get_the_post_thumbnail( $post->ID, 'news-thumb', 'class=alignleft super-small' );
+        $output .= 	'<span class="entry-date small-text">'. get_the_date() . '</span>';
+        $output .=  '<h3>' . get_the_title( $post->ID ) . '</h3>';
+        $output .= '<span class="small-text">' . $desc . '</span>';
+        $output .= '</a>';
+        $output .= '</li>';
 
       }else{
-        $output .= '<a href="' . get_permalink() .'">';//a tag ends after all the content
-        $output .=   get_the_post_thumbnail( $post->ID, 'news-thumb' );
 
-        $output .=  '<h3>' . get_the_title( $post->id ) . '</h3>';
-      }
-
-      if (function_exists('rwmb_meta')) {
-        if ( $contributor != ''){
-          $output .= '<span class="small-text">' . $contributor . '</span>';
+        $output .=  '<div class="medium-8 columns">';
+        //news title on first item
+        if ( $post_counter == 1 && $a['posts'] == 1) {
+          $output .= '<h2 class="alternate divide title-offset">' . __('News', 'phila.gov') . '</h2>';
         }
-        $output .= '<p>' . $desc  . '</p>';
+
+        $output .= '<div class="story s-box">';
+
+        if (!$url == ''){
+
+          $output .= '<a href="' . $url .'">'; //a tag ends after all the content
+          $output .=  get_the_post_thumbnail( $post->ID, 'news-thumb' );
+          $output .= '<h3>' . get_the_title( $post->ID ) . '</h3>';
+
+        }else{
+          $output .= '<a href="' . get_permalink() .'">';//a tag ends after all the content
+          $output .=   get_the_post_thumbnail( $post->ID, 'news-thumb' );
+
+          $output .=  '<h3>' . get_the_title( $post->ID ) . '</h3>';
+        }
+
+        if (function_exists('rwmb_meta')) {
+          if ( $contributor != ''){
+            $output .= '<span class="small-text">' . $contributor . '</span>';
+          }
+          $output .= '<p>' . $desc  . '</p>';
+        }
+        $output .= '</a></div></div>';
       }
-      $output .= '</a></div></div>';
 
       endwhile;
-  }else {
-    $output .= __('Please enter at least one news story.', 'phila.gov');
-  }
+
+      if ( is_flag( 'list', $atts ) ) {
+        $output .= '</ul></div></div>';
+      }
+
+      $output .= '</div>';
+
+    }else {
+      $output .= __('Please enter at least one news story.', 'phila.gov');
+    }
 
   wp_reset_postdata();
   return $output;

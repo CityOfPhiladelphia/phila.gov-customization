@@ -21,7 +21,7 @@ jQuery(document).ready(function($){
     });
     if ( ( typenow == 'news_post') && adminpage.indexOf('post') > -1 ){
       $( "#phila_news_desc" ).rules( "add", {
-       maxlength: 350, required: true
+       maxlength: 255, required: true
       });
     }
   /*documents page */
