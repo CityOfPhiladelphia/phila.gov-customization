@@ -73,6 +73,24 @@ function phila_register_meta_boxes( $meta_boxes ){
         ),
       )
     );
+    $meta_boxes[] = array(
+      'id'       => 'service_related_items',
+      'title'    => 'Related Items',
+      'pages'    => array( 'service_post' ),
+      'context'  => 'side',
+      'priority' => 'high',
+
+      'fields' => array(
+        array(
+          'name'  => 'List of related links',
+          'desc'  => 'Enter the markup for each list item. Eg. <code>&lt;li&gt;&lt;a href="#"&gt;Link&lt;/a&gt;&lt;/li&gt;</code>',
+          'id'    => $prefix . 'service_related_items',
+          'type'  => 'textarea',
+          'class' => 'service-related',
+          'clone' => false,
+        ),
+      )
+    );
 
     $meta_boxes[] = array(
       'id'       => 'departments',
