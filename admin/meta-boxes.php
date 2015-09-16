@@ -44,8 +44,57 @@ function phila_register_meta_boxes( $meta_boxes ){
           'class' => 'service-detail',
           'clone' => false,
         ),
+        array(
+          'name'  => 'Actionable Button Name',
+          'desc'  => 'Button Text, eg. Pay Now',
+          'id'    => $prefix . 'service_button_text',
+          'type'  => 'text',
+          'class' => 'service-button',
+          'clone' => false,
+        ),
       )
     );//Service page links and description
+
+    $meta_boxes[] = array(
+      'id'       => 'service_before_start',
+      'title'    => 'Before You Start Details',
+      'pages'    => array( 'service_post' ),
+      'context'  => 'normal',
+      'priority' => 'high',
+
+      'fields' => array(
+        array(
+          'name'  => '',
+          'desc'  => 'Enter content you will need before starting this service',
+          'id'    => $prefix . 'service_before_start',
+          'type'  => 'wysiwyg',
+          'class' => 'service-start',
+          'clone' => false,
+        ),
+      )
+    );
+    $meta_boxes[] = array(
+      'id'       => 'service_related_items',
+      'title'    => 'Related Items',
+      'pages'    => array( 'service_post' ),
+      'context'  => 'side',
+      'priority' => 'high',
+
+      'fields' => array(
+        array(
+          'name'  => 'Unordered list of related links',
+          'id'    => $prefix . 'service_related_items',
+          'type'  => 'wysiwyg',
+          'class' => 'service-related',
+          'clone' => false,
+          'options' => array(
+            'editor_height' => 15,
+            'teeny' => true,
+            'dfw' => false,
+          ),
+        ),
+      )
+    );
 
     $meta_boxes[] = array(
       'id'       => 'departments',

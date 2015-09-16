@@ -18,6 +18,7 @@
 
 /* hide wp target=_blank selector */
 #wp-link .link-target label:first-child,
-#wp-link-target {
+#wp-link-target,
+#wp-phila_service_related_items-media-buttons {
   display: none !important;
 }
