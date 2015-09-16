@@ -47,7 +47,7 @@ function phila_register_meta_boxes( $meta_boxes ){
         array(
           'name'  => 'Actionable Button Name',
           'desc'  => 'Button Text, eg. Pay Now',
-          'id'    => $prefix . 'button_text',
+          'id'    => $prefix . 'service_button_text',
           'type'  => 'text',
           'class' => 'service-button',
           'clone' => false,
