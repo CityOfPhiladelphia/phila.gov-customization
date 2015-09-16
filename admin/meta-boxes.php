@@ -82,12 +82,16 @@ function phila_register_meta_boxes( $meta_boxes ){
 
       'fields' => array(
         array(
-          'name'  => 'List of related links',
-          'desc'  => 'Enter the markup for each list item. Eg. <code>&lt;li&gt;&lt;a href="#"&gt;Link&lt;/a&gt;&lt;/li&gt;</code>',
+          'name'  => 'Unordered list of related links',
           'id'    => $prefix . 'service_related_items',
-          'type'  => 'textarea',
+          'type'  => 'wysiwyg',
           'class' => 'service-related',
           'clone' => false,
+          'options' => array(
+            'editor_height' => 15,
+            'teeny' => true,
+            'dfw' => false,
+          ),
         ),
       )
     );
