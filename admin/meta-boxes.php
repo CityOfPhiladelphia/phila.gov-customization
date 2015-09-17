@@ -11,6 +11,8 @@ add_filter( 'rwmb_meta_boxes', 'phila_register_meta_boxes' );
 
 function phila_register_meta_boxes( $meta_boxes ){
     $prefix = 'phila_';
+    $serviceBeforeStart['toolbar1'] = 'bold, italic, bullist, numlist, link, unlink';
+    $serviceRelatedContent['toolbar1'] = 'bullist, link, unlink';
 
     $meta_boxes[] = array(
       'id'       => 'service_additions',
@@ -65,11 +67,16 @@ function phila_register_meta_boxes( $meta_boxes ){
       'fields' => array(
         array(
           'name'  => '',
-          'desc'  => 'Enter content you will need before starting this service',
+          'desc'  => 'Enter content the user needs to know before starting this service',
           'id'    => $prefix . 'service_before_start',
           'type'  => 'wysiwyg',
           'class' => 'service-start',
           'clone' => false,
+          'options' => array(
+            'teeny' => true,
+            'dfw' => false,
+            'tinymce' =>  $serviceBeforeStart,
+          ),
         ),
       )
     );
@@ -88,9 +95,10 @@ function phila_register_meta_boxes( $meta_boxes ){
           'class' => 'service-related',
           'clone' => false,
           'options' => array(
-            'editor_height' => 15,
+            'editor_height' => 25,
             'teeny' => true,
             'dfw' => false,
+            'tinymce' =>  $serviceRelatedContent,
           ),
         ),
       )
