@@ -20,11 +20,6 @@ jQuery(document).ready(function($){
         'post_title' : 'required'
      }
     });
-    if ( ( typenow == 'news_post') && adminpage.indexOf('post') > -1 ){
-      $( "#phila_news_desc" ).rules( "add", {
-       maxlength: 255, required: true
-      });
-    }
   /*documents page */
   if ( ( typenow == 'document') && adminpage.indexOf('post') > -1 ){
 

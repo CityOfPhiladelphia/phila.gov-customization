@@ -60,10 +60,11 @@ jQuery(document).ready(function($){
   }
 
   if ( ( typenow == 'news_post') && adminpage.indexOf('post') > -1 ){
-
     $( "#title" ).rules( "add", {
-     maxlength: 70, required: true
+      maxlength: 70, required: true
+    });
+    $( "#phila_news_desc" ).rules( "add", {
+      maxlength: 255, required: true
     });
   }
-
 });
