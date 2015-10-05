@@ -52,7 +52,7 @@ jQuery(document).ready(function($){
   }
 
   //only modify wp.media if this is a department site, or publication
-  if ( (typenow == 'department_page' || typenow == 'publication') && adminpage.indexOf('post') > -1 ){
+  if ( (typenow == 'department_page' || typenow == 'documents') && adminpage.indexOf('post') > -1 ){
     //make upload tab the default'
     wp.media.controller.Library.prototype.defaults.contentUserSetting=false;
     wp.media.controller.Library.prototype.defaults.searchable=false;
