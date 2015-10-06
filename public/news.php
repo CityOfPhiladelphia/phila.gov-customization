@@ -116,17 +116,16 @@ function recent_news_shortcode($atts) {
   $news_loop = new WP_Query( $args );
 
   $output = '';
+  $output = '<div class="news">';
 
   if( $news_loop->have_posts() ) {
     $post_counter = 0;
 
-    $output .= '<div class="department-news">';
-
     if ( $a['posts'] == 2) {
-      $output .= '<div class="row title-push"><h2 class="alternate divide large-16 columns">' . __('News', 'phila.gov') . '</h2></div>';
+      $output .= '<div class="row"><div class="equal-height"><div class="row title-push"><h2 class="alternate divide large-16 columns">' . __('News', 'phila.gov') . '</h2></div>';
     }
     if ( $a['posts'] == 3) {
-      $output .= '<div class="row title-push"><h2 class="alternate divide large-24 columns">' . __('News', 'phila.gov') . '</h2></div>';
+      $output .= '<div class="row"><div class="equal-height"><div class="row title-push"><h2 class="alternate divide large-24 columns">' . __('News', 'phila.gov') . '</h2></div>';
     }
     if ( is_flag ('list', $atts) ) {
       $output .= '<div class="row"><h2 class="alternate divide large-24 columns">' . __('News', 'phila.gov') . '</h2></div><div class="row"><div class="medium-24 columns"><ul class="news-list">';
@@ -158,6 +157,7 @@ function recent_news_shortcode($atts) {
     }else{
 
       $output .=  '<div class="medium-8 columns">';
+
       //news title on first item
       if ( $post_counter == 1 && $a['posts'] == 1) {
         $output .= '<h2 class="alternate divide title-offset">' . __('News', 'phila.gov') . '</h2>';
@@ -190,12 +190,14 @@ function recent_news_shortcode($atts) {
     if ( is_flag( 'list', $atts ) ) {
       $output .= '</ul></div></div>';
     }
-
-    $output .= '</div>';
+    //this means we had equal-height applied and must close those divs
+    $output .= '</div></div>';
 
     }else {
       $output .= __( 'Please enter at least one news story.', 'phila.gov' );
     }
+    //.news
+    $output .= '</div>';
 
   wp_reset_postdata();
   return $output;
