@@ -188,7 +188,7 @@ function recent_news_shortcode($atts) {
     endwhile;
 
     if ( is_flag( 'list', $atts ) ) {
-      $output .= '</ul></div></div>';
+      $output .= '</ul>';
     }
     //this means we had equal-height applied and must close those divs
     $output .= '</div></div>';
