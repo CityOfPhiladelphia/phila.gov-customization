@@ -17,6 +17,7 @@
 
     add_action( 'pre_get_posts', array( $this, 'parse_request' ) );
 
+    add_action( 'template_redirect', array( $this, 'redirect_service_page' ) );
   }
 
   /**
@@ -42,7 +43,7 @@
    *
    * Posts, pages and services need to be unique, otherwise, there will be trouble
    * @param $query Wordpress query object
-   * 
+   *
    */
 
   function parse_request( $query ) {
@@ -61,5 +62,18 @@
         $query->set( 'post_type', array( 'post', 'service_post', 'page' ) );
     }
   }
+
+  function redirect_service_page() {
+    if ( get_query_var('post_type') == 'service_post') {
+      global $post;
+      $current_url = get_permalink( $post->ID );
+      $pattern = '/service/';
+      $replacement = '/';
+      $updated_url =  preg_replace($pattern, $replacement, $current_url);
+
+      wp_redirect( $updated_url );
+      exit();
+    }
+}
 
 }//PhilaServiceRewrites
