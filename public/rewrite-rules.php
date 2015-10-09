@@ -17,6 +17,7 @@ function phila_news_rewrite() {
   add_rewrite_rule("^news/([^/]+)/([^/]+)/?$",'index.php?post_type=news_post&category_name=$matches[1]&news_post=$matches[2]','top');
   add_rewrite_rule("^news/([^/]+)/?$",'index.php?post_type=news_post&category_name=$matches[1]','top');
   add_rewrite_rule("^browse/([^/]+)/([^/]+)/?$",'index.php?&topics=$matches[1]&topics=$matches[2]','top');
+  add_rewrite_rule('service/?$','index.php?post_type=service_post','top');
 }
 
 add_action( 'init', 'phila_register_rewrite_tag', 0, 10);

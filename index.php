@@ -42,6 +42,7 @@ require $dir. '/admin/tiny-mce.php';
 
 require $dir. '/public/browse.php';
 require $dir. '/public/calendar-display.php';
+require $dir. '/public/class-service-rewrites.php';
 require $dir. '/public/content-collection.php';
 require $dir. '/public/departments.php';
 require $dir. '/public/news.php';
