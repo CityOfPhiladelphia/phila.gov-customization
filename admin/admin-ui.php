@@ -30,6 +30,22 @@
 if (!class_exists('PhilaGovCustomAdminLabels')){
     class PhilaGovCustomAdminLabels {
 
+      function change_information_submenu_order( $menu_ord ){
+        global $submenu;
+
+          $post_type = isset($submenu['edit.php?post_type=page']);
+
+            if ($post_type) {
+                $arr = array();
+                $arr[] = $submenu['edit.php?post_type=page'][16];
+                $arr[] = $submenu['edit.php?post_type=page'][17];
+                $arr[] = $submenu['edit.php?post_type=page'][15];
+                $submenu['edit.php?post_type=page'] = $arr;
+              }
+
+            return $menu_ord;
+      }
+
         function change_admin_post_label(){
 
             // Add Menus as a Department Site submenu
@@ -39,16 +55,24 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
             remove_menu_page('edit-comments.php');
         }
 
-        function change_admin_page_label(){
+        function change_admin_information_page_label(){
             global $menu;
             global $submenu;
 
             $menu[20][0] = 'Information Page';
-            $submenu['edit.php?post_type=page'][5][0] = 'Information Page';
-            $submenu['edit.php?post_type=page'][10][0] = 'Add Information Page';
-
-            echo '';
         }
+
+        function remove_information_subpage() {
+          remove_submenu_page( 'edit.php?post_type=page', 'edit.php?post_type=page'  );
+         remove_submenu_page( 'edit.php?post_type=page', 'post-new.php?post_type=page' );
+      }
+
+
+      function register_information_submenu() {
+      	add_submenu_page( 'edit.php?post_type=page', 'Information Page', 'Information Page', 'manage_options', 'edit.php?post_type=page' );
+
+        add_submenu_page( 'edit.php?post_type=page', 'Add Information Page', 'Add Information Page', 'manage_options', 'post-new.php?post_type=page' );
+      }
 
         function change_admin_page_object(){
             global $wp_post_types;
@@ -69,8 +93,7 @@ if (!class_exists('PhilaGovCustomAdminLabels')){
             $labels -> menu_name = 'Information Page';
             $labels -> name_admin_bar = 'Information Page';
 
-            //also, register post_tag and cats
-            register_taxonomy_for_object_type('post_tag', 'page');
+            //also, register cats
             register_taxonomy_for_object_type('category', 'page');
 
         }
@@ -84,12 +107,16 @@ if (class_exists("PhilaGovCustomAdminLabels")){
 }
 
 if (isset($admin_menu_labels)){
-    //WP actions
 
-    add_action( 'admin_menu', array($admin_menu_labels, 'change_admin_post_label'));
+    add_filter( 'custom_menu_order', array($admin_menu_labels,'change_information_submenu_order' ), 100 );
 
-    add_action( 'init', array($admin_menu_labels, 'change_admin_page_object'));
-    add_action( 'admin_menu', array($admin_menu_labels, 'change_admin_page_label'));
+    add_action( 'admin_menu', array($admin_menu_labels, 'change_admin_post_label' ) );
+
+    add_action( 'admin_menu', array($admin_menu_labels, 'change_admin_information_page_label') );
+
+    add_action( 'admin_menu', array($admin_menu_labels, 'remove_information_subpage') );
+
+    add_action('admin_menu',array($admin_menu_labels, 'register_information_submenu') );
 
 }
 
@@ -300,8 +327,8 @@ if (class_exists("PhilaGovCustomMenuOrdering")){
     $change_menu_order = new PhilaGovCustomMenuOrdering();
 }
 if (isset($change_menu_order)){
-    add_filter('custom_menu_order', array($change_menu_order, 'custom_menu_order')); // Activate custom_menu_order
-    add_filter('menu_order', array($change_menu_order, 'custom_menu_order'));
+    //add_filter('custom_menu_order', array($change_menu_order, 'custom_menu_order')); // Activate custom_menu_order
+    //add_filter('menu_order', array($change_menu_order, 'custom_menu_order'));
 }
 
 /**
