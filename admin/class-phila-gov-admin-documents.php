@@ -1,8 +1,10 @@
 <?php
- // Instantiate new class
- $phila_document_load = new PhilaAdminDocuments();
 
- class PhilaAdminDocuments {
+if ( class_exists("PhilaGovAdminDocuments" ) ){
+  $phila_document_load = new PhilaGovAdminDocuments();
+}
+
+ class PhilaGovAdminDocuments {
 
   public function __construct(){
     add_action( 'save_post_document', array( $this, 'save_document_meta'), 10, 3 );
@@ -12,7 +14,6 @@
     add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_css'), 11 );
 
     add_filter( 'wp_default_editor', array( $this, 'set_default_editor' ) );
-
   }
  /**
   * Save attachment metadata when a document page is saved.
@@ -66,7 +67,7 @@
   }
 
   public function load_admin_media_js(){
-  	wp_enqueue_script( 'admin-document-script', plugins_url( '../js/admin-media.js' , __FILE__, array('jQuery') ) );
+  	wp_enqueue_script( 'admin-document-script', plugins_url( '../js/admin.js' , __FILE__, array('jQuery') ) );
 
     wp_enqueue_script( 'jquery-validation', plugins_url('../js/jquery.validate.min.js', __FILE__, array( 'admin-document-script') ) );
 
@@ -83,4 +84,4 @@
   }
 
 
-}//PhilaAdminDocuments
+}//PhilaGovAdminDocuments
