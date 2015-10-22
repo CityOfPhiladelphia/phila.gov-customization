@@ -1,9 +1,10 @@
 <?php
 
-// Instantiate new class
-$phila_role_administration_load = new PhilaRoleAdministration();
+if ( class_exists("PhilaGovRoleAdministration" ) ){
+  $phila_role_administration_load = new PhilaGovRoleAdministration();
+}
 
-class PhilaRoleAdministration {
+class PhilaGovRoleAdministration {
 
   public function __construct(){
 
@@ -29,35 +30,35 @@ class PhilaRoleAdministration {
   }
 
   /**
-	 * Outputs all categories into an array w/ just slugs.
-	 *
-	 * @since 0.11.0
-	 * @return $cat_slugs array Returns an array of all categories.
-	 */
-    public function get_categories(){
-      $categories_args = array(
-          'type'                     => 'post',
-          'child_of'                 => 0,
-          'parent'                   => '',
-          'orderby'                  => 'name',
-          'order'                    => 'ASC',
-          'hide_empty'               => 1,
-          'hierarchical'             => 0,
-          'taxonomy'                 => 'category',
-          'pad_counts'               => false
-      );
+   * Outputs all categories into an array w/ just slugs.
+   *
+   * @since 0.11.0
+   * @return $cat_slugs array Returns an array of all categories.
+   */
+  public function get_categories(){
+    $categories_args = array(
+        'type'                     => 'post',
+        'child_of'                 => 0,
+        'parent'                   => '',
+        'orderby'                  => 'name',
+        'order'                    => 'ASC',
+        'hide_empty'               => 1,
+        'hierarchical'             => 0,
+        'taxonomy'                 => 'category',
+        'pad_counts'               => false
+    );
 
-      $categories = get_categories( $categories_args );
+    $categories = get_categories( $categories_args );
 
-      $cat_slugs = [];
+    $cat_slugs = [];
 
-      //loop through and push slugs to $cat_slugs
-      foreach( $categories as $category ){
-        array_push( $cat_slugs, $category->slug );
-      }
-      //add category slugs to their own array
-      return $cat_slugs;
+    //loop through and push slugs to $cat_slugs
+    foreach( $categories as $category ){
+      array_push( $cat_slugs, $category->slug );
     }
+    //add category slugs to their own array
+    return $cat_slugs;
+  }
 
   /**
    * Returns a match of every category this user has.
@@ -93,30 +94,30 @@ class PhilaRoleAdministration {
    * @uses get_current_user_category() Outputs all categories into an array w/ just slugs.
    */
 
-    public function secondary_roles(){
+   public function secondary_roles(){
 
-      $current_user_cat_assignment = $this->get_current_user_category();
+    $current_user_cat_assignment = $this->get_current_user_category();
 
-      if ( is_user_logged_in() && ! current_user_can( PHILA_ADMIN )  ){
-        if( count( $current_user_cat_assignment ) > 1 ) {
-          $assigned_roles = [];
-          foreach ( $current_user_cat_assignment as $cat_assignment ) {
-            array_push( $assigned_roles, get_category_by_slug( $cat_assignment ) );
-          }
-          //retuns an array of obejcts
-          return $assigned_roles;
+    if ( is_user_logged_in() && ! current_user_can( PHILA_ADMIN )  ){
+      if( count( $current_user_cat_assignment ) > 1 ) {
+        $assigned_roles = [];
+        foreach ( $current_user_cat_assignment as $cat_assignment ) {
+          array_push( $assigned_roles, get_category_by_slug( $cat_assignment ) );
+        }
+        //retuns an array of obejcts
+        return $assigned_roles;
 
-        }elseif( count( $current_user_cat_assignment ) == 1 ) {
+      }elseif( count( $current_user_cat_assignment ) == 1 ) {
 
-          $assigned_role = get_category_by_slug( $current_user_cat_assignment[1] );
-          //returns a single object
-          return $assigned_role;
+        $assigned_role = get_category_by_slug( $current_user_cat_assignment[1] );
+        //returns a single object
+        return $assigned_role;
 
-        }else {
-            return null;
-          }
+      }else {
+          return null;
         }
       }
+    }
   /**
 	 * Removes widgets that don't belong to this category (or categories)
 	 *
@@ -339,4 +340,4 @@ class PhilaRoleAdministration {
       }
     }
   }
-}//end PhilaRoleAdministration
+}
