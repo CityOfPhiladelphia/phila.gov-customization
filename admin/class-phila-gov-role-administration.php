@@ -334,12 +334,14 @@ class PhilaGovRoleAdministration {
   public function remove_meta_boxes(){
     if ( is_admin() ) {
       if ( ! current_user_can( PHILA_ADMIN ) ) {
-          remove_meta_box('pageparentdiv', 'page', 'side');
-          remove_meta_box('pageparentdiv', 'department_page', 'side');
-          remove_meta_box('news-admin-only', 'news_post', 'side');
-          remove_meta_box('categorydiv', 'page', 'side');
-          remove_meta_box('categorydiv', 'document', 'side');
-          remove_meta_box('categorydiv', 'document', 'side');
+        remove_meta_box('pageparentdiv', 'page', 'side');
+        remove_meta_box('pageparentdiv', 'department_page', 'side');
+        remove_meta_box('news-admin-only', 'news_post', 'side');
+        remove_meta_box('categorydiv', 'page', 'side');
+        remove_meta_box('categorydiv', 'post', 'side');
+        remove_meta_box('categorydiv', 'news_post', 'side');
+        remove_meta_box('categorydiv', 'department_page', 'side');
+        remove_meta_box('categorydiv', 'document', 'side');
       }
     }
   }
