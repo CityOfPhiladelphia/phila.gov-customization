@@ -69,7 +69,7 @@ function phila_load_admin_css(){
  *
  * Specifically in use on Service Pages
  *
- * @since   0.8.5
+ * @since   0.17.7
  */
 add_action('edit_form_after_title', 'phila_reorder_meta_boxes');
 

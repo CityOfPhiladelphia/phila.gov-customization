@@ -348,14 +348,14 @@ class PhilaGovRoleAdministration {
     }
   }
   /**
-   * Hides per-pagerole editor for all admins.
+   * Hides per-page role editor for all admins.
    *
-   * @since 0.15.6
+   * @since 0.17.7
    *
    */
   public function remove_role_metabox(){
     if ( is_admin() ) {
-      $post_types = get_post_types( ); 
+      $post_types = get_post_types( );
       foreach ( $post_types as $post_type ) {
         remove_meta_box( 'wpfront-user-role-editor-role-permission', $post_type, 'advanced' );
        }
