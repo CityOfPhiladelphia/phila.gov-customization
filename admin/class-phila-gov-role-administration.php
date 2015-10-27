@@ -25,6 +25,8 @@ class PhilaGovRoleAdministration {
 
     add_action( 'admin_head', array( $this, 'remove_meta_boxes' ) );
 
+    add_action( 'do_meta_boxes', array( $this, 'remove_role_metabox' ) );
+
     add_action('admin_head', array($this, 'tinyMCE_edits' ) );
 
   }
@@ -334,10 +336,29 @@ class PhilaGovRoleAdministration {
   public function remove_meta_boxes(){
     if ( is_admin() ) {
       if ( ! current_user_can( PHILA_ADMIN ) ) {
-          remove_meta_box('pageparentdiv', 'page', 'side');
-          remove_meta_box('pageparentdiv', 'department_page', 'side');
-          remove_meta_box('news-admin-only', 'news_post', 'side');
+        remove_meta_box('pageparentdiv', 'page', 'side');
+        remove_meta_box('pageparentdiv', 'department_page', 'side');
+        remove_meta_box('news-admin-only', 'news_post', 'side');
+        remove_meta_box('categorydiv', 'page', 'side');
+        remove_meta_box('categorydiv', 'post', 'side');
+        remove_meta_box('categorydiv', 'news_post', 'side');
+        remove_meta_box('categorydiv', 'department_page', 'side');
+        remove_meta_box('categorydiv', 'document', 'side');
       }
+    }
+  }
+  /**
+   * Hides per-page role editor for all admins.
+   *
+   * @since 0.17.7
+   *
+   */
+  public function remove_role_metabox(){
+    if ( is_admin() ) {
+      $post_types = get_post_types( );
+      foreach ( $post_types as $post_type ) {
+        remove_meta_box( 'wpfront-user-role-editor-role-permission', $post_type, 'advanced' );
+       }
     }
   }
 }
