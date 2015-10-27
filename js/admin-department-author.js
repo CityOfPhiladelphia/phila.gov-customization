@@ -51,14 +51,6 @@ jQuery(document).ready(function($){
     $('.menu-icon-department_page').addClass('wp-has-submenu wp-has-current-submenu wp-menu-open');
   }
 
-  //only modify wp.media if this is a department site, or publication
-  if ( (typenow == 'department_page' || typenow == 'documents') && adminpage.indexOf('post') > -1 ){
-    //make upload tab the default'
-    wp.media.controller.Library.prototype.defaults.contentUserSetting=false;
-    wp.media.controller.Library.prototype.defaults.searchable=false;
-    wp.media.controller.Library.prototype.defaults.sortable=false;
-  }
-
   if ( ( typenow == 'news_post') && adminpage.indexOf('post') > -1 ){
     $( "#title" ).rules( "add", {
       maxlength: 70, required: true

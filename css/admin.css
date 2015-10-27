@@ -1,20 +1,4 @@
-/* only for admins */
-.rwmb-file li {
-  width:100%;
-}
-.remove-all{
-  position: absolute;
-  right: 30px;
-  bottom: 20px;
-}
-.rwmb-file .rwmb-info {
-  width:75%;
-}
-
-/* By default, show the remove buttons on document page */
-.wp-core-ui #document-other-langs .button.hidden {
-  display: inline-block !important;
-}
+/* for all users */
 
 /* hide wp target=_blank selector */
 #wp-link .link-target label:first-child,
