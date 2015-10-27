@@ -7,7 +7,7 @@ if ( class_exists("PhilaGovAdminDocuments" ) ){
  class PhilaGovAdminDocuments {
 
   public function __construct(){
-    add_action( 'save_post_document', array( $this, 'save_document_meta'), 10, 3 );
+    add_action( 'save_post', array( $this, 'save_document_meta'), 10, 3 );
 
     add_action( 'rwmb_after', array( $this, 'load_document_media_js'), 1000 );
 
@@ -35,8 +35,7 @@ if ( class_exists("PhilaGovAdminDocuments" ) ){
 
     //make sure the metabox plugin exists
     if (function_exists('rwmb_meta')) {
-      $documents = rwmb_meta( 'phila_documents', $args = array('type' => 'file_advanced'));
-
+      $documents = rwmb_meta( 'phila_files', $args = array('type' => 'file_advanced'));
     }
     //ensure we have documents attached
     if(!$documents == null) {
