@@ -18,7 +18,7 @@ function phila_register_meta_boxes( $meta_boxes ){
     'id'       => 'service_additions',
     'title'    => 'Service Description',
     'pages'    => array( 'service_post' ),
-    'context'  => 'normal',
+    'context'  => 'advanced',
     'priority' => 'high',
 
     'fields' => array(
@@ -61,7 +61,7 @@ function phila_register_meta_boxes( $meta_boxes ){
     'id'       => 'service_before_start',
     'title'    => 'Before You Start Details',
     'pages'    => array( 'service_post' ),
-    'context'  => 'normal',
+    'context'  => 'advanced',
     'priority' => 'high',
 
     'fields' => array(
