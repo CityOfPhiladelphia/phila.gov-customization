@@ -14,8 +14,8 @@ function department_author_only(){
 }
 
 function administration_admin_scripts() {
-  wp_enqueue_script( 'admin-script', plugins_url( '../js/admin-department-author.js' , __FILE__ ) );
-  wp_register_style( 'admin-department-author', plugins_url( '../css/admin-department-author.css' , __FILE__  ) );
+  wp_enqueue_script( 'admin-script', plugins_url( 'js/admin-department-author.js' , __FILE__ ) );
+  wp_register_style( 'admin-department-author', plugins_url( 'css/admin-department-author.css' , __FILE__  ) );
   wp_enqueue_style( 'admin-department-author' );
 }
 

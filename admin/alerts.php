@@ -129,7 +129,7 @@ function enqueue_alert_scripts($hook) {
   global $post;
   if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
     if ( 'site_wide_alert' === $post->post_type ) {
-        wp_enqueue_script( 'alerts-ui', plugin_dir_url( __FILE__ ) . '../js/alerts.js', array('jquery'));
+        wp_enqueue_script( 'alerts-ui', plugin_dir_url( __FILE__ ) . 'js/alerts.js', array('jquery'));
     }
   }
 }
