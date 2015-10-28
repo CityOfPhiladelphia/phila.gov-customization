@@ -7,9 +7,9 @@
 
 
  // Instantiate new class
- $phila_service_page_rewrites = new PhilaServiceRewrites();
+ $phila_service_page_rewrites = new PhilaGovServiceRewrites();
 
- class PhilaServiceRewrites {
+ class PhilaGovServiceRewrites {
 
   public function __construct(){
 
@@ -74,6 +74,6 @@
       wp_redirect( $updated_url );
       exit();
     }
-}
+  }
 
-}//PhilaServiceRewrites
+}//PhilaGovServiceRewrites
