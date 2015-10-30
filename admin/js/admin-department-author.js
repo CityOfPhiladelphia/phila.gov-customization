@@ -3,8 +3,6 @@ for users who do not have the PHILA_ADMIN capability */
 
 jQuery(document).ready(function($){
 
-  "use strict";
-
   //force top category to be checked all the time
   var required_cat = $('#categorychecklist li:first-child input');
   if( !required_cat.attr('checked')  ) {
@@ -52,8 +50,13 @@ jQuery(document).ready(function($){
   }
 
   if ( ( typenow == 'news_post') && adminpage.indexOf('post') > -1 ){
+    $("#post").validate({
+      rules: {
+         'post_title' : 'required'
+       }
+    });
     $( "#title" ).rules( "add", {
-      maxlength: 70, required: true
+      maxlength: 70
     });
     $( "#phila_news_desc" ).rules( "add", {
       maxlength: 255, required: true
