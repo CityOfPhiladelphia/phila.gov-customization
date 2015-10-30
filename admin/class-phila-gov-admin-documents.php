@@ -67,8 +67,6 @@ if ( class_exists("PhilaGovAdminDocuments" ) ){
     global $post_type;
     if( 'document' == $post_type ) {
     	wp_enqueue_script( 'admin-document-script', plugins_url( 'js/admin-documents.js' , __FILE__, array('jQuery') ) );
-
-      wp_enqueue_script( 'jquery-validation', plugins_url('js/jquery.validate.min.js', __FILE__, array( 'admin-document-script') ) );
     }
   }
 
