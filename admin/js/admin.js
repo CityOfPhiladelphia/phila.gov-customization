@@ -31,6 +31,6 @@ jQuery(document).ready(function($){
         rules: {
           'post_title' : 'required'
         }
-      });
+    });
   }
 });

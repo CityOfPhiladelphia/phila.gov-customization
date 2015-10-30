@@ -316,5 +316,49 @@ function phila_register_meta_boxes( $meta_boxes ){
       ),
     )
   );
+  $meta_boxes[] = array(
+    'id'       => 'notifications',
+    'title'    => 'Notification Details',
+    'pages'    => array( 'notification' ),
+    'context'  => 'normal',
+    'priority' => 'high',
+
+    'fields' => array(
+      array(
+        'name'  => 'Start Time',
+        'id'    => $prefix . 'notification-start',
+        'class' =>  'start-time',
+        'type'  => 'datetime',
+        'size'  =>  25,
+        'js_options' =>  array(
+          'timeFormat' =>  'hh:mm tt',
+          'dateFormat'=>'m-dd-yy',
+          'showTimepicker' => true,
+          'stepMinute' => 15,
+          'showHour' => 'true'
+        )
+      ),
+      array(
+        'name'  => 'End Time',
+        'id'    => $prefix . 'notification-end',
+        'type'  => 'datetime',
+        'class' =>  'end-time',
+        'size'  =>  25,
+        'js_options' =>  array(
+          'timeFormat' =>  'hh:mm tt',
+          'dateFormat'=>'m-dd-yy',
+          'showTimepicker' => true,
+          'stepMinute' => 15,
+          'showHour' => 'true'
+          )
+        ),
+        array(
+          'name'  => 'Description',
+          'id'    => $prefix . 'notification-description',
+          'type'  => 'textarea',
+          'class' =>  'add-description'
+        )
+      )
+  );
     return $meta_boxes;
 }
