@@ -16,23 +16,3 @@ function phila_roles_and_capabilities(){
   get_role( 'editor' )->add_cap( PHILA_ADMIN );
 
 }
-
-/**
- * Add custom js to force category selection for Department Author roles
- *
- * @since   0.11.0
- */
-
-add_action( 'admin_enqueue_scripts', 'administration_admin_scripts', 1000 );
-
-function department_author_only(){
-  if ( ! current_user_can( PHILA_ADMIN ) ){
-    add_action( 'admin_enqueue_scripts', 'administration_admin_scripts' );
-  }
-}
-
-function administration_admin_scripts() {
-  wp_enqueue_script( 'admin-department-author-script', plugins_url( 'js/admin-department-author.js' , __FILE__ ) );
-  wp_register_style( 'admin-department-author', plugins_url( 'css/admin-department-author.css' , __FILE__  ) );
-  wp_enqueue_style( 'admin-department-author' );
-}
