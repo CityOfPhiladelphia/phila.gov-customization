@@ -46,27 +46,27 @@ class PhilaGovCustomTaxonomies {
         'hierarchical' => true
       ),
     ));
-    register_taxonomy('document_type',
+    register_taxonomy('type',
       array(
-        'document'
+        'attachment'
       ), array(
         'hierarchical' => true,
         'labels' => array(
-            'name' => _x( 'Document Type', 'taxonomy general name'),
-            'singular_name' => _x( 'Document Type', 'taxonomy singular name'),
-            'menu_name' =>     __('Document Type'),
-            'search_items' =>  __( 'Search Document Types' ),
-            'all_items' =>     __( 'All Document Types' ),
-            'edit_item' =>     __( 'Edit Document Type' ),
-            'update_item' =>   __( 'Update Document Type' ),
-            'add_new_item' =>  __( 'Add New Document Type' ),
-            'new_item_name' => __( 'New Document Type' ),
-            'menu_name' =>     __( 'Document Types' ),
+            'name' => _x( 'Type', ''),
+            'singular_name' => _x( 'Type', ''),
+            'menu_name' =>     __('Type'),
+            'search_items' =>  __( 'Search Types' ),
+            'all_items' =>     __( 'All Types' ),
+            'edit_item' =>     __( 'Edit Type' ),
+            'update_item' =>   __( 'Update Type' ),
+            'add_new_item' =>  __( 'Add New Type' ),
+            'new_item_name' => __( 'New Type' ),
+            'menu_name' =>     __( 'Type' ),
           ),
       'public' => true,
       'show_admin_column' => true,
       'rewrite' => array(
-        'slug' => 'document-type',
+        'slug' => 'type',
         'hierarchical' => false
       ),
     ));
