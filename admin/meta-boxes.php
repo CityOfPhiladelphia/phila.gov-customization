@@ -328,28 +328,22 @@ function phila_register_meta_boxes( $meta_boxes ){
         'name'  => 'Start Time',
         'id'    => $prefix . 'notification-start',
         'class' =>  'start-time',
-        'type'  => 'datetime',
+        'type'  => 'date',
         'size'  =>  25,
         'js_options' =>  array(
           'timeFormat' =>  'hh:mm tt',
-          'dateFormat'=>'m-dd-yy',
-          'showTimepicker' => true,
-          'stepMinute' => 15,
-          'showHour' => 'true'
+          'dateFormat'=>'m-dd-yy'
         )
       ),
       array(
         'name'  => 'End Time',
         'id'    => $prefix . 'notification-end',
-        'type'  => 'datetime',
+        'type'  => 'date',
         'class' =>  'end-time',
         'size'  =>  25,
         'js_options' =>  array(
           'timeFormat' =>  'hh:mm tt',
-          'dateFormat'=>'m-dd-yy',
-          'showTimepicker' => true,
-          'stepMinute' => 15,
-          'showHour' => 'true'
+          'dateFormat'=>'m-dd-yy'
           )
         ),
         array(
