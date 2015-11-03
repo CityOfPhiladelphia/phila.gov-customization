@@ -62,4 +62,14 @@ jQuery(document).ready(function($){
       maxlength: 255, required: true
     });
   }
+  if ( ( typenow == 'attachment') && adminpage.indexOf('post') > -1 ){
+    $("#post").validate({
+      rules: {
+         'post_title' : 'required'
+       }
+    });
+    $( "#attachment_content" ).rules( "add", {
+      maxlength: 225, required: true
+    });
+  }
 });
