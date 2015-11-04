@@ -25,7 +25,7 @@ class PhilaGovRoleAdministration {
 
     add_action( 'admin_head', array( $this, 'remove_meta_boxes' ) );
 
-    add_action( 'do_meta_boxes', array( $this, 'remove_role_metabox' ) );
+    //add_action( 'do_meta_boxes', array( $this, 'remove_role_metabox' ) );
 
     add_action('admin_head', array($this, 'tinyMCE_edits' ) );
 
