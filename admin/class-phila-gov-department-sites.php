@@ -7,10 +7,14 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
  class PhilaGovDepartmentSites {
 
   public function __construct(){
+
     add_action( 'admin_init', array( $this, 'determine_page_type' ) );
+
     if ( $this->determine_page_type() ){
       add_filter( 'rwmb_meta_boxes', array($this, 'phila_register_department_meta_boxes' ) );
     }
+
+
   }
 
   function determine_page_type() {
@@ -106,7 +110,7 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
         )
       )
     );
-
     return $meta_boxes;
   }
+  
 }
