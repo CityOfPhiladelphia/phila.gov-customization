@@ -94,5 +94,29 @@ class PhilaGovCustomTaxonomies {
         'hierarchical' => false
       ),
     ));
+    register_taxonomy('news_type',
+      array(
+        'news_post'
+      ), array(
+        'hierarchical' => true,
+        'labels' => array(
+          'name' => _x( 'News Type', ''),
+          'singular_name' => _x( 'News Type', ''),
+          'menu_name' =>     __('Type'),
+          'search_items' =>  __( 'Search News Types' ),
+          'all_items' =>     __( 'All News Types' ),
+          'edit_item' =>     __( 'Edit News Type' ),
+          'update_item' =>   __( 'Update News Type' ),
+          'add_new_item' =>  __( 'Add New News Type' ),
+          'new_item_name' => __( 'New DNews Type' ),
+          'menu_name' =>     __( 'News Types' ),
+        ),
+      'public' => true,
+      'show_admin_column' => true,
+      'rewrite' => array(
+        'slug' => 'news-type',
+        'hierarchical' => false
+      ),
+    ));
   }
 }
