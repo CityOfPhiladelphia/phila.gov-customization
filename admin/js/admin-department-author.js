@@ -21,8 +21,8 @@ jQuery(document).ready(function($){
   $('#news_type-adder').hide();
 
   //$('.add-clone').hide();
-  $('#categorychecklist input').attr('disabled', true);
 
+  $('#categorydiv').hide();
   //don't allow department authors to create new menus
   $('.add-new-menu-action').hide();
   //hide "Appearance" menu
