@@ -111,7 +111,20 @@ function recent_news_shortcode($atts) {
      $a['posts'] = 6;
    }
 
-  $args = array( 'posts_per_page' => $a['posts'], 'order'=> 'DESC', 'orderby' => 'date', 'post_type'  => 'news_post', 'cat' => $current_category);
+  $args = array( 'posts_per_page' => $a['posts'],
+  'order'=> 'DESC',
+  'orderby' => 'date',
+  'post_type'  => 'news_post',
+  'cat' => $current_category,
+  'tax_query'=> array(
+    array(
+      'taxonomy' => 'news_type',
+      'field'    => 'slug',
+			'terms'    => 'featured-news',
+      'operator' => 'NOT IN'
+      ),
+    ),
+  );
 
   $news_loop = new WP_Query( $args );
 
