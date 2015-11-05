@@ -1,8 +1,6 @@
 /* For all admins */
 jQuery(document).ready(function($){
 
-  "use strict";
-
   //Rename Pages to "Information Pages"
   //This is here because of permissions weirdness as well as timing problems
   $('#adminmenuwrap .wp-submenu a').each(function(i) {
@@ -12,6 +10,9 @@ jQuery(document).ready(function($){
         $(this).text("Add Information Page");
     }
   });
+
+  //no one can clone rn
+  $('#department-content-highlights .add-clone').css('visibility', 'hidden');
 
   if( $('.misc-pub-attachment input[value*=".pdf"]').val() ) {
     $('.post-type-attachment #categorydiv input').prop( 'disabled', true );
@@ -33,4 +34,19 @@ jQuery(document).ready(function($){
         }
       });
   }
+  if (typenow == 'department_page' && adminpage.indexOf('post') > -1 ){
+    $( "#phila_highlight_title" ).rules( "add", {
+      maxlength: 20, required: true
+    });
+    $( "#phila_highlight_image" ).rules( "add", {
+     required: true
+    });
+    $( "#phila_highlight_content_title" ).rules( "add", {
+      maxlength: 70, required: true
+    });
+    $( "#phila_highlight_description" ).rules( "add", {
+      maxlength: 255, required: true
+    });
+  }
+
 });

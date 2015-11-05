@@ -52,9 +52,9 @@ function phila_allow_draft_dropdown_pages_args($dropdown_args) {
 add_action( 'admin_enqueue_scripts', 'phila_load_admin_media_js', 1 );
 
 function phila_load_admin_media_js(){
-  wp_enqueue_script( 'admin-general-scripts', plugins_url( 'js/admin.js' , __FILE__, array('jquery-validation') ) );
-
   wp_enqueue_script( 'jquery-validation', plugins_url('js/jquery.validate.min.js', __FILE__, array( 'jQuery') ) );
+
+  wp_enqueue_script( 'admin-general-scripts', plugins_url( 'js/admin.js' , __FILE__, array('jquery-validation') ) );
 }
 
 add_action( 'admin_enqueue_scripts', 'phila_load_admin_css', 11 );
