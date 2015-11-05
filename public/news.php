@@ -216,8 +216,100 @@ function recent_news_shortcode($atts) {
   return $output;
 
 }
-add_action( 'init', 'register_news_shortcodes' );
+add_action( 'init', 'register_news_shortcode' );
 
-function register_news_shortcodes(){
+function register_news_shortcode(){
    add_shortcode( 'recent-news', 'recent_news_shortcode' );
+}
+
+/**
+* @since 0.7.0
+*
+* Shortcode for displaying news on department homepage
+* @param @atts - posts can be set to 1 or 3 in a card-like view
+*                list can be set for ul display
+*
+* @package phila.gov-customization
+*/
+
+
+function featured_news_shortcode() {
+  global $post;
+  $category = get_the_category();
+
+  $current_category = $category[0]->cat_ID;
+
+  $args = array( 'posts_per_page' =>1,
+  'order'=> 'DESC',
+  'orderby' => 'date',
+  'post_type'  => 'news_post',
+  'cat' => $current_category,
+  'tax_query'=> array(
+    array(
+      'taxonomy' => 'news_type',
+      'field'    => 'slug',
+			'terms'    => 'featured-news',
+      'operator' => 'IN'
+      ),
+    ),
+  );
+
+  $featured_news_loop = new WP_Query( $args );
+
+  $output = '';
+  $output = '<div class="news">';
+
+  if( $featured_news_loop->have_posts() ) {
+    $post_counter = 0;
+
+    while( $featured_news_loop->have_posts() ) : $featured_news_loop->the_post();
+    $post_counter++;
+
+    $content = get_the_content();
+
+    $url = rwmb_meta('phila_news_url', $args = array('type'=>'url'));
+    $contributor = rwmb_meta('phila_news_contributor', $args = array('type'=>'text'));
+    $desc = rwmb_meta('phila_news_desc', $args = array('type'=>'textarea'));
+
+    if (!$content == '') {
+      $output .= '<div class="story s-box">';
+    }else{
+      $output .= '<div class="unlinked-story s-box">';
+    }
+
+    if (!$url == ''){
+      $output .= '<a href="' . $url .'">'; //a tag ends after all the content
+      $output .=  get_the_post_thumbnail( $post->ID, 'news-thumb' );
+      $output .= '<h3>' . get_the_title( $post->ID ) . '</h3>';
+
+    }else{
+      if (!$content === '') {
+        $output .= '<a href="' . get_permalink() .'">';//a tag ends after all the content
+      }
+      $output .=   get_the_post_thumbnail( $post->ID, 'news-thumb' );
+      $output .=  '<h3>' . get_the_title( $post->ID ) . '</h3>';
+    }
+
+    if ( function_exists('rwmb_meta' ) ) {
+      $output .= '<p>' . $desc  . '</p>';
+    }
+    if (!$content == '') {
+      $output .= '</a>';
+    }
+    $output .= '</div></div>';
+
+    endwhile;
+
+    }else {
+      $output .= __( 'Please enter at least one feature.', 'phila.gov' );
+    }
+
+  wp_reset_postdata();
+  return $output;
+
+}
+add_action( 'init', 'register_featured_news_shortcode' );
+
+function register_featured_news_shortcode(){
+   add_shortcode( 'featured-news', 'featured_news_shortcode' );
 }
