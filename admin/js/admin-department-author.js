@@ -29,6 +29,9 @@ jQuery(document).ready(function($){
   $('#menu-appearance').hide();
   $('.page-title-action').hide();
   $('#wp-admin-bar-new-content').hide();
+  $('.edit-slug').hide();
+
+
 
   var menuIdString = $('#menu-id').text().trim();
   var allMenuIDs = menuIdString.split(" ");
@@ -92,5 +95,8 @@ jQuery(document).ready(function($){
          'post_title' : 'required'
        }
      });
+   }
+   if ( ( typenow == 'department_page') && adminpage.indexOf('post') > -1 ){
+     $("#title").prop('disabled', true);
    }
 });
