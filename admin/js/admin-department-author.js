@@ -11,7 +11,8 @@ jQuery(document).ready(function($){
   //hide locations tab on nav-menus
   $('a[href$="nav-menus.php?action=locations"]').hide();
 
-  $('.add-clone').hide();
+  //$('.add-clone').hide();
+  $('#categorychecklist input').attr('disabled', true);
 
   //don't allow department authors to create new menus
   $('.add-new-menu-action').hide();
