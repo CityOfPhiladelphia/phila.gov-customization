@@ -31,6 +31,19 @@ jQuery(document).ready(function($){
         rules: {
           'post_title' : 'required'
         }
-      });
+    });
+  }
+  if ( (typenow == 'notification') && adminpage.indexOf('post') > -1 ){
+    $("#post").validate({
+        rules: {
+          'post_title' : 'required'
+        }
+    });
+    $( "#title" ).rules( "add", {
+      maxlength: 70
+    });
+    $( "#phila_notification-description" ).rules( "add", {
+      maxlength: 225, required: true
+    });
   }
 });
