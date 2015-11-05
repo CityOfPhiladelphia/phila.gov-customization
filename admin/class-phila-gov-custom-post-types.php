@@ -76,7 +76,7 @@ class PhilaGovCustomPostTypes{
           'parent_item_colon' => '',
         ),
         'taxonomies' => array('category'),
-        'supports' => array( 'title', 'editor', 'page-attributes', 'thumbnail', 'revisions'),
+        'supports' => array( 'title', 'editor', 'page-attributes', 'revisions'),
         'public' => true,
         'has_archive' => true,
         'show_in_nav_menus' => true,
