@@ -10,7 +10,7 @@
  * Plugin URI:        https://github.com/CityOfPhiladelphia/phila.gov-customization
  * Description:       Custom Wordpress functionality, custom post types, custom taxonomies, etc.
  *
- * Version:           0.17.12
+ * Version:           0.17.13
  * Author:            City of Philadelphia
  * Author URI:        http://phila.gov
  * License:           GPL-2.0+
@@ -31,6 +31,7 @@ require $dir. '/admin/class-phila-gov-custom-post-types.php';
 require $dir. '/admin/class-phila-gov-custom-taxonomies.php';
 require $dir. '/admin/class-phila-gov-department-author-media.php';
 require $dir. '/admin/class-phila-gov-department-sites.php';
+require $dir. '/admin/class-phila-gov-news.php';
 require $dir. '/admin/class-phila-gov-role-administration.php';
 require $dir. '/admin/define-roles.php';
 require $dir. '/admin/meta-boxes.php';

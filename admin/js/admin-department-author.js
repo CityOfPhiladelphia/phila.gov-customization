@@ -11,6 +11,15 @@ jQuery(document).ready(function($){
   //hide locations tab on nav-menus
   $('a[href$="nav-menus.php?action=locations"]').hide();
 
+  //hide unwanted items from the wordpress menus
+  $('.menu-icon-service_post').hide();
+  $('a[href^="nav-menus.php"]').hide();
+  $('.menu-icon-document').hide();
+
+  //do not allow new categories to be added
+  $('#category-adder').hide();
+  $('#news_type-adder').hide();
+
   //$('.add-clone').hide();
   $('#categorychecklist input').attr('disabled', true);
 
@@ -18,6 +27,11 @@ jQuery(document).ready(function($){
   $('.add-new-menu-action').hide();
   //hide "Appearance" menu
   $('#menu-appearance').hide();
+  $('.page-title-action').hide();
+  $('#wp-admin-bar-new-content').hide();
+  $('.edit-slug').hide();
+
+
 
   var menuIdString = $('#menu-id').text().trim();
   var allMenuIDs = menuIdString.split(" ");
@@ -75,4 +89,14 @@ jQuery(document).ready(function($){
       maxlength: 225, required: true
     });
   }
+  if ( ( typenow == 'site-wide-alert') && adminpage.indexOf('post') > -1 ){
+    $("#post").validate({
+      rules: {
+         'post_title' : 'required'
+       }
+     });
+   }
+   if ( ( typenow == 'department_page') && adminpage.indexOf('post') > -1 ){
+     $("#title").prop('disabled', true);
+   }
 });
