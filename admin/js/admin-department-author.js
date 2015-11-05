@@ -10,6 +10,15 @@ jQuery(document).ready(function($){
   }
   //hide locations tab on nav-menus
   $('a[href$="nav-menus.php?action=locations"]').hide();
+  
+  //hide unwanted items from the wordpress menus
+  $('.menu-icon-service_post').hide();
+  $('a[href^="nav-menus.php"]').hide();
+  $('.menu-icon-document').hide();
+
+  //do not allow new categories to be added
+  $('#category-adder').hide();
+  $('#news_type-adder').hide();
 
   //$('.add-clone').hide();
   $('#categorychecklist input').attr('disabled', true);
