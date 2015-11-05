@@ -33,6 +33,7 @@ require $dir. '/admin/class-phila-gov-department-author-media.php';
 require $dir. '/admin/class-phila-gov-role-administration.php';
 require $dir. '/admin/define-roles.php';
 require $dir. '/admin/meta-boxes.php';
+require $dir. '/admin/phila-gov-department-sites.php';
 require $dir. '/admin/tiny-mce.php';
 
 

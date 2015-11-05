@@ -105,33 +105,6 @@ function phila_register_meta_boxes( $meta_boxes ){
   );
 
   $meta_boxes[] = array(
-    'id'       => 'departments',
-    'title'    => 'Department Information',
-    'pages'    => array( 'department_page' ),
-    'context'  => 'normal',
-    'priority' => 'high',
-
-    'fields' => array(
-      array(
-        'name'  => 'Description',
-        'desc'  => 'A short description of the department. Required.',
-        'id'    => $prefix . 'dept_desc',
-        'type'  => 'textarea',
-        'class' => 'dept-description',
-        'clone' => false,
-      ),
-      array(
-        'name'  => 'External URL of Department',
-        'desc'  => 'If the department does not live on this website, enter the location here. Eg. http://phila.gov/revenue/',
-        'id'    => $prefix . 'dept_url',
-        'type'  => 'URL',
-        'class' => 'dept-url',
-        'clone' => false,
-      ),
-    )
-  );//External department link
-
-  $meta_boxes[] = array(
     'id'       => 'news',
     'title'    => 'News Information',
     'pages'    => array( 'news_post' ),
