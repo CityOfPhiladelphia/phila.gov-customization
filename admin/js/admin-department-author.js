@@ -10,7 +10,7 @@ jQuery(document).ready(function($){
   }
   //hide locations tab on nav-menus
   $('a[href$="nav-menus.php?action=locations"]').hide();
-  
+
   //hide unwanted items from the wordpress menus
   $('.menu-icon-service_post').hide();
   $('a[href^="nav-menus.php"]').hide();
@@ -84,4 +84,11 @@ jQuery(document).ready(function($){
       maxlength: 225, required: true
     });
   }
+  if ( ( typenow == 'site-wide-alert') && adminpage.indexOf('post') > -1 ){
+    $("#post").validate({
+      rules: {
+         'post_title' : 'required'
+       }
+     });
+   }
 });
