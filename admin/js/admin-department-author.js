@@ -27,6 +27,8 @@ jQuery(document).ready(function($){
   $('.add-new-menu-action').hide();
   //hide "Appearance" menu
   $('#menu-appearance').hide();
+  $('.page-title-action').hide();
+  $('#wp-admin-bar-new-content').hide();
 
   var menuIdString = $('#menu-id').text().trim();
   var allMenuIDs = menuIdString.split(" ");

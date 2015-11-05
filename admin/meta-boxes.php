@@ -124,33 +124,6 @@ function phila_register_meta_boxes( $meta_boxes ){
   );//news description
 
   $meta_boxes[] = array(
-   'id'       => 'external_news',
-   'title'    => 'News Linking to External Source',
-   'pages'    => array( 'news_post' ),
-   'context'  => 'normal',
-   'priority' => 'high',
-
-   'fields' => array(
-      array(
-        'name'  => 'URL of external news article',
-        'desc'  => 'http://www.phila.gov/experiencephila/mayor.html',
-        'id'    => $prefix . 'news_url',
-        'type'  => 'URL',
-        'class' => 'news-url',
-        'clone' => false,
-       ),
-      array(
-       'name'  => 'News article contributor name',
-       'desc'  => 'Eg. Experience Philadelphia',
-       'id'    => $prefix . 'news_contributor',
-       'type'  => 'text',
-       'class' => 'news-contributor',
-       'clone' => false,
-       ),
-    )
-  );//link to external news source
-
-  $meta_boxes[] = array(
     'id'       => 'news-admin-only',
     'title'    => 'Homepage Display',
     'pages'    => array( 'news_post' ),
