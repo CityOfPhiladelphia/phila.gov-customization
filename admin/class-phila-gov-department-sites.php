@@ -59,6 +59,7 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
         ),
       )
     );//External department link
+    /*
     $meta_boxes[] = array(
       'id'       => 'department-content-highlights',
       'title'    => 'Homepage Highlights',
@@ -110,7 +111,8 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
         )
       )
     );
+    */
     return $meta_boxes;
   }
-  
+
 }

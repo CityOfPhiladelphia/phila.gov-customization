@@ -34,6 +34,7 @@ jQuery(document).ready(function($){
         }
       });
   }
+  /*
   if (typenow == 'department_page' && adminpage.indexOf('post') > -1 ){
     $( "#phila_highlight_title" ).rules( "add", {
       maxlength: 20, required: true
@@ -48,5 +49,6 @@ jQuery(document).ready(function($){
       maxlength: 255, required: true
     });
   }
+  */
 
 });
