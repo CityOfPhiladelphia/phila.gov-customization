@@ -9,9 +9,9 @@ jQuery(document).ready(function($){
     });
 
     $('.rwmb-date').datepicker();
-    $('.rwmb-date').datepicker('setDate', new Date());
-
+    if($(".rwmb-date").datepicker("getDate") === null) {
+      $('.rwmb-date').datepicker('setDate', new Date());
+    }
     var $eventSelect = $('.rwmb-select-advanced');
-    
   }
 });
