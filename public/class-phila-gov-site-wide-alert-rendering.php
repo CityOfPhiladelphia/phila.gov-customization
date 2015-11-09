@@ -25,7 +25,9 @@ class PhilaGovSiteWideAlertRendering {
     function dateTimeFormat($date){
       if ( !$date == '' ) {
         $the_date = DateTime::createFromFormat('m-d-Y H:i a', $date);
-        echo $the_date->format('g:i a \o\n l, F d, Y');
+        $formatted_date = $the_date->format('g:i a \o\n l, F d, Y');
+
+        echo str_replace(array('am','pm'),array('a.m.','p.m.'),$formatted_date);
       }
     }
 
