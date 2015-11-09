@@ -10,7 +10,7 @@
  * Plugin URI:        https://github.com/CityOfPhiladelphia/phila.gov-customization
  * Description:       Custom Wordpress functionality, custom post types, custom taxonomies, etc.
  *
- * Version:           0.17.15
+ * Version:           0.17.16
  * Author:            City of Philadelphia
  * Author URI:        http://phila.gov
  * License:           GPL-2.0+
@@ -24,7 +24,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 $dir = plugin_dir_path( __FILE__ );
 require $dir. '/admin/admin-ui.php';
-require $dir. '/admin/alerts.php';
 require $dir. '/admin/class-phila-gov-admin-documents.php';
 require $dir. '/admin/class-phila-gov-admin-menu.php';
 require $dir. '/admin/class-phila-gov-custom-post-types.php';
@@ -33,6 +32,7 @@ require $dir. '/admin/class-phila-gov-department-author-media.php';
 require $dir. '/admin/class-phila-gov-department-sites.php';
 require $dir. '/admin/class-phila-gov-news.php';
 require $dir. '/admin/class-phila-gov-role-administration.php';
+require $dir. '/admin/class-phila-gov-site-wide-alert.php';
 require $dir. '/admin/define-roles.php';
 require $dir. '/admin/meta-boxes.php';
 require $dir. '/admin/tiny-mce.php';
@@ -41,6 +41,7 @@ require $dir. '/admin/tiny-mce.php';
 require $dir. '/public/browse.php';
 require $dir. '/public/class-content-collection-walker.php';
 require $dir. '/public/class-phila-gov-service-rewrites.php';
+require $dir. '/public/class-phila-gov-site-wide-alert-rendering.php';
 require $dir. '/public/departments.php';
 require $dir. '/public/news.php';
 require $dir. '/public/removals.php';

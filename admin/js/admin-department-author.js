@@ -89,13 +89,6 @@ jQuery(document).ready(function($){
       maxlength: 225, required: true
     });
   }
-  if ( ( typenow == 'site-wide-alert') && adminpage.indexOf('post') > -1 ){
-    $("#post").validate({
-      rules: {
-         'post_title' : 'required'
-       }
-     });
-   }
    if ( ( typenow == 'department_page') && adminpage.indexOf('post') > -1 ){
      $("#title").prop('disabled', true);
    }
