@@ -116,46 +116,46 @@ class PhilaGovSiteWideAlert {
     return $meta_boxes;
   }
 
-/*
- * Show active alerts on admin screen
- */
-function site_wide_alert_columns( $columns ) {
-  $columns["active_alert"] = "Active";
-  return $columns;
-}
+  /*
+   * Show active alerts on admin screen
+   */
+  function site_wide_alert_columns( $columns ) {
+    $columns["active_alert"] = "Active";
+    return $columns;
+  }
 
-function site_wide_alert_column_output( $colname, $cptid ) {
-  echo get_post_meta( $cptid, 'phila_active', true );
-}
+  function site_wide_alert_column_output( $colname, $cptid ) {
+    echo get_post_meta( $cptid, 'phila_active', true );
+  }
 
-function my_sort_metabox( $vars ) {
-  if( array_key_exists('orderby', $vars )) {
-    if('Active' == $vars['orderby']) {
-      $vars['orderby'] = 'meta_value';
-      $vars['meta_key'] = 'phila_active';
+  function my_sort_metabox( $vars ) {
+    if( array_key_exists('orderby', $vars )) {
+      if('Active' == $vars['orderby']) {
+        $vars['orderby'] = 'meta_value';
+        $vars['meta_key'] = 'phila_active';
+      }
+    }
+    return $vars;
+  }
+
+  /**
+  * Add scripts only to site_wide_alert posts
+  *
+  */
+
+  function enqueue_alert_scripts($hook) {
+    global $post;
+    if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
+      if ( 'site_wide_alert' === $post->post_type ) {
+          wp_enqueue_script( 'alerts-ui', plugin_dir_url( __FILE__ ) . 'js/alerts.js', array('jquery'));
+      }
     }
   }
-  return $vars;
-}
 
-/**
-* Add scripts only to site_wide_alert posts
-*
-*/
-
-function enqueue_alert_scripts($hook) {
-  global $post;
-  if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
-    if ( 'site_wide_alert' === $post->post_type ) {
-        wp_enqueue_script( 'alerts-ui', plugin_dir_url( __FILE__ ) . 'js/alerts.js', array('jquery'));
+  function redirect_alert_pages() {
+    if ( !is_preview() && is_singular( 'site_wide_alert' ) ) {
+      wp_redirect( home_url(), 302 );
+      exit;
     }
   }
-}
-
-function redirect_alert_pages() {
-  if ( !is_preview() && is_singular( 'site_wide_alert' ) ) {
-    wp_redirect( home_url(), 302 );
-    exit;
-  }
-}
 }
