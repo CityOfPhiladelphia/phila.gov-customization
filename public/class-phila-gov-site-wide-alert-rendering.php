@@ -7,7 +7,7 @@ class PhilaGovSiteWideAlertRendering {
 
   /**
   *
-  * Display alert if display is true, also show preview
+  * Display alert if display is true, also show on preview
   *
   */
   static function create_site_wide_alerts(){
@@ -21,6 +21,14 @@ class PhilaGovSiteWideAlertRendering {
       'posts_per_page'    => 1,
       'post_status' => 'any'
     );
+
+    function dateTimeFormat($date){
+      if ( !$date == '' ) {
+        $the_date = DateTime::createFromFormat('m-d-Y H:i a', $date);
+        echo $the_date->format('g:i a \o\n l, F d, Y');
+      }
+    }
+
     $alert_query = new WP_Query($args);
     if ( $alert_query->have_posts() ) {
 
@@ -33,18 +41,27 @@ class PhilaGovSiteWideAlertRendering {
         $alert_start = rwmb_meta( 'phila_start', $args = array('type' => 'datetime'));
         $alert_end = rwmb_meta( 'phila_end', $args = array('type' => 'datetime'));
 
-
         $alert_icon = 'ion-alert-circled';
 
-        if($alert_type == 'Code Red Effective') {
-          $alert_icon = 'ion-ios-sunny';
-        }elseif ($alert_type == 'Code Orange Effective') {
-          $alert_icon = 'ion-cloud';
-        }elseif ($alert_type == 'Code Grey Effective') {
-          $alert_icon = 'ion-waterdrop';
-        }elseif($alert_type == 'Other'){
-          $alert_icon = rwmb_meta( 'phila_icon', $args = array('type' => 'text'));
+        switch($alert_type){
+          case 'Code Blue Effective':
+            $alert_icon = 'ion-ios-snowy';
+            break;
+          case 'Code Red Effective':
+            $alert_icon = 'ion-ios-sunny';
+            break;
+          case 'Code Orange Effective':
+            $alert_icon = 'ion-cloud';
+            break;
+          case 'Code Grey Effective':
+            $alert_icon = 'ion-ios-rainy';
+            break;
+          case 'Other':
+            $alert_icon = rwmb_meta( 'phila_icon', $args = array('type' => 'text'));
+            ($alert_icon == '') ? $alert_icon = 'ion-alert-circled' : $alert_icon;
+            break;
         }
+
         $date_seperator = ' <strong>to</strong> ';
         if(($alert_start == '') || ($alert_end == '')){
           $date_seperator = ' ';
@@ -54,16 +71,18 @@ class PhilaGovSiteWideAlertRendering {
 
         ?><div id="site-wide-alert">
             <div class="row"><?php
-        echo '<div class="large-8 columns">';
+        echo '<div class="large-9 columns">';
         echo '<h2><i class="ionicons ' . $alert_icon . '"></i>' . get_the_title() .'</h2>';
 
         echo '<div class="alert-start">';
-      //  phila_dateTimeFormat($alert_start);
-        echo $date_seperator;
-        //phila_dateTimeFormat($alert_end);
+        echo '<strong>Begins:</strong> ';
+        dateTimeFormat($alert_start);
+        echo '<br>';
+        echo '<strong>Ends:</strong> ';
+        dateTimeFormat($alert_end);
         echo '</div>';
         echo '</div>';
-        echo '<div class="large-16 columns">';
+        echo '<div class="large-15 columns">';
         if ($alert_type == 'Other'){
           //blank
         }else {

@@ -142,7 +142,6 @@ class PhilaGovSiteWideAlert {
   * Add scripts only to site_wide_alert posts
   *
   */
-
   function enqueue_alert_scripts($hook) {
     global $post;
     if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
@@ -151,7 +150,11 @@ class PhilaGovSiteWideAlert {
       }
     }
   }
-
+  
+  /**
+  * Don't let users find alert pages, they are moot
+  *
+  */
   function redirect_alert_pages() {
     if ( !is_preview() && is_singular( 'site_wide_alert' ) ) {
       wp_redirect( home_url(), 302 );

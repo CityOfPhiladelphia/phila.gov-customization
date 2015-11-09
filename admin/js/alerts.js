@@ -2,7 +2,6 @@
 * Admin Alerts Custom Js
 *
 */
-
 jQuery(document).ready(function($) {
   /*show/hide metaboxes if alert type is "other" */
   $('.other-icon').hide();
@@ -17,4 +16,22 @@ jQuery(document).ready(function($) {
       $('.type-other').hide();
     }
   });
+  if($('#phila_type').val() == 'Other') {
+    $('.other-icon').show();
+    $('.type-other').show();
+  }
+  $("#post").validate({
+    rules: {
+       'post_title' : 'required'
+     }
+   });
+   $( "#title" ).rules( "add", {
+     maxlength: 70
+   });
+   $( ".start-time input" ).rules( "add", {
+     required: true
+   });
+   $( ".end-time input" ).rules( "add", {
+     required: true
+   });
 });
