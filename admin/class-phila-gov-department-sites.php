@@ -66,7 +66,7 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
       'priority' => 'high',
       'fields' => array(
         array(
-         'id' => 'content-blocks',
+         'id' => 'content_blocks',
          'type' => 'group',
          'clone'  => true,
          // List of sub-fields
@@ -76,34 +76,41 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
               'id'    => $prefix . 'block_heading',
               'type'  => 'text',
               'class' => 'block-title',
-              'required' => true
+              'required' => true,
+              'desc'  => '20 character maxium'
             ),
             array(
               'name'  => 'Image',
               'id'    => $prefix . 'block_image',
               'type'  => 'file_input',
               'class' => 'block-image',
-              'required' => true
+              'required' => true,
+              'desc'  => 'Image should be no smaller than 274px by 180px.'
             ),
             array(
               'name'  => 'Title',
               'id'    => $prefix . 'block_content_title',
               'type'  => 'text',
               'class' => 'block-content-title',
-              'required' => true
+              'required' => true,
+              'desc'  => '70 character maxium.',
+              'size'  => '60'
             ),
             array(
               'name'  => 'Summary',
               'id'    => $prefix . 'block_summary',
               'type'  => 'textarea',
               'class' => 'block-summary',
-              'required' => true
+              'required' => true,
+              'desc'  => '225 character maxium.'
             ),
             array(
               'name'  => 'Link to Content',
               'id'    => $prefix . 'block_link',
               'type'  => 'url',
-              'class' => 'block-url'
+              'class' => 'block-url',
+              'desc'  => 'Enter a URL. E.g. http://alpha.phila.gov/oem',
+              'size'  => '60',
             ),
           )
         )
