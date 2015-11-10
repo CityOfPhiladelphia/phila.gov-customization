@@ -14,7 +14,6 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
       add_filter( 'rwmb_meta_boxes', array($this, 'phila_register_department_meta_boxes' ) );
     }
 
-
   }
 
   function determine_page_type() {
@@ -51,7 +50,7 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
         ),
         array(
           'name'  => 'External URL of Department',
-          'desc'  => 'If the department does not live on this website, enter the location here. Eg. http://phila.gov/revenue/',
+          'desc'  => 'If the department does not live on this website, enter the location here. Eg. http://phila.gov/health/',
           'id'    => $prefix . 'dept_url',
           'type'  => 'URL',
           'class' => 'dept-url',
@@ -59,59 +58,57 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
         ),
       )
     );//External department link
-    /*
     $meta_boxes[] = array(
-      'id'       => 'department-content-highlights',
-      'title'    => 'Homepage Highlights',
+      'id'       => 'department-content-block',
+      'title'    => 'Content Blocks',
       'pages'    => array( 'department_page' ),
       'context'  => 'normal',
       'priority' => 'high',
       'fields' => array(
         array(
-         'id' => 'homepage-highlights',
+         'id' => 'content-blocks',
          'type' => 'group',
          'clone'  => true,
          // List of sub-fields
          'fields' => array(
             array(
-              'name'  => 'Name of highlight',
-              'id'    => $prefix . 'highlight_title',
+              'name'  => 'Block Heading',
+              'id'    => $prefix . 'block_heading',
               'type'  => 'text',
-              'class' => 'highlight-description',
+              'class' => 'block-title',
               'required' => true
             ),
             array(
               'name'  => 'Image',
-              'id'    => $prefix . 'highlight_image',
+              'id'    => $prefix . 'block_image',
               'type'  => 'file_input',
-              'class' => 'highlight-image',
+              'class' => 'block-image',
               'required' => true
             ),
             array(
               'name'  => 'Title',
-              'id'    => $prefix . 'highlight_content_title',
+              'id'    => $prefix . 'block_content_title',
               'type'  => 'text',
-              'class' => 'highlight-content-text',
+              'class' => 'block-content-title',
               'required' => true
             ),
             array(
-              'name'  => 'Description',
-              'id'    => $prefix . 'highlight_description',
+              'name'  => 'Summary',
+              'id'    => $prefix . 'block_summary',
               'type'  => 'textarea',
-              'class' => 'highlight-description',
+              'class' => 'block-summary',
               'required' => true
             ),
             array(
-              'name'  => 'Link',
-              'id'    => $prefix . 'highlight_link',
+              'name'  => 'Link to Content',
+              'id'    => $prefix . 'block_link',
               'type'  => 'url',
-              'class' => 'highlight-url'
+              'class' => 'block-url'
             ),
           )
         )
       )
     );
-    */
     return $meta_boxes;
   }
 
