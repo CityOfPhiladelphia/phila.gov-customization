@@ -102,7 +102,7 @@ class PhilaGovSiteWideAlert {
           'type'  => 'datetime',
           'class' =>  'end-time',
           'size'  =>  25,
-          'desc'  => 'Note: Alert start and end time do not remove the alert from phila.gov.',
+          'desc'  => 'Note: The start and end times communicate an alert’s length in the alert bar. The times don’t effect when the alert is visible on the site.',
           'js_options' =>  array(
             'timeFormat' =>  'hh:mm tt',
             'dateFormat'=>'m-dd-yy',
@@ -150,7 +150,7 @@ class PhilaGovSiteWideAlert {
       }
     }
   }
-  
+
   /**
   * Don't let users find alert pages, they are moot
   *
