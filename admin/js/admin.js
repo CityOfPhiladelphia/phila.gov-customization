@@ -12,7 +12,7 @@ jQuery(document).ready(function($){
   });
 
   //no one can clone rn
-  $('#department-content-highlights .add-clone').css('visibility', 'hidden');
+  $('#department-content-blocks .add-clone').css('visibility', 'hidden');
 
   if( $('.misc-pub-attachment input[value*=".pdf"]').val() ) {
     $('.post-type-attachment #categorydiv input').prop( 'disabled', true );
@@ -34,21 +34,14 @@ jQuery(document).ready(function($){
         }
       });
   }
-  /*
   if (typenow == 'department_page' && adminpage.indexOf('post') > -1 ){
-    $( "#phila_highlight_title" ).rules( "add", {
-      maxlength: 20, required: true
-    });
-    $( "#phila_highlight_image" ).rules( "add", {
-     required: true
-    });
-    $( "#phila_highlight_content_title" ).rules( "add", {
-      maxlength: 70, required: true
-    });
-    $( "#phila_highlight_description" ).rules( "add", {
-      maxlength: 255, required: true
-    });
+    var heading = $('[id^=phila_block_heading]');
+    var content_title = $('[id^=phila_block_content_title]');
+    var summary = $('[id^=phila_block_summary]');
+
+    heading.attr('maxlength', '20');
+    content_title.attr('maxlength', '70');
+    summary.attr('maxlength', '255');
   }
-  */
 
 });

@@ -10,10 +10,11 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
 
     add_action( 'admin_init', array( $this, 'determine_page_type' ) );
 
+    add_action( 'init', array( $this, 'register_content_blocks_shortcode' ) );
+
     if ( $this->determine_page_type() ){
       add_filter( 'rwmb_meta_boxes', array($this, 'phila_register_department_meta_boxes' ) );
     }
-
 
   }
 
@@ -51,7 +52,7 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
         ),
         array(
           'name'  => 'External URL of Department',
-          'desc'  => 'If the department does not live on this website, enter the location here. Eg. http://phila.gov/revenue/',
+          'desc'  => 'If the department does not live on this website, enter the location here. Eg. http://phila.gov/health/',
           'id'    => $prefix . 'dept_url',
           'type'  => 'URL',
           'class' => 'dept-url',
@@ -59,60 +60,123 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
         ),
       )
     );//External department link
-    /*
     $meta_boxes[] = array(
-      'id'       => 'department-content-highlights',
-      'title'    => 'Homepage Highlights',
+      'title'    => 'Content Blocks',
       'pages'    => array( 'department_page' ),
       'context'  => 'normal',
       'priority' => 'high',
       'fields' => array(
         array(
-         'id' => 'homepage-highlights',
+         'id' => 'content_blocks',
          'type' => 'group',
          'clone'  => true,
          // List of sub-fields
          'fields' => array(
             array(
-              'name'  => 'Name of highlight',
-              'id'    => $prefix . 'highlight_title',
+              'name'  => 'Block Heading',
+              'id'    => $prefix . 'block_heading',
               'type'  => 'text',
-              'class' => 'highlight-description',
-              'required' => true
+              'class' => 'block-title',
+              'required' => true,
+              'desc'  => '20 character maxium'
             ),
             array(
               'name'  => 'Image',
-              'id'    => $prefix . 'highlight_image',
+              'id'    => $prefix . 'block_image',
               'type'  => 'file_input',
-              'class' => 'highlight-image',
-              'required' => true
+              'class' => 'block-image',
+              'required' => true,
+              'desc'  => 'Image should be no smaller than 274px by 180px.'
             ),
             array(
               'name'  => 'Title',
-              'id'    => $prefix . 'highlight_content_title',
+              'id'    => $prefix . 'block_content_title',
               'type'  => 'text',
-              'class' => 'highlight-content-text',
-              'required' => true
+              'class' => 'block-content-title',
+              'required' => true,
+              'desc'  => '70 character maxium.',
+              'size'  => '60'
             ),
             array(
-              'name'  => 'Description',
-              'id'    => $prefix . 'highlight_description',
+              'name'  => 'Summary',
+              'id'    => $prefix . 'block_summary',
               'type'  => 'textarea',
-              'class' => 'highlight-description',
-              'required' => true
+              'class' => 'block-summary',
+              'required' => true,
+              'desc'  => '225 character maxium.'
             ),
             array(
-              'name'  => 'Link',
-              'id'    => $prefix . 'highlight_link',
+              'name'  => 'Link to Content',
+              'id'    => $prefix . 'block_link',
               'type'  => 'url',
-              'class' => 'highlight-url'
+              'class' => 'block-url',
+              'desc'  => 'Enter a URL. E.g. http://alpha.phila.gov/oem',
+              'size'  => '60',
             ),
           )
         )
       )
     );
-    */
     return $meta_boxes;
+  }
+
+  function content_blocks_shortcode( $atts ) {
+    $a = shortcode_atts( array(
+      'heading' => ''
+    ), $atts );
+
+    $content_blocks = rwmb_meta( 'content_blocks' );
+
+    foreach( $content_blocks as $key => $array_value ) {
+
+      $block_heading = isset( $array_value['phila_block_heading'] ) ? $array_value['phila_block_heading'] : '';
+
+      //match on the heading param
+      if ( strtolower( $a['heading'] ) == strtolower( $block_heading ) ){
+
+        $output = '';
+        $output .= '<h2 class="alternate divide title-offset">' . $block_heading . '</h2>';
+
+        $block_link = isset( $array_value['phila_block_link'] ) ? $array_value['phila_block_link'] : '';
+        if ($block_link == '') {
+          $output .= '<div class="content-block no-link">';
+          $block_image = isset( $array_value['phila_block_image'] ) ? $array_value['phila_block_image'] : '';
+          $output .= '<img src="' . $block_image . '" alt="">';
+
+          $block_title = isset( $array_value['phila_block_content_title'] ) ? $array_value['phila_block_content_title'] : '';
+          $output .= '<h3>' . $block_title . '</h3>';
+
+          $block_summary = isset( $array_value['phila_block_summary'] ) ? $array_value['phila_block_summary'] : '';
+          $output .= '<p>' . $block_summary . '</p>';
+
+          $output .= '</div>';
+        }else{
+          $output .= '<div class="content-block">';
+          $output .= '<a href="' . $block_link . '">';
+
+          $block_image = isset( $array_value['phila_block_image'] ) ? $array_value['phila_block_image'] : '';
+
+          $output .= '<img src="' . $block_image . '" alt="">';
+
+          $block_title = isset( $array_value['phila_block_content_title'] ) ? $array_value['phila_block_content_title'] : '';
+
+          $output .= '<h3>' . $block_title . '</h3>';
+
+          $block_summary = isset( $array_value['phila_block_summary'] ) ? $array_value['phila_block_summary'] : '';
+
+          $output .= '<p>' . $block_summary . '</p>';
+          $output .= '</a>';
+          $output .= '</div>';
+        }
+        return $output;
+
+        break;
+      }
+    }
+
+  }
+  function register_content_blocks_shortcode(){
+     add_shortcode( 'content-block', array($this, 'content_blocks_shortcode') );
   }
 
 }
