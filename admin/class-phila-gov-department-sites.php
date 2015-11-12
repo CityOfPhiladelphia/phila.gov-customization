@@ -10,6 +10,8 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
 
     add_action( 'admin_init', array( $this, 'determine_page_type' ) );
 
+    add_action( 'init', array( $this, 'register_content_blocks_shortcode' ) );
+
     if ( $this->determine_page_type() ){
       add_filter( 'rwmb_meta_boxes', array($this, 'phila_register_department_meta_boxes' ) );
     }
@@ -59,7 +61,6 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
       )
     );//External department link
     $meta_boxes[] = array(
-      'id'       => 'department-content-block',
       'title'    => 'Content Blocks',
       'pages'    => array( 'department_page' ),
       'context'  => 'normal',
@@ -117,6 +118,65 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
       )
     );
     return $meta_boxes;
+  }
+
+  function content_blocks_shortcode( $atts ) {
+    $a = shortcode_atts( array(
+      'heading' => ''
+    ), $atts );
+
+    $content_blocks = rwmb_meta( 'content_blocks' );
+
+    foreach( $content_blocks as $key => $array_value ) {
+
+      $block_heading = isset( $array_value['phila_block_heading'] ) ? $array_value['phila_block_heading'] : '';
+
+      //match on the heading param
+      if ( strtolower( $a['heading'] ) == strtolower( $block_heading ) ){
+
+        $output = '';
+        $output .= '<h2 class="alternate divide title-offset">' . $block_heading . '</h2>';
+
+        $block_link = isset( $array_value['phila_block_link'] ) ? $array_value['phila_block_link'] : '';
+        if ($block_link == '') {
+          $output .= '<div class="content-block no-link">';
+          $block_image = isset( $array_value['phila_block_image'] ) ? $array_value['phila_block_image'] : '';
+          $output .= '<img src="' . $block_image . '" alt="">';
+
+          $block_title = isset( $array_value['phila_block_content_title'] ) ? $array_value['phila_block_content_title'] : '';
+          $output .= '<h3>' . $block_title . '</h3>';
+
+          $block_summary = isset( $array_value['phila_block_summary'] ) ? $array_value['phila_block_summary'] : '';
+          $output .= '<p>' . $block_summary . '</p>';
+
+          $output .= '</div>';
+        }else{
+          $output .= '<div class="content-block">';
+          $output .= '<a href="' . $block_link . '">';
+
+          $block_image = isset( $array_value['phila_block_image'] ) ? $array_value['phila_block_image'] : '';
+
+          $output .= '<img src="' . $block_image . '" alt="">';
+
+          $block_title = isset( $array_value['phila_block_content_title'] ) ? $array_value['phila_block_content_title'] : '';
+
+          $output .= '<h3>' . $block_title . '</h3>';
+
+          $block_summary = isset( $array_value['phila_block_summary'] ) ? $array_value['phila_block_summary'] : '';
+
+          $output .= '<p>' . $block_summary . '</p>';
+          $output .= '</a>';
+          $output .= '</div>';
+        }
+        return $output;
+
+        break;
+      }
+    }
+
+  }
+  function register_content_blocks_shortcode(){
+     add_shortcode( 'content-block', array($this, 'content_blocks_shortcode') );
   }
 
 }
