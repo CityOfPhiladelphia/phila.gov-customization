@@ -176,7 +176,7 @@ function recent_news_shortcode($atts) {
         $output .= '<h2 class="alternate divide title-offset">' . __('News', 'phila.gov') . '</h2>';
       }
 
-      $output .= '<div class="story s-box">';
+      $output .= '<div class="content-block">';
 
       if (!$url == ''){
         $output .= '<a href="' . $url .'">'; //a tag ends after all the content
