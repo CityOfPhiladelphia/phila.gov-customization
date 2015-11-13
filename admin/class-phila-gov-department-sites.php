@@ -135,11 +135,11 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
       if ( strtolower( $a['heading'] ) == strtolower( $block_heading ) ){
 
         $output = '';
-        $output .= '<h2 class="alternate divide title-offset">' . $block_heading . '</h2>';
+        $output .= '<h2 class="alternate divide">' . $block_heading . '</h2>';
 
         $block_link = isset( $array_value['phila_block_link'] ) ? $array_value['phila_block_link'] : '';
         if ($block_link == '') {
-          $output .= '<div class="content-block no-link">';
+          $output .= '<div class="content-block">';
           $block_image = isset( $array_value['phila_block_image'] ) ? $array_value['phila_block_image'] : '';
           $output .= '<img src="' . $block_image . '" alt="">';
 
@@ -151,12 +151,13 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
 
           $output .= '</div>';
         }else{
-          $output .= '<div class="content-block">';
-          $output .= '<a href="' . $block_link . '">';
+          $output .= '<a href="' . $block_link . '" class="card">';
 
           $block_image = isset( $array_value['phila_block_image'] ) ? $array_value['phila_block_image'] : '';
 
           $output .= '<img src="' . $block_image . '" alt="">';
+
+          $output .= '<div class="content-block">';
 
           $block_title = isset( $array_value['phila_block_content_title'] ) ? $array_value['phila_block_content_title'] : '';
 
@@ -165,8 +166,8 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
           $block_summary = isset( $array_value['phila_block_summary'] ) ? $array_value['phila_block_summary'] : '';
 
           $output .= '<p>' . $block_summary . '</p>';
-          $output .= '</a>';
           $output .= '</div>';
+          $output .= '</a>';
         }
         return $output;
 
