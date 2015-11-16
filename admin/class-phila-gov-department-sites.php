@@ -20,8 +20,10 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
   }
 
   function determine_page_level() {
+
     global $pagenow;
-    if ( is_admin() && 'post.php' == $pagenow ) {
+
+    if ( ( is_admin() && 'post.php' == $pagenow ) ) {
       $post = get_post( $_GET['post'] );
       $post_id = isset( $_GET['post'] ) ? $_GET['post'] : ( isset( $_POST['post_ID'] ) ? $_POST['post_ID'] : false );
 
@@ -123,8 +125,8 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
 
 // this will disable the visual editor for everyone but admins
 function hide_wysiwyg_on_department_home() {
-
-    if( ! current_user_can(PHILA_ADMIN)){
+  global $typenow;
+    if( ! current_user_can( PHILA_ADMIN ) && ( $typenow == 'department_page' ) ){
       echo '<style>#postdivrich { display: none; }</style>';
     }
   }
