@@ -8,29 +8,30 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
 
   public function __construct(){
 
-    add_action( 'admin_init', array( $this, 'determine_page_type' ) );
+    add_action( 'admin_init', array( $this, 'determine_page_level' ) );
 
     add_action( 'init', array( $this, 'register_content_blocks_shortcode' ) );
 
-    if ( $this->determine_page_type() ){
+    if ( $this->determine_page_level() ){
       add_filter( 'rwmb_meta_boxes', array($this, 'phila_register_department_meta_boxes' ) );
+      add_action('admin_print_styles', array($this, 'hide_wysiwyg_on_department_home' ) );
     }
 
   }
 
-  function determine_page_type() {
+  function determine_page_level() {
     global $pagenow;
-     if ( is_admin() && 'post.php' == $pagenow ) {
-        $post = get_post( $_GET['post'] );
-      	$post_id = isset( $_GET['post'] ) ? $_GET['post'] : ( isset( $_POST['post_ID'] ) ? $_POST['post_ID'] : false );
+    if ( is_admin() && 'post.php' == $pagenow ) {
+      $post = get_post( $_GET['post'] );
+      $post_id = isset( $_GET['post'] ) ? $_GET['post'] : ( isset( $_POST['post_ID'] ) ? $_POST['post_ID'] : false );
 
-        $children = get_pages( array( 'child_of' => $post_id ) );
+      $children = get_pages( array( 'child_of' => $post_id ) );
 
-        if( ( count( $children ) == 0 ) && ( $post->post_parent == 0 ) ){
-          return true;
-        }
+      if( ( count( $children ) == 0 ) && ( $post->post_parent == 0 ) ){
+        return true;
       }
     }
+  }
 
   function phila_register_department_meta_boxes( $meta_boxes ){
     $prefix = 'phila_';
@@ -118,6 +119,14 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
       )
     );
     return $meta_boxes;
+  }
+
+// this will disable the visual editor for everyone but admins
+function hide_wysiwyg_on_department_home() {
+
+    if( ! current_user_can(PHILA_ADMIN)){
+      echo '<style>#postdivrich { display: none; }</style>';
+    }
   }
 
   function content_blocks_shortcode( $atts ) {
