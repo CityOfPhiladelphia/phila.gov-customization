@@ -1,7 +1,5 @@
 <?php
 
-//TODO: Make sure these appear on ADMIN pages.
-
 if ( class_exists("PhilaGovNews" ) ){
   $phila_document_load = new PhilaGovNews();
 }
