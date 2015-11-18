@@ -12,6 +12,8 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
 
     add_action( 'init', array( $this, 'register_content_blocks_shortcode' ) );
 
+    add_action( 'theme_loaded', array( $this, 'department_homepage_alert' ) );
+
     if ( $this->determine_page_level() ){
       add_filter( 'rwmb_meta_boxes', array($this, 'phila_register_department_meta_boxes' ) );
       add_action('admin_print_styles', array($this, 'hide_wysiwyg_on_department_home' ) );
@@ -59,6 +61,32 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
           'id'    => $prefix . 'dept_url',
           'type'  => 'URL',
           'class' => 'dept-url',
+          'clone' => false,
+        ),
+      )
+    );//External department link
+    $meta_boxes[] = array(
+      'id'       => 'department-home-alert',
+      'title'    => 'Homepage Alert',
+      'pages'    => array( 'department_page' ),
+      'context'  => 'normal',
+      'priority' => 'high',
+
+      'fields' => array(
+        array(
+          'name'  => 'Title',
+          'desc'  => 'The text of the alert. E.g. Phone lines are down.',
+          'id'    => $prefix . 'department_home_alert_title',
+          'type'  => 'textarea',
+          'class' => 'department-home-alert',
+          'clone' => false,
+        ),
+        array(
+          'name'  => 'Link to more information',
+          'desc'  => '',
+          'id'    => $prefix . 'department_home_alert_link',
+          'type'  => 'URL',
+          'class' => 'dept-home-alert-url',
           'clone' => false,
         ),
       )
@@ -191,4 +219,17 @@ function hide_wysiwyg_on_department_home() {
      add_shortcode( 'content-block', array($this, 'content_blocks_shortcode') );
   }
 
+  static function department_homepage_alert(){
+    if (function_exists('rwmb_meta')) {
+      $home_alert_title = rwmb_meta( 'phila_department_home_alert_title', $args = array('type' => 'textarea'));
+      $home_alert_link = rwmb_meta( 'phila_department_home_alert_link', $args = array('type' => 'url'));
+      if (!$home_alert_title == ''){
+        echo '<div class="columns"><div data-alert class="alert-box info"><i class="fa fa-exclamation-triangle"></i> ' . $home_alert_title;
+          if (!$home_alert_link == ''){
+          echo ' <a href="' . $home_alert_link . '">See more</a>';
+        }
+        echo '<a href="#" class="close">&times;</a></div></div>';
+      }
+    }
+  }
 }
