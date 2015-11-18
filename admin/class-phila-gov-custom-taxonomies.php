@@ -115,7 +115,7 @@ class PhilaGovCustomTaxonomies {
       'show_admin_column' => true,
       'query_var' => true,
       'rewrite' => array(
-        'slug' => 'type',
+        'slug' => '%notices%',
         'with_front' => false,
       ),
     ));

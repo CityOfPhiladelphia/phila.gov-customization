@@ -46,7 +46,7 @@ class PhilaGovDepartmentHomePageNotices {
     if( $notices_loop->have_posts() ) {
 
       $output = '';
-      $output .= '<h2 class="alternate divide"><i class="fa fa-info-circle"></i> Notices</h2>';
+      $output .= '<h2 class="alternate divide">Notices</h2>';
       $output .= '<div class="notices content-block">';
 
       $output .= '<ul class="no-bullet">';
