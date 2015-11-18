@@ -19,6 +19,8 @@ function phila_news_rewrite() {
   //let notices list view live at /notices/department-slug/
   add_rewrite_rule("^notices/([^/]+)/?$",'index.php?post_type=news_post&news_type=notice&category_name=$matches[1]','top');
 
+  add_rewrite_rule("^notices/?$",'index.php?post_type=news_post&news_type=notice','top');
+
   add_rewrite_rule("^browse/([^/]+)/([^/]+)/?$",'index.php?&topics=$matches[1]&topics=$matches[2]','top');
 }
 
