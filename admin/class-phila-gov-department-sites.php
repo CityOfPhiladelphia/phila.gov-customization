@@ -74,8 +74,8 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
 
       'fields' => array(
         array(
-          'name'  => 'Title',
-          'desc'  => 'The text of the alert. E.g. Phone lines are down. 225 character maximum.',
+          'name'  => 'Alert text',
+          'desc'  => 'E.g. Phone lines are down. 225 character maximum.',
           'id'    => $prefix . 'department_home_alert_title',
           'type'  => 'textarea',
           'class' => 'department-home-alert',
@@ -232,7 +232,7 @@ function hide_wysiwyg_on_department_home() {
       if (!$home_alert_title == ''){
         echo '<div class="columns"><div data-alert class="alert-box info"><i class="fa fa-exclamation-triangle"></i> ' . $home_alert_title;
           if (!$home_alert_link == ''){
-          echo ' <a href="' . $home_alert_link . '">See more</a>';
+          echo ' <a href="' . $home_alert_link . '">More &raquo;</a>';
         }
         echo '<a href="#" class="close">&times;</a></div></div>';
       }

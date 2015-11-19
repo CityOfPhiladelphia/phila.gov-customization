@@ -68,10 +68,10 @@ class PhilaGovDepartmentHomePageNotices {
       $output .= '</ul>';
 
       if( $counter > 5 ) {
-        $output .= '<a href="/notices/' . $category[0]->slug .'" class="button alternate more">See more</a>';
+        $output .= '<a href="/notices/' . $category[0]->slug .'" class="button alternate more">See All</a>';
         $output .= '</div>';
       }
-      
+
     }else {
       $output .= '<h2 class="alternate divide">Notices</h2>';
       $output .= '<div class="notices content-block">';
