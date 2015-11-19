@@ -75,7 +75,7 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
       'fields' => array(
         array(
           'name'  => 'Title',
-          'desc'  => 'The text of the alert. E.g. Phone lines are down.',
+          'desc'  => 'The text of the alert. E.g. Phone lines are down. 225 character maximum.',
           'id'    => $prefix . 'department_home_alert_title',
           'type'  => 'textarea',
           'class' => 'department-home-alert',
@@ -109,7 +109,7 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
               'type'  => 'text',
               'class' => 'block-title',
               'required' => true,
-              'desc'  => '20 character maxium'
+              'desc'  => '20 character maximum'
             ),
             array(
               'name'  => 'Image',
@@ -125,7 +125,7 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
               'type'  => 'text',
               'class' => 'block-content-title',
               'required' => true,
-              'desc'  => '70 character maxium.',
+              'desc'  => '70 character maximum.',
               'size'  => '60'
             ),
             array(
@@ -134,7 +134,7 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
               'type'  => 'textarea',
               'class' => 'block-summary',
               'required' => true,
-              'desc'  => '225 character maxium.'
+              'desc'  => '225 character maximum.'
             ),
             array(
               'name'  => 'Link to Content',
@@ -178,7 +178,7 @@ function hide_wysiwyg_on_department_home() {
 
         $block_link = isset( $array_value['phila_block_link'] ) ? $array_value['phila_block_link'] : '';
         if ($block_link == '') {
-          
+
           $output .= '<div class="content-block">';
           $block_image = isset( $array_value['phila_block_image'] ) ? $array_value['phila_block_image'] : '';
 
