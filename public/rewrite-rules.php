@@ -28,5 +28,5 @@ add_action( 'init', 'phila_register_rewrite_tag', 0, 10);
 
 function phila_register_rewrite_tag() {
   add_rewrite_tag( '%topics%', '([^/]+)');
-  add_rewrite_tag( '%notices%', '([^/]+)');
+  //add_rewrite_tag( '%notices%', '([^/]+)');
 }
