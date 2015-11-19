@@ -8,29 +8,6 @@ jQuery(document).ready(function($){
   if( !required_cat.attr('checked')  ) {
     required_cat.attr('checked','checked');
   }
-  //hide locations tab on nav-menus
-  $('a[href$="nav-menus.php?action=locations"]').hide();
-
-  //hide unwanted items from the wordpress menus
-  $('.menu-icon-service_post').hide();
-  $('a[href^="nav-menus.php"]').hide();
-  $('.menu-icon-document').hide();
-
-  //do not allow new categories to be added
-  $('#category-adder').hide();
-  $('#news_type-adder').hide();
-
-  //$('.add-clone').hide();
-
-  $('#categorydiv').hide();
-  //don't allow department authors to create new menus
-  $('.add-new-menu-action').hide();
-  //hide 'Appearance' menu
-  $('#menu-appearance').hide();
-  $('.page-title-action').hide();
-  $('#wp-admin-bar-new-content').hide();
-  $('.edit-slug').hide();
-
 
   var menuIdString = $('#menu-id').text().trim();
   var allMenuIDs = menuIdString.split(' ');
@@ -46,8 +23,6 @@ jQuery(document).ready(function($){
 
   var menuNameString = $('#menu-name').text().trim();
   var allMenuNames = menuNameString.split(' ');
-  //hide all menus from the menu selection dropdown
-  $('.manage-menus option').css('display', 'none');
 
   //show menus that match current user roles
   for (var i = 0; i < allMenuNames.length ; i++) {
