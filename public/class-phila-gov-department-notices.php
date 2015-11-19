@@ -42,6 +42,7 @@ class PhilaGovDepartmentHomePageNotices {
     );
 
     $notices_loop = new WP_Query( $args );
+    $counter = 1;
 
     if( $notices_loop->have_posts() ) {
 
@@ -52,6 +53,7 @@ class PhilaGovDepartmentHomePageNotices {
       $output .= '<ul class="no-bullet margin-bottom-50">';
 
       while( $notices_loop->have_posts() ) : $notices_loop->the_post();
+      $counter ++;
 
         $link = get_permalink();
 
@@ -64,9 +66,11 @@ class PhilaGovDepartmentHomePageNotices {
 
       endwhile;
       $output .= '</ul>';
-      $output .= '<a href="/notices/' . $category[0]->slug .'" class="button alternate more">See more</a>';
-      $output .= '</div>';
 
+      if( $counter > 5 ) {
+        $output .= '<a href="/notices/' . $category[0]->slug .'" class="button alternate more">See more</a>';
+        $output .= '</div>';
+      }
     }else {
       $output = '';
     }
