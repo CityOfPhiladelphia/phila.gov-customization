@@ -38,10 +38,12 @@ jQuery(document).ready(function($){
     var heading = $('[id^=phila_block_heading]');
     var content_title = $('[id^=phila_block_content_title]');
     var summary = $('[id^=phila_block_summary]');
+    var alert_heading = $('[id^=phila_department_home_alert_title]');
 
     heading.attr('maxlength', '20');
     content_title.attr('maxlength', '70');
     summary.attr('maxlength', '255');
+    alert_heading.attr('maxlength', '255');
   }
   if (typenow == 'news_post' && adminpage.indexOf('post') > -1 ){
     $('#post').validate({
