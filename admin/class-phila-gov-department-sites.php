@@ -178,9 +178,13 @@ function hide_wysiwyg_on_department_home() {
 
         $block_link = isset( $array_value['phila_block_link'] ) ? $array_value['phila_block_link'] : '';
         if ($block_link == '') {
+          
           $output .= '<div class="content-block">';
           $block_image = isset( $array_value['phila_block_image'] ) ? $array_value['phila_block_image'] : '';
-          $output .= '<img src="' . $block_image . '" alt="">';
+
+          if ( !$block_image == '' ) {
+            $output .= '<img src="' . $block_image . '" alt="">';
+          }
 
           $block_title = isset( $array_value['phila_block_content_title'] ) ? $array_value['phila_block_content_title'] : '';
           $output .= '<h3>' . $block_title . '</h3>';
@@ -194,7 +198,9 @@ function hide_wysiwyg_on_department_home() {
 
           $block_image = isset( $array_value['phila_block_image'] ) ? $array_value['phila_block_image'] : '';
 
-          $output .= '<img src="' . $block_image . '" alt="">';
+          if ( !$block_image == '' ) {
+            $output .= '<img src="' . $block_image . '" alt="">';
+          }
 
           $output .= '<div class="content-block">';
 
