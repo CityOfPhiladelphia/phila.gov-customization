@@ -7,8 +7,9 @@
   display:none !important;
 }
 
-/*department authors can't clone things*/
+/*no cloning abilities*/
 .add-clone,
+.remove-clone,
 /*hide unwanted items from the wordpress menus*/
 .menu-icon-service_post,
 .menu-icon-media,
