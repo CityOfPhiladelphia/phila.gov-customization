@@ -49,7 +49,7 @@ class PhilaGovDepartmentHomePageNotices {
       $output .= '<h2 class="alternate divide">Notices</h2>';
       $output .= '<div class="notices content-block">';
 
-      $output .= '<ul class="no-bullet">';
+      $output .= '<ul class="no-bullet margin-bottom-50">';
 
       while( $notices_loop->have_posts() ) : $notices_loop->the_post();
 
@@ -59,11 +59,14 @@ class PhilaGovDepartmentHomePageNotices {
         $output .= '<a href="' . $link .'">';
         $output .= get_the_title();
         $output .= '</a>';
+        $output .= '<span class="entry-date small-text">' . get_the_date() . '</span>';
         $output .= '</li>';
 
       endwhile;
       $output .= '</ul>';
+      $output .= '<a href="/notices/' . $category[0]->slug .'" class="button alternate more">See more</a>';
       $output .= '</div>';
+
 
     }else {
       $output = '';
