@@ -67,7 +67,6 @@ class PhilaGovDepartmentHomePageNotices {
       $output .= '<a href="/notices/' . $category[0]->slug .'" class="button alternate more">See more</a>';
       $output .= '</div>';
 
-
     }else {
       $output = '';
     }
