@@ -46,27 +46,27 @@ class PhilaGovCustomTaxonomies {
         'hierarchical' => true
       ),
     ));
-    register_taxonomy('type',
+    register_taxonomy('attachment_type',
       array(
         'attachment'
       ), array(
         'hierarchical' => true,
         'labels' => array(
-            'name' => _x( 'Type', ''),
-            'singular_name' => _x( 'Type', ''),
-            'menu_name' =>     __('Type'),
-            'search_items' =>  __( 'Search Types' ),
-            'all_items' =>     __( 'All Types' ),
-            'edit_item' =>     __( 'Edit Type' ),
-            'update_item' =>   __( 'Update Type' ),
-            'add_new_item' =>  __( 'Add New Type' ),
-            'new_item_name' => __( 'New Type' ),
-            'menu_name' =>     __( 'Type' ),
+            'name' => _x( 'Attachment Type', ''),
+            'singular_name' => _x( 'Attachment Type', ''),
+            'menu_name' =>     __('Attachment Type'),
+            'search_items' =>  __( 'Search Attachment Types' ),
+            'all_items' =>     __( 'All Attachment Types' ),
+            'edit_item' =>     __( 'Edit Attachment Type' ),
+            'update_item' =>   __( 'Update Attachment Type' ),
+            'add_new_item' =>  __( 'Add New Attachment Type' ),
+            'new_item_name' => __( 'New Attachment Type' ),
+            'menu_name' =>     __( 'Attachment Type' ),
           ),
       'public' => true,
       'show_admin_column' => true,
       'rewrite' => array(
-        'slug' => 'type',
+        'slug' => 'attachment_type',
         'hierarchical' => false
       ),
     ));
@@ -108,14 +108,15 @@ class PhilaGovCustomTaxonomies {
           'edit_item' =>     __( 'Edit News Type' ),
           'update_item' =>   __( 'Update News Type' ),
           'add_new_item' =>  __( 'Add New News Type' ),
-          'new_item_name' => __( 'New DNews Type' ),
+          'new_item_name' => __( 'New News Type' ),
           'menu_name' =>     __( 'News Types' ),
         ),
       'public' => true,
       'show_admin_column' => true,
+      'query_var' => true,
       'rewrite' => array(
-        'slug' => 'news-type',
-        'hierarchical' => false
+        'slug' => 'notices',
+        'with_front' => false,
       ),
     ));
   }

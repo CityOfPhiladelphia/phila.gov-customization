@@ -1,7 +1,5 @@
 <?php
 
-//TODO: Make sure these appear on ADMIN pages. 
-
 if ( class_exists("PhilaGovNews" ) ){
   $phila_document_load = new PhilaGovNews();
 }
@@ -10,15 +8,15 @@ if ( class_exists("PhilaGovNews" ) ){
 
   public function __construct(){
 
-    add_action( 'admin_notices', array($this, 'load_news_meta') );
+    add_action( 'admin_init', array($this, 'load_news_meta'), 1 );
 
   }
   function load_news_meta() {
     if ( current_user_can( PHILA_ADMIN ) ) {
-      add_filter( 'rwmb_meta_boxes', array($this, 'phila_register_news_meta_boxes' ) );
+      add_filter( 'rwmb_meta_boxes', array($this, 'external_news_source' ) );
     }
   }
-  function phila_register_news_meta_boxes( $meta_boxes ){
+  function external_news_source( $meta_boxes ){
     $prefix = 'phila_';
     $meta_boxes[] = array(
      'id'       => 'external_news',
@@ -46,5 +44,6 @@ if ( class_exists("PhilaGovNews" ) ){
          ),
       )
     );//link to external news source
+    return $meta_boxes;
   }
 }

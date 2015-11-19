@@ -43,5 +43,41 @@ jQuery(document).ready(function($){
     content_title.attr('maxlength', '70');
     summary.attr('maxlength', '255');
   }
+  if (typenow == 'news_post' && adminpage.indexOf('post') > -1 ){
+    $('#post').validate({
+      rules: {
+         'post_title' : 'required'
+       }
+    });
+    $( '#phila_news_desc' ).rules( 'add', {
+      required: true
+    });
 
+    var notice;
+    //get the Notice label from the dom
+    $('#taxonomy-news_type .selectit').each(function() {
+      if (this.innerText == ' Notice'){
+         notice = this.childNodes[0];
+        return notice;
+      }
+    });
+    if ( $(notice).prop('checked') ){
+      $( '#news' ).hide();
+    }
+    //hide description & remove required if Notice is checked
+    $(notice).click(function( clicked ) {
+      if ( clicked.originalEvent.target.checked ){
+        $( '#news' ).hide();
+        $( '#phila_news_desc' ).rules( 'add', {
+          required: false
+        });
+      }else{
+        $( '#news' ).show();
+        $( '#phila_news_desc' ).rules( 'add', {
+          required: true
+        });
+      }
+
+    });
+  }
 });
