@@ -161,24 +161,26 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
 // this will disable the visual editor for everyone but admins
 function hide_wysiwyg_on_department_home() {
   global $typenow;
-    if( ! current_user_can( PHILA_ADMIN ) && ( $typenow == 'department_page' ) ){
-      echo '<style>#postdivrich { display: none; }</style>';
-    }
+  if( ! current_user_can( PHILA_ADMIN ) && ( $typenow == 'department_page' ) ){
+    echo '<style>#postdivrich { display: none; }</style>';
   }
+}
 
   function content_blocks_shortcode( $atts ) {
     $a = shortcode_atts( array(
-      'heading' => ''
+      'id' => ''
     ), $atts );
 
     $content_blocks = rwmb_meta( 'content_blocks' );
 
     foreach( $content_blocks as $key => $array_value ) {
 
+      $block_id = isset( $array_value['phila_block_id'] ) ? $array_value['phila_block_id'] : '';
+
       $block_heading = isset( $array_value['phila_block_heading'] ) ? $array_value['phila_block_heading'] : '';
 
-      //match on the heading param
-      if ( strtolower( $a['heading'] ) == strtolower( $block_heading ) ){
+      //match on the ID param
+      if ( strtolower( $a['id'] ) == strtolower( $block_id ) ){
 
         $output = '';
         $output .= '<h2 class="alternate divide">' . $block_heading . '</h2>';
