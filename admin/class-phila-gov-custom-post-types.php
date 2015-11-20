@@ -26,6 +26,8 @@ class PhilaGovCustomPostTypes{
 
     add_action( 'init', array( $this, 'create_document_post_type' ) );
 
+    add_action( 'init', array( $this, 'create_notices_post_type' ) );
+
     register_activation_hook( __FILE__, array( $this, 'rewrite_flush' ) );
 
   }
@@ -172,6 +174,34 @@ class PhilaGovCustomPostTypes{
         'hierarchical' => false,
         'rewrite' => array(
             'slug' => 'documents',
+        ),
+      )
+    );
+  }
+  function create_notices_post_type() {
+    register_post_type( 'notices',
+      array(
+        'labels' => array(
+            'name' => __( 'Notices' ),
+            'singular_name' => __( 'Notice' ),
+            'add_new'   => __( 'Add Notice' ),
+            'all_items'   => __( 'All Notices' ),
+            'add_new_item' => __( 'Add New Notice' ),
+            'edit_item'   => __( 'Edit Notice' ),
+            'view_item'   => __( 'View Notice' ),
+            'search_items'   => __( 'Search Notice' ),
+            'not_found'   => __( 'Notice Not Found' ),
+            'not_found_in_trash'   => __( 'Notice not found in trash' ),
+        ),
+        'taxonomies' => array('category'),
+        'supports' => array( 'editor', 'title', 'revisions'),
+        'public' => true,
+        'has_archive' => true,
+        'menu_position' => 4,
+        'menu_icon' => 'dashicons-warning',
+        'hierarchical' => false,
+        'rewrite' => array(
+            'slug' => 'notices',
         ),
       )
     );

@@ -29,16 +29,8 @@ class PhilaGovDepartmentHomePageNotices {
     $args = array( 'posts_per_page' => 5,
     'order'=> 'DESC',
     'orderby' => 'date',
-    'post_type'  => 'news_post',
+    'post_type'  => 'notices',
     'cat' => $current_category,
-    'tax_query'=> array(
-      array(
-        'taxonomy' => 'news_type',
-        'field'    => 'slug',
-  			'terms'    => 'notice',
-        'operator' => 'IN'
-        ),
-      ),
     );
 
     $notices_loop = new WP_Query( $args );
