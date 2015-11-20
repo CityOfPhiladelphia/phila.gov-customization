@@ -69,7 +69,6 @@ class PhilaGovDepartmentHomePageNotices {
 
       if( $counter > 5 ) {
         $output .= '<a href="/notices/' . $category[0]->slug .'" class="button alternate more">See All</a>';
-        $output .= '</div>';
       }
 
     }else {
@@ -78,6 +77,7 @@ class PhilaGovDepartmentHomePageNotices {
       $output .= '<p>There are no notices.</p>';
       $output .= '</div>';
     }
+      $output .= '</div>';
 
       wp_reset_postdata();
       return $output;
