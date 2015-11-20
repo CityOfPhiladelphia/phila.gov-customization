@@ -103,6 +103,13 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
          'clone'  => true,
          // List of sub-fields
          'fields' => array(
+           array(
+             'name' => 'ID',
+             'id'   => $prefix . 'block_id',
+             'type' => 'text',
+             'class' => 'block-number',
+             'desc' => 'Use this value when adding blocks to the wysiwyg.'
+           ),
             array(
               'name'  => 'Block Heading',
               'id'    => $prefix . 'block_heading',
