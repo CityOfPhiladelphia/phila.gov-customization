@@ -9,43 +9,43 @@
 
 
 function get_home_news(){
-    $category = get_the_category();
-    $url = rwmb_meta('phila_news_url', $args = array('type'=>'url'));
-    $contributor = rwmb_meta('phila_news_contributor', $args = array('type'=>'text'));
-    $desc = rwmb_meta('phila_news_desc', $args = array('type'=>'textarea'));
+  $category = get_the_category();
+  $url = rwmb_meta('phila_news_url', $args = array('type'=>'url'));
+  $contributor = rwmb_meta('phila_news_contributor', $args = array('type'=>'text'));
+  $desc = rwmb_meta('phila_news_desc', $args = array('type'=>'textarea'));
 
-    if (!$url == ''){
+  if (!$url == ''){
 
-        echo '<a href="' . $url .'" target="_blank">';
-        the_post_thumbnail(  );
-        echo '<span class="accessible"> Opens in new window</span></a>';
+      echo '<a href="' . $url .'" target="_blank">';
+      the_post_thumbnail(  );
+      echo '<span class="accessible"> Opens in new window</span></a>';
 
-        echo '<a href="' . $url .'" target="_blank">';
-        the_title('<h3>', '</h3>');
-        echo '<span class="accessible"> Opens in new window</span></a>';
+      echo '<a href="' . $url .'" target="_blank">';
+      the_title('<h3>', '</h3>');
+      echo '<span class="accessible"> Opens in new window</span></a>';
 
 
-    }else{
-        echo '<a href="' . get_permalink() .'">';
-        the_post_thumbnail(  );
-        echo '</a>';
+  }else{
+      echo '<a href="' . get_permalink() .'">';
+      the_post_thumbnail(  );
+      echo '</a>';
 
-        echo '<a href="' . get_permalink().'">';
-        the_title('<h3>', '</h3>');
-        echo '</a>';
+      echo '<a href="' . get_permalink().'">';
+      the_title('<h3>', '</h3>');
+      echo '</a>';
 
-    }
+  }
 
-    if (function_exists('rwmb_meta')) {
-        if ($contributor === ''){
-            echo '<span>' . $category[0]->cat_name . '</span>';
-        }else {
-            echo '<span>' . $contributor . '</span>';
-        }
+  if (function_exists('rwmb_meta')) {
+      if ($contributor === ''){
+          echo '<span>' . $category[0]->cat_name . '</span>';
+      }else {
+          echo '<span>' . $contributor . '</span>';
+      }
 
-        echo '<p>' . $desc  . '</p>';
+      echo '<p>' . $desc  . '</p>';
 
-    }
+  }
 }
 /**
 * @since 0.5.11
@@ -106,9 +106,9 @@ function recent_news_shortcode($atts) {
    if ($a['posts'] > 3){
      $a['posts'] = 3;
    }
-
+   //TODO FIX THIS to allow user to change # in list
    if ( is_flag( 'list', $atts ) ){
-     $a['posts'] = 6;
+    $a['posts'] = 6;
    }
 
   $args = array( 'posts_per_page' => $a['posts'],
@@ -120,7 +120,7 @@ function recent_news_shortcode($atts) {
     array(
       'taxonomy' => 'news_type',
       'field'    => 'slug',
-			'terms'    => 'featured-news',
+			'terms'    => 'notice',
       'operator' => 'NOT IN'
       ),
     ),
@@ -248,7 +248,7 @@ function featured_news_shortcode() {
     array(
       'taxonomy' => 'news_type',
       'field'    => 'slug',
-			'terms'    => 'featured-news',
+			'terms'    => 'notice',
       'operator' => 'IN'
       ),
     ),
