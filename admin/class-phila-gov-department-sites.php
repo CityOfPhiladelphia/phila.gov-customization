@@ -18,6 +18,8 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
       add_filter( 'rwmb_meta_boxes', array($this, 'phila_register_department_meta_boxes' ) );
       add_action( 'admin_print_styles', array($this, 'hide_wysiwyg_on_department_home' ) );
       add_action( 'admin_init', array($this, 'no_wpautop_on_department_homepages' ) );
+      add_filter( 'user_can_richedit', array($this, 'hide_visual_editor_department_home' )  );
+      add_filter('tiny_mce_before_init', array($this, 'override_mce_options' ) );
     }
 
   }
@@ -159,13 +161,21 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
     return $meta_boxes;
   }
 
-// this will disable the visual editor for everyone but admins
-function hide_wysiwyg_on_department_home() {
-  global $typenow;
-  if( ! current_user_can( PHILA_ADMIN ) && ( $typenow == 'department_page' ) ){
-    echo '<style>#postdivrich { display: none; }</style>';
+  // this will disable the visual editor for everyone but admins
+  function hide_wysiwyg_on_department_home() {
+    global $typenow;
+    if( ! current_user_can( PHILA_ADMIN ) && ( $typenow == 'department_page' ) ){
+      echo '<style>#postdivrich { display: none; }</style>';
+    }
   }
-}
+
+  function hide_visual_editor_department_home(){
+    global $typenow;
+
+    if( $typenow == 'department_page' ){
+      return false;
+    }
+  }
 
   function content_blocks_shortcode( $atts ) {
     $a = shortcode_atts( array(
@@ -237,6 +247,13 @@ function hide_wysiwyg_on_department_home() {
 
   function no_wpautop_on_department_homepages(){
     remove_filter( 'the_content', 'wpautop' );
+  }
+
+  function override_mce_options($initArray) {
+      $opts = '*[*]';
+      $initArray['valid_elements'] = $opts;
+      $initArray['extended_valid_elements'] = $opts;
+      return $initArray;
   }
 
   static function department_homepage_alert(){
