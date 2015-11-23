@@ -51,7 +51,7 @@
     }
 
   function register_sidebar_shortcode(){
-    add_shortcode('widget', array( $this, 'sidebar_shortcode' ) );
+    add_shortcode('contact-us', array( $this, 'sidebar_shortcode' ) );
   }
 
 }
