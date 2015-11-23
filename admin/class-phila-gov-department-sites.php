@@ -16,7 +16,8 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
 
     if ( $this->determine_page_level() ){
       add_filter( 'rwmb_meta_boxes', array($this, 'phila_register_department_meta_boxes' ) );
-      add_action('admin_print_styles', array($this, 'hide_wysiwyg_on_department_home' ) );
+      add_action( 'admin_print_styles', array($this, 'hide_wysiwyg_on_department_home' ) );
+      add_action( 'admin_init', array($this, 'no_wpautop_on_department_homepages' ) );
     }
 
   }
@@ -232,6 +233,10 @@ function hide_wysiwyg_on_department_home() {
   }
   function register_content_blocks_shortcode(){
      add_shortcode( 'content-block', array($this, 'content_blocks_shortcode') );
+  }
+
+  function no_wpautop_on_department_homepages(){
+    remove_filter( 'the_content', 'wpautop' );
   }
 
   static function department_homepage_alert(){
