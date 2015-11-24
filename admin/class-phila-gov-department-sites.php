@@ -174,6 +174,8 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
 
     if( $typenow == 'department_page' ){
       return false;
+    }else{
+      return true;
     }
   }
 
