@@ -171,24 +171,18 @@ function recent_news_shortcode($atts) {
         $output .=  '<div class="medium-8 columns">';
       }
 
-
       //news title on first item
       if ( $post_counter == 1 && $a['posts'] == 1) {
-        $output .= '<h2 class="alternate title-offset">' . __('News', 'phila.gov') . '</h2>';
+        $output .= '<h2 class="alternate">' . __('News', 'phila.gov') . '</h2>';
       }
+
+      $output .= '<a href="' . get_permalink() .'" class="card">';
+
+      $output .=   get_the_post_thumbnail( $post->ID, 'news-thumb' );
 
       $output .= '<div class="content-block">';
 
-      if (!$url == ''){
-        $output .= '<a href="' . $url .'">'; //a tag ends after all the content
-        $output .=  get_the_post_thumbnail( $post->ID, 'news-thumb' );
-        $output .= '<h3>' . get_the_title( $post->ID ) . '</h3>';
-
-      }else{
-        $output .= '<a href="' . get_permalink() .'">';//a tag ends after all the content
-        $output .=   get_the_post_thumbnail( $post->ID, 'news-thumb' );
-        $output .=  '<h3>' . get_the_title( $post->ID ) . '</h3>';
-      }
+      $output .=  '<h3>' . get_the_title( $post->ID ) . '</h3>';
 
       if ( function_exists('rwmb_meta' ) ) {
         if ( $contributor != ''){
@@ -196,7 +190,7 @@ function recent_news_shortcode($atts) {
         }
         $output .= '<p>' . $desc  . '</p>';
       }
-      $output .= '</a></div></div>'; //content-block, columns
+      $output .= '</div></a></div>'; //content-block, columns
     }
 
     endwhile;
@@ -312,5 +306,5 @@ function featured_news_shortcode() {
 add_action( 'init', 'register_featured_news_shortcode' );
 
 function register_featured_news_shortcode(){
-   add_shortcode( 'featured-news', 'featured_news_shortcode' );
+  add_shortcode( 'featured-news', 'featured_news_shortcode' );
 }
