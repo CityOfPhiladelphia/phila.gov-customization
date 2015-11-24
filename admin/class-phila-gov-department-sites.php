@@ -17,7 +17,7 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
     if ( $this->determine_page_level() ){
       add_filter( 'rwmb_meta_boxes', array($this, 'phila_register_department_meta_boxes' ) );
       add_action( 'admin_print_styles', array($this, 'hide_wysiwyg_on_department_home' ) );
-      add_action( 'admin_init', array($this, 'no_wpautop_on_department_homepages' ) );
+      add_action( 'init', array($this, 'no_wpautop_on_department_homepages' ) );
       add_filter( 'user_can_richedit', array($this, 'hide_visual_editor_department_home' )  );
       add_filter('tiny_mce_before_init', array($this, 'override_mce_options' ) );
     }
@@ -196,7 +196,7 @@ if ( class_exists("PhilaGovDepartmentSites" ) ){
       if ( strtolower( $a['id'] ) == strtolower( $block_id ) ){
 
         $output = '';
-        $output .= '<h2 class="alternate divide">' . $block_heading . '</h2>';
+        $output .= '<h2 class="alternate">' . $block_heading . '</h2>';
 
         $block_link = isset( $array_value['phila_block_link'] ) ? $array_value['phila_block_link'] : '';
         if ($block_link == '') {
