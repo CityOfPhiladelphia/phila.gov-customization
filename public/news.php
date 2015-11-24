@@ -105,7 +105,7 @@ function recent_news_shortcode($atts) {
    $current_category = $category[0]->cat_ID;
 
    if ( ! is_flag( 'list', $atts ) ){
-     if ( $a['posts'] > 3 || $a['posts'] == 2){
+     if ( $a['posts'] > 4 || $a['posts'] == 2 ){
        $a['posts'] = 3;
      }
    }
@@ -132,11 +132,11 @@ function recent_news_shortcode($atts) {
   if( $news_loop->have_posts() ) {
     $post_counter = 0;
 
-    if ( $a['posts'] == 3 ) {
-      $output .= '<div class="row"><div class="equal-height"><div class="row title-push"><h2 class="alternate divide large-24 columns">' . __('News', 'phila.gov') . '</h2></div>';
+    if ( $a['posts'] == 3 || $a['posts'] == 4 ) {
+      $output .= '<div class="row"><div class="equal-height"><div class="row title-push"><h2 class="alternate large-24 columns">' . __('News', 'phila.gov') . '</h2></div>';
     }
     if ( is_flag ('list', $atts) ) {
-      $output .= '<div class="row"><h2 class="alternate divide large-24 columns">' . __('News', 'phila.gov') . '</h2></div><div class="row news"><div class="medium-24 columns"><ul class="news-list">';
+      $output .= '<div class="row"><h2 class="alternate large-24 columns">' . __('News', 'phila.gov') . '</h2></div><div class="row news"><div class="medium-24 columns"><ul class="news-list">';
     }
 
     while( $news_loop->have_posts() ) : $news_loop->the_post();
@@ -162,12 +162,19 @@ function recent_news_shortcode($atts) {
       $output .= '</a>';
       $output .= '</li>';
 
+
     }else{
-      $output .=  '<div class="medium-8 columns">';
+
+      if( $a['posts'] == 4 ){
+        $output .=  '<div class="medium-6 columns">';
+      }else{
+        $output .=  '<div class="medium-8 columns">';
+      }
+
 
       //news title on first item
       if ( $post_counter == 1 && $a['posts'] == 1) {
-        $output .= '<h2 class="alternate divide title-offset">' . __('News', 'phila.gov') . '</h2>';
+        $output .= '<h2 class="alternate title-offset">' . __('News', 'phila.gov') . '</h2>';
       }
 
       $output .= '<div class="content-block">';
