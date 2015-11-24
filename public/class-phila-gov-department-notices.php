@@ -39,7 +39,7 @@ class PhilaGovDepartmentHomePageNotices {
 
     if( $notices_loop->have_posts() ) {
 
-      $output .= '<h2 class="alternate divide">Notices</h2>';
+      $output .= '<h2 class="alternate">Notices</h2>';
       $output .= '<div class="notices content-block">';
 
       $output .= '<ul class="no-bullet margin-bottom-50">';
@@ -59,17 +59,18 @@ class PhilaGovDepartmentHomePageNotices {
       endwhile;
       $output .= '</ul>';
 
+      $output .= '</div>';
+
       if( $counter > 5 ) {
-        $output .= '<a href="/notices/' . $category[0]->slug .'" class="button alternate more">See All</a>';
+        $output .= '<p class="no-margin"><a href="/notices/' . $category[0]->slug .'" class="button alternate full">See All</a></p>';
       }
 
     }else {
-      $output .= '<h2 class="alternate divide">Notices</h2>';
+      $output .= '<h2 class="alternate">Notices</h2>';
       $output .= '<div class="notices content-block">';
       $output .= '<p>There are no notices.</p>';
       $output .= '</div>';
     }
-      $output .= '</div>';
 
       wp_reset_postdata();
       return $output;
