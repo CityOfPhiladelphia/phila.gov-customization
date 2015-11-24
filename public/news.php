@@ -87,6 +87,12 @@ function phila_news_link( $post_link, $id = 0 ) {
 * @package phila.gov-customization
 */
 
+function is_flag( $flag, $atts ) {
+  foreach ( $atts as $key => $value )
+    if ( $value === $flag && is_int( $key ) ) return true;
+  return false;
+}
+
 
 function recent_news_shortcode($atts) {
   global $post;
@@ -96,19 +102,12 @@ function recent_news_shortcode($atts) {
     0 => 'list'
  ), $atts );
 
-  function is_flag( $flag, $atts ) {
-     foreach ( $atts as $key => $value )
-         if ( $value === $flag && is_int( $key ) ) return true;
-     return false;
-  }
-
    $current_category = $category[0]->cat_ID;
-   if ($a['posts'] > 3){
-     $a['posts'] = 3;
-   }
-   //TODO FIX THIS to allow user to change # in list
-   if ( is_flag( 'list', $atts ) ){
-    $a['posts'] = 6;
+
+   if ( ! is_flag( 'list', $atts ) ){
+     if ( $a['posts'] > 3 || $a['posts'] == 2){
+       $a['posts'] = 3;
+     }
    }
 
   $args = array( 'posts_per_page' => $a['posts'],
@@ -129,19 +128,15 @@ function recent_news_shortcode($atts) {
   $news_loop = new WP_Query( $args );
 
   $output = '';
-  $output = '<div class="news">';
 
   if( $news_loop->have_posts() ) {
     $post_counter = 0;
 
-    if ( $a['posts'] == 2) {
-      $output .= '<div class="row"><div class="equal-height"><div class="row title-push"><h2 class="alternate divide large-16 columns">' . __('News', 'phila.gov') . '</h2></div>';
-    }
-    if ( $a['posts'] == 3) {
+    if ( $a['posts'] == 3 ) {
       $output .= '<div class="row"><div class="equal-height"><div class="row title-push"><h2 class="alternate divide large-24 columns">' . __('News', 'phila.gov') . '</h2></div>';
     }
     if ( is_flag ('list', $atts) ) {
-      $output .= '<div class="row"><h2 class="alternate divide large-24 columns">' . __('News', 'phila.gov') . '</h2></div><div class="row"><div class="medium-24 columns"><ul class="news-list">';
+      $output .= '<div class="row"><h2 class="alternate divide large-24 columns">' . __('News', 'phila.gov') . '</h2></div><div class="row news"><div class="medium-24 columns"><ul class="news-list">';
     }
 
     while( $news_loop->have_posts() ) : $news_loop->the_post();
@@ -168,7 +163,6 @@ function recent_news_shortcode($atts) {
       $output .= '</li>';
 
     }else{
-
       $output .=  '<div class="medium-8 columns">';
 
       //news title on first item
@@ -195,7 +189,7 @@ function recent_news_shortcode($atts) {
         }
         $output .= '<p>' . $desc  . '</p>';
       }
-      $output .= '</a></div></div>';
+      $output .= '</a></div></div>'; //content-block, columns
     }
 
     endwhile;
@@ -203,14 +197,15 @@ function recent_news_shortcode($atts) {
     if ( is_flag( 'list', $atts ) ) {
       $output .= '</ul>';
     }
-    //this means we had equal-height applied and must close those divs
-    $output .= '</div></div>';
+    if( $a['posts'] == 3 ) {
+      //this means we had equal-height applied and must close those divs
+      $output .= '</div></div>';
+    }
 
     }else {
       $output .= __( 'Please enter at least one news story.', 'phila.gov' );
     }
     //.news
-    $output .= '</div>';
 
   wp_reset_postdata();
   return $output;
@@ -257,7 +252,6 @@ function featured_news_shortcode() {
   $featured_news_loop = new WP_Query( $args );
 
   $output = '';
-  $output = '<div class="news">';
 
   if( $featured_news_loop->have_posts() ) {
     $post_counter = 0;
@@ -296,7 +290,7 @@ function featured_news_shortcode() {
     if (!$content == '') {
       $output .= '</a>';
     }
-    $output .= '</div></div>';
+    $output .= '</div>';
 
     endwhile;
 
