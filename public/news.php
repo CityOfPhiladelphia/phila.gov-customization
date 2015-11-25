@@ -132,11 +132,12 @@ function recent_news_shortcode($atts) {
   if( $news_loop->have_posts() ) {
     $post_counter = 0;
 
-    if ( $a['posts'] == 3 || $a['posts'] == 4 ) {
-      $output .= '<div class="row"><div class="equal-height"><div class="row title-push"><h2 class="alternate large-24 columns">' . __('News', 'phila.gov') . '</h2></div>';
-    }
-    if ( is_flag ('list', $atts) ) {
+  if ( is_flag ('list', $atts) ) {
       $output .= '<div class="row"><h2 class="alternate large-24 columns">' . __('News', 'phila.gov') . '</h2></div><div class="row news"><div class="medium-24 columns"><ul class="news-list">';
+    }else{
+      if ( $a['posts'] == 3 || $a['posts'] == 4 ) {
+        $output .= '<div class="row"><div class="equal-height"><div class="row title-push"><h2 class="alternate large-24 columns">' . __('News', 'phila.gov') . '</h2></div>';
+      }
     }
 
     while( $news_loop->have_posts() ) : $news_loop->the_post();
@@ -197,6 +198,7 @@ function recent_news_shortcode($atts) {
 
     if ( is_flag( 'list', $atts ) ) {
       $output .= '</ul>';
+      $output .= '</div></div>';
     }
     if( $a['posts'] == 3 ) {
       //this means we had equal-height applied and must close those divs
