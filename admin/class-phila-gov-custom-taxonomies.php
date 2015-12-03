@@ -10,10 +10,10 @@
  * @package phila.gov-customization
  */
 
-if (class_exists("PhilaGovCustomTaxonomies") ){
-  $phila_gov_tax = new PhilaGovCustomTaxonomies();
+if (class_exists("Phila_Gov_Custom_Taxonomies") ){
+  $phila_gov_tax = new Phila_Gov_Custom_Taxonomies();
 }
-class PhilaGovCustomTaxonomies {
+class Phila_Gov_Custom_Taxonomies {
 
   public function __construct(){
     add_action( 'init', array($this, 'add_custom_taxonomies') );

@@ -9,10 +9,10 @@
 */
 
 
-if (class_exists("PhilaGovCPTNotices") ){
-  $phila_gov_tax = new PhilaGovCPTNotices();
+if (class_exists("Phila_Gov_CPT_Notices") ){
+  $phila_gov_tax = new Phila_Gov_CPT_Notices();
 }
-class PhilaGovCPTNotices {
+class Phila_Gov_CPT_Notices {
 
   public function __construct(){
     add_filter( 'post_type_link', array($this, 'phila_notices_link'), 10, 2 );
