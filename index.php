@@ -3,7 +3,7 @@
  *
  * @link              http://phila.gov
  * @since             0.5.6
- * @package           phila.gov-customization
+ * @package           phila-gov_customization
  *
  * @wordpress-plugin
  * Plugin Name:       Phila.gov Customization

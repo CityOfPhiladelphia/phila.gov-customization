@@ -7,7 +7,7 @@
  *
  * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
  *
- * @package phila.gov-customization
+ * @package phila-gov_customization
  */
 
 if (class_exists("Phila_Gov_Custom_Taxonomies") ){

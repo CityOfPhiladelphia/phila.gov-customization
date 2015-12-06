@@ -5,7 +5,7 @@
 *
 * Filter the post_type_link to add the category into notices URL, very similar to /news
 *
-* @package phila.gov-customization
+* @package phila-gov_customization
 */
 
 
