@@ -22,14 +22,13 @@ class Phila_Gov_Custom_Taxonomies {
   function add_custom_taxonomies() {
     register_taxonomy('topics',
       array(
-        'post',
         'page',
         'service_post'
       ), array(
           'hierarchical' => true,
           'labels' => array(
-            'name' => _x( 'Topics', 'taxonomy general name'),
-            'singular_name' => _x( 'Topic', 'taxonomy singular name'),
+            'name' => _x( 'Topics', 'phila-gov'),
+            'singular_name' => _x( 'Topic', 'phila-gov'),
             'menu_name' =>     __('Topics'),
             'search_items' =>  __( 'Search Topics' ),
             'all_items' =>     __( 'All Topics' ),
@@ -52,8 +51,8 @@ class Phila_Gov_Custom_Taxonomies {
       ), array(
         'hierarchical' => true,
         'labels' => array(
-            'name' => _x( 'Attachment Type', ''),
-            'singular_name' => _x( 'Attachment Type', ''),
+            'name' => _x( 'Attachment Type', 'phila-gov'),
+            'singular_name' => _x( 'Attachment Type', 'phila-gov'),
             'menu_name' =>     __('Attachment Type'),
             'search_items' =>  __( 'Search Attachment Types' ),
             'all_items' =>     __( 'All Attachment Types' ),
@@ -76,8 +75,8 @@ class Phila_Gov_Custom_Taxonomies {
       ), array(
         'hierarchical' => true,
         'labels' => array(
-          'name' => _x( 'Document Topic', 'taxonomy general name'),
-          'singular_name' => _x( 'Document Topic', 'taxonomy singular name'),
+          'name' => _x( 'Document Topic', 'phila-gov'),
+          'singular_name' => _x( 'Document Topic', 'phila-gov'),
           'menu_name' =>     __('Document Topic'),
           'search_items' =>  __( 'Search Document Topics' ),
           'all_items' =>     __( 'All Document Topics' ),
@@ -100,8 +99,8 @@ class Phila_Gov_Custom_Taxonomies {
       ), array(
         'hierarchical' => true,
         'labels' => array(
-          'name' => _x( 'News Type', ''),
-          'singular_name' => _x( 'News Type', ''),
+          'name' => _x( 'News Type', 'phila-gov'),
+          'singular_name' => _x( 'News Type', 'phila-gov'),
           'menu_name' =>     __('Type'),
           'search_items' =>  __( 'Search News Types' ),
           'all_items' =>     __( 'All News Types' ),
