@@ -42,7 +42,7 @@ class Phila_Gov_Custom_Taxonomies {
       'show_admin_column' => true,
       'rewrite' => array(
         'slug' => 'browse',
-        'hierarchical' => true
+        'with_front' => false,
       ),
     ));
     register_taxonomy('attachment_type',
@@ -66,7 +66,7 @@ class Phila_Gov_Custom_Taxonomies {
       'show_admin_column' => true,
       'rewrite' => array(
         'slug' => 'attachment_type',
-        'hierarchical' => false
+        'with_front' => false,
       ),
     ));
     register_taxonomy('document_topics',
@@ -90,7 +90,7 @@ class Phila_Gov_Custom_Taxonomies {
       'show_admin_column' => true,
       'rewrite' => array(
         'slug' => 'document-topics',
-        'hierarchical' => false
+        'with_front' => false,
       ),
     ));
     register_taxonomy('news_type',
