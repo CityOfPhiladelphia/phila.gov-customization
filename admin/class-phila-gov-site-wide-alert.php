@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Add alerts to all pages
+* Add alerts to homepage
 *
 * @link https://github.com/CityOfPhiladelphia/phila.gov-customization
 *
@@ -18,22 +18,9 @@ class Phila_Gov_Site_Wide_Alert {
 
     add_filter( 'rwmb_meta_boxes',  array($this, 'phila_register_meta_boxes') );
 
-    add_filter('manage_edit-site_wide_alert_columns', array( $this, 'site_wide_alert_columns' ) );
-
-    add_filter('manage_edit-site_wide_alert_sortable_columns', array( $this, 'site_wide_alert_columns' ) );
-
-    add_action('manage_site_wide_alert_posts_custom_column',  array( $this, 'site_wide_alert_column_output'), 10, 2);
-
-    add_filter('request', array( $this, 'my_sort_metabox') );
-
-    add_action( 'admin_enqueue_scripts', array($this, 'enqueue_alert_scripts') );
-
-    add_action( 'template_redirect', array($this, 'redirect_alert_pages') );
-
   }
 
   function phila_register_meta_boxes( $meta_boxes ){
-    $prefix = 'phila_';
     $meta_boxes[] = array(
       'id'       => 'site-wide-alert',
       'title'    => 'Alert Settings',
@@ -41,124 +28,81 @@ class Phila_Gov_Site_Wide_Alert {
       'context'  => 'side',
       'priority' => 'high',
 
+
       'fields' => array(
         array(
-          'name'  => 'Active Alert',
-          'desc'  => 'Should this alert be displayed on phila.gov?',
-          'id'    => $prefix . 'active',
-          'type'  => 'radio',
-          'std'=> '0',
-          'options' =>  array(
-            '0' => 'No',
-            '1' => 'Yes'
-          )
-        ),
-        array(
-          'name'  => 'Alert Type',
-          'id'    => $prefix . 'type',
+          'id'  => 'phila_alert_color',
+          'name'  => 'Alert background',
           'type'  => 'select',
-          'std'=> '0',
-          'options' =>  array(
-            'Code Blue Effective' => 'Code Blue Effective',
-            'Code Red Effective' => 'Code Red Effective',
-            'Code Orange Effective' => 'Code Orange Effective',
-            'Code Grey Effective'  =>  'Code Grey Effective',
-            'Other' => 'Other'
-          )
+          'options' => array(
+            'blue'       => 'Blue',
+            'orange' => 'Orange',
+            'red' => 'Red',
+          ),
         ),
         array(
-          'name'  => 'Name of Alert Type',
-          'id'    => $prefix . 'type-other',
+          'id'  => 'phila_alert_icon',
+          'name'  => 'Choose icon',
           'type'  => 'text',
-          'class' => 'type-other',
-          'size'  => 25,
-          'desc'  => 'E.g. <i>Hurricane Warning</i>'
+          'desc'  => 'Choose a <a href="https://fontawesome.com/icons?d=gallery" target="_blank">Font Awesome</a> icon. E.g.: fas fa-bell.',
         ),
         array(
-          'name'  => 'Custom Alert Icon',
-          'id'    => $prefix . 'icon',
-          'type'  => 'text',
-          'class' => 'other-icon',
-          'size'  => 25,
-          'desc'  => '<a href="http://ionicons.com/" target="_new">Choose icon</a>. Enter icon name only i.e. <i>ion-alert-circled</i>'
+          'id'  => 'phila_alert_active',
+          'name'  => 'Override start and end times and make alert active?',
+          'type'  => 'switch',
+          'on_label'  => 'Yes',
+          'off_label' => 'No',
         ),
         array(
           'name'  => 'Alert Start Time',
-          'id'    => $prefix . 'start',
+          'id'    => 'phila_alert_start',
           'class' =>  'start-time',
           'type'  => 'datetime',
           'size'  =>  25,
+          'hidden'  => array( 'active', '=', 1),
           'js_options' =>  array(
             'timeFormat' =>  'hh:mm tt',
-            'dateFormat'=>'m-dd-yy',
-            'showTimepicker' => true,
+            'dateFormat'=>'mm-dd-yy',
             'stepMinute' => 15,
-            'showHour' => 'true'
-          )
+            'showHour' => 'true',
+            //'altField' => '#phila_start_hidden',
+            //'altFormat'=> "@",
+            //'altFieldTimeOnly' => false,
+            'controlType'=> 'select',
+            'oneLine'=> true,
+            //'altTimeFormat' => 'c',
+            'timeInput' => true,
+          ),
+          'timestamp' => true
+
         ),
         array(
           'name'  => 'Alert End Time',
-          'id'    => $prefix . 'end',
+          'id'    => 'phila_alert_end',
           'type'  => 'datetime',
           'class' =>  'end-time',
           'size'  =>  25,
-          'desc'  => 'Note: The start and end times communicate an alert’s length in the alert bar. The times don’t effect when the alert is visible on the site.',
+          'hidden'  => array( 'active', '=', 1),
+          'desc'  => 'Note: The start and end times communicate an alert’s length in the alert bar. Use the active alert feature to turn alerts on and ignore this setting.',
           'js_options' =>  array(
-            'timeFormat' =>  'hh:mm tt',
-            'dateFormat'=>'m-dd-yy',
-            'showTimepicker' => true,
+            'timeFormat' => 'hh:mm tt',
+            'dateFormat' => 'mm-dd-yy',
             'stepMinute' => 15,
-            'showHour' => 'true'
-          )
+            'showHour' => 'true',
+            //'altField' => '#phila_end_hidden',
+            //'altFormat'=> "@",
+            //'altFieldTimeOnly' => false,
+            'controlType'=> 'select',
+            'oneLine'=> true,
+            //'altTimeFormat' => 'c',
+            'timeInput' => true
+          ),
+          'timestamp' => true
+
         ),
-      )
+      ),
     );//site wide alert boxes
     return $meta_boxes;
   }
 
-  /*
-   * Show active alerts on admin screen
-   */
-  function site_wide_alert_columns( $columns ) {
-    $columns["active_alert"] = "Active";
-    return $columns;
-  }
-
-  function site_wide_alert_column_output( $colname, $cptid ) {
-    echo get_post_meta( $cptid, 'phila_active', true );
-  }
-
-  function my_sort_metabox( $vars ) {
-    if( array_key_exists('orderby', $vars )) {
-      if('Active' == $vars['orderby']) {
-        $vars['orderby'] = 'meta_value';
-        $vars['meta_key'] = 'phila_active';
-      }
-    }
-    return $vars;
-  }
-
-  /**
-  * Add scripts only to site_wide_alert posts
-  *
-  */
-  function enqueue_alert_scripts($hook) {
-    global $post;
-    if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
-      if ( 'site_wide_alert' === $post->post_type ) {
-          wp_enqueue_script( 'alerts-ui', plugin_dir_url( __FILE__ ) . 'js/alerts.js', array('jquery'));
-      }
-    }
-  }
-
-  /**
-  * Don't let users find alert pages, they are moot
-  *
-  */
-  function redirect_alert_pages() {
-    if ( !is_preview() && is_singular( 'site_wide_alert' ) ) {
-      wp_redirect( home_url(), 302 );
-      exit;
-    }
-  }
 }

@@ -9,9 +9,10 @@ if ( class_exists("Phila_Gov_Admin_Documents" ) ){
   public function __construct(){
     add_action( 'save_post', array( $this, 'save_document_meta'), 10, 3 );
 
-    add_action( 'rwmb_after', array( $this, 'load_document_media_js'), 1000 );
-
     add_filter( 'wp_default_editor', array( $this, 'set_default_editor' ) );
+
+    //TODO: move this to the canonical location for metaboxes
+    add_filter( 'rwmb_meta_boxes',  array( $this, 'phila_register_attachment_page_meta_boxes' ) );
   }
  /**
   * Save attachment metadata when a document page is saved.
@@ -41,7 +42,7 @@ if ( class_exists("Phila_Gov_Admin_Documents" ) ){
     if(!$documents == null) {
 
       foreach ($documents as $document){
-        $current_pdf = $document[ID];
+        $current_pdf = $document['ID'];
 
         $categories = get_the_category($post_id);
 
@@ -52,27 +53,60 @@ if ( class_exists("Phila_Gov_Admin_Documents" ) ){
           wp_add_object_terms( $current_pdf, $category_ids, 'category' );
         }
 
-        $types =  get_the_terms( $post_id, 'document_type' );
-
-        foreach ($types as $type){
-          $type_ids[] = $type->term_id;
-          wp_set_object_terms( $current_pdf, $type_ids, 'document_type', false );
-        }
       }
       $list = get_post_meta($post_id, 'phila_documents');
-    }
-  }
-
-  public function load_document_media_js(){
-    global $post_type;
-    if( 'document' == $post_type ) {
-    	wp_enqueue_script( 'admin-document-script', plugins_url( 'js/admin-documents.js' , __FILE__, array('jQuery') ) );
     }
   }
 
   public function set_default_editor() {
       $r = 'tinymce';
       return $r;
+  }
+
+  function phila_register_attachment_page_meta_boxes( $meta_boxes ){
+    $prefix = 'phila_';
+
+    $meta_boxes[] = array(
+      'id'       => 'attachment_page_release_date',
+      'title'    => 'Release Date',
+      'post_types'    => array( 'attachment' ),
+      'context'  => 'side',
+      'priority' => 'high',
+
+
+      'fields' => array(
+        array(
+          'name'  => 'When was this item released?',
+          'id'    => $prefix . 'document_page_release_date',
+          'type'  => 'date',
+          'clone' => false,
+          'desc'  => 'If you leave this field blank, the file will show the same release date as the document page it\'s attached to.',
+          'js_options' =>  array(
+            'dateFormat'=>'MM dd, yy',
+            'showTimepicker' => false
+          )
+        ),
+      )
+    );
+
+    $meta_boxes[] = array(
+      'id'       => 'attachment_page_label',
+      'title'    => 'Label',
+      'post_types'    => array( 'attachment' ),
+      'context'  => 'side',
+      'priority' => 'high',
+
+      'fields' => array(
+        array(
+          'name'  => 'Optional label for this item',
+          'id'    => $prefix . 'label',
+          'type'  => 'text',
+          'clone' => false,
+          'desc'  => 'If you leave this field blank, there will be no label for this item',
+        ),
+      )
+    );
+    return $meta_boxes;
   }
 
 }//Phila_Gov_Admin_Documents
