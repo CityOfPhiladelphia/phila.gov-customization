@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 add_filter( 'mb_settings_pages', 'phila_options_page' );
 
@@ -187,9 +187,9 @@ function prefix_options_meta_boxes( $meta_boxes ) {
     ),
     'fields'  => array(
       array(
-        'name'  => 'Display voting banner',
-        'desc'  => 'When active, the voting banner will be displayed on all pages',
-        'id'    => 'display_voting_banner',
+        'name'  => 'Display site-wide banner',
+        'desc'  => 'When active, the site-wide banner will be displayed on all pages',
+        'id'    => 'display_site_wide_banner',
         'type'  => 'radio',
         'inline' => false,
         'std' => '0',
