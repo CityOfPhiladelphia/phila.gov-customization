@@ -1,15 +1,7 @@
 {
-  "repositories": [
-      {
-          "type": "path",
-          "url": "phila.gov-custom"
-      },
-      {
-        "type": "path",
-        "url": "phl-aqi"
-      }
-  ],
-  "require": {
-      "phila.gov-customization/phila.gov-custom": "dev-main"
-  }
+    "name": "CityOfPhiladelphia/phila.gov-customization",
+    "type": "wordpress-plugin",
+    "require": {
+        "composer/installers": "~1.0"
+    }
 }
