@@ -75,6 +75,7 @@ require $dir. '/admin/programs-initiatives/class-phila-gov-cpt-programs.php';
 require $dir. '/admin/programs-initiatives/class-phila-gov-program-register-templates.php';
 
 require $dir. '/admin/settings/phila-gov-settings.php';
+require $dir. '/admin/translations.php';
 
 require $dir. '/public/shortcodes/callout.php';
 require $dir. '/public/shortcodes/info-block.php';
@@ -100,8 +101,9 @@ require $dir. '/public/controllers/class-phila-service-pages.php';
 require $dir. '/public/controllers/class-phila-staff-members.php';
 
 require $dir. '/public/add-headers.php';
-require $dir. '/public/class-phila-gov-site-wide-alert-rendering.php';
 require $dir. '/public/hostname-redirect.php';
 require $dir. '/public/modify-post-type-links.php';
 require $dir. '/public/removals.php';
 require $dir. '/public/rewrite-rules.php';
+
+require $dir. '/public/controllers/v2/class-phila-site-wide-alerts-v2.php';
