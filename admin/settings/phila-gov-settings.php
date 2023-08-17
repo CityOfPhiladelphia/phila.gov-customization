@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 add_filter( 'mb_settings_pages', 'phila_options_page' );
 
@@ -9,14 +9,28 @@ function phila_options_page( $settings_pages ) {
     'menu_title'  => 'Phila.gov settings',
     'menu_title'  => 'phila.gov settings',
     'tabs'        => array(
-      'general' => 'General Settings',
-      'jobs'  => 'Featured jobs',
-      'closures'  => 'Closures',
-      'sitewide_settings'  => 'Site-wide settings',
+      'general'       => 'General Settings',
+      'jobs'          => 'Featured jobs',
+      'closures'      => 'Closures',
+      'translations'  => 'Translations'
     ),
   );
   return $settings_pages;
 }
+
+add_action( 'rwmb_enqueue_scripts', 'update_translations_script' );
+function update_translations_script() {
+  $translations_endpoint = rwmb_meta( 'phila_translations_deploy_url', array( 'object_type' => 'setting' ), 'phila_settings' );
+  $dept_billing_code = rwmb_meta( 'phila_translations_default_billing_code', array( 'object_type' => 'setting' ), 'phila_settings' );
+  $js_vars = array(
+    'update_translations_webhook' => $translations_endpoint,
+    'update_translations_dept_billing_code' => $dept_billing_code,
+  );
+  wp_enqueue_script( 'translate-homepage-script', plugins_url( '../js/translate-homepage.js', __FILE__), array( 'jquery' ), '', true );
+  wp_localize_script('translate-homepage-script', 'phila_homepage_js_vars', $js_vars );
+}
+
+
 
 add_filter( 'rwmb_meta_boxes', 'prefix_options_meta_boxes' );
 
@@ -150,7 +164,7 @@ function prefix_options_meta_boxes( $meta_boxes ) {
       ),
       array(
         'type' => 'heading',
-        'name' => 'Holiday List',
+        'name' => 'Holiday list',
       ),
       array(
         'id'  => 'phila_holidays',
@@ -176,29 +190,40 @@ function prefix_options_meta_boxes( $meta_boxes ) {
     ),
   );
 
-
   $meta_boxes[] = array(
-    'id'             => 'sitewide_settings',
-    'title'          => 'Sitewide settings',
+    'id'             => 'phila_translations_settings',
+    'title'          => 'Translations deployment settings',
     'settings_pages' => 'phila_gov',
-    'tab'            => 'sitewide_settings',
+    'tab'            => 'translations',
     'include' => array(
       'user_role'  => array( 'administrator', 'editor' ),
     ),
-    'fields'  => array(
+    'fields'         => array(
       array(
-        'name'  => 'Display voting banner',
-        'desc'  => 'When active, the voting banner will be displayed on all pages',
-        'id'    => 'display_voting_banner',
-        'type'  => 'radio',
-        'inline' => false,
-        'std' => '0',
-        'options' =>  array(
-            '0' => 'Hide',
-            '1' => 'Display',
-        )
+        'name' => 'Endpoint URL',
+        'id'   => 'phila_translations_deploy_url',
+        'type'  => 'text',
+        'required'  => true,
+        'desc'  => 'Include trailing slash'
       ),
+      array(
+        'name' => 'Default billing code',
+        'id'   => 'phila_translations_default_billing_code',
+        'type'  => 'text',
+        'required'  => true,
+        'desc'  => 'Consult OIA team for code to use'
+      ),
+      array(
+        'type'       => 'button',
+        'name'       => 'Translate homepage',
+        'std'        => 'Translate homepage',
+        'attributes' => array(
+          'data-section' => 'translate-homepage',
+          'class'        => 'translate-homepage',
+        ),
+      ), 
     ),
   );
+
   return $meta_boxes;
 }
