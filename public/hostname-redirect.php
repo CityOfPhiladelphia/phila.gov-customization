@@ -6,11 +6,12 @@
 add_action('template_redirect', 'admin_phila_redirect');
 
 function admin_phila_redirect(){
-  // $user_agent = $_SERVER['Lambda-Identity'];
-  var_dump($_SERVER);
-  // if (strpos($user_agent, 'Amazon CloudFront') !== false){
-  //   return;
-  // }
+  $scraper = $_SERVER['HTTP_PHL_SCR'];
+  if (strpos($scraper, 'HTTP_PHL_SCR') !== false){
+    var_dump($scraper);
+    return;
+  }
+  var_dump('no scraper');
 
   $domain = parse_url($_SERVER['HTTP_HOST']);
   $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
