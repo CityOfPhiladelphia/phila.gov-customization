@@ -6,12 +6,9 @@
 add_action('template_redirect', 'admin_phila_redirect');
 
 function admin_phila_redirect(){
-  $scraper = $_SERVER['HTTP_PHL_SCR'];
-  if (strpos($scraper, 'HTTP_PHL_SCR') !== false){
-    var_dump($scraper);
+  if ($_SERVER && $_SERVER['HTTP_PHL_SCR'] && $_SERVER['HTTP_PHL_SCR'] == 'beta-static-generator/0.0.1'){
     return;
   }
-  var_dump('no scraper');
 
   $domain = parse_url($_SERVER['HTTP_HOST']);
   $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -24,9 +21,8 @@ function admin_phila_redirect(){
   }else if( !is_user_logged_in() && $domain['path'] === 'staging-admin.phila.gov' ){
     wp_redirect( 'https://' . 'staging-www.phila.gov' . $path );
     die();
+  } else if( !is_user_logged_in() && $domain['path'] === 'test-admin.phila.gov' ){
+    wp_redirect( 'https://' . 'test-www.phila.gov' . $path );
+    die();
   }
-  //  else if( !is_user_logged_in() && $domain['path'] === 'test-admin.phila.gov' ){
-  //   wp_redirect( 'https://' . 'test-www.phila.gov' . $path );
-  //   die();
-  // }
 }
